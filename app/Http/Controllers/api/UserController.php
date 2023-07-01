@@ -15,7 +15,7 @@ class UserController extends Controller
 {
     public function checkUser(Request $request){
         $login_otp = sprintf("%06d", mt_rand(1, 999999));
-        $login_user = User::where('phone',$request['phonenumber'])->first();
+        $login_user = User::where('phonenumber',$request['phonenumber'])->first();
 
         $phno="91" .$request['phonenumber'];
         $url = "http://api.nsite.in/api/v2/SendSMS?SenderId=IMERGE&Is_Unicode=true&Is_Flash=false&Message=Your%20OTP%20for%20iMerge%20is%20" . $login_otp . ".%20Pls%20do%20not%20share%20OTP%20with%20anyone%20for%20security%20reason.%20iMerge&MobileNumbers=" . $phno . "&ApiKey=6bzNYp7wj1STwzvLoQagWntahuB0uw3tTud3C+y/HzI=&ClientId=6438b16f-384e-43fa-88ab-375f55a6c1a9";
