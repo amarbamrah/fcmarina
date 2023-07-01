@@ -58,6 +58,11 @@ Route::get('/',function(){
 
 Route::get('/admin',[DashboardController::class,'dashboard']);
 
+Route::get('/terms-conditions',function(){
+    return view('tc');
+});
+
+
 
 Route::prefix('admin')->middleware('auth')->group(function () {
 
