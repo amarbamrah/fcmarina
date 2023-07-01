@@ -22,7 +22,7 @@ class AuthController extends Controller
      */
     public function venueLogin(Request $request)
     {
-        if (Auth::attempt(['username' => $request['username'], 'password' => $request['password']])) {
+        if (Auth::attempt(['email' => $request['username'], 'password' => $request['password']])) {
             $user= Auth::user();
          //   $token = $user()->createToken($request['username']);
             return ['success' => true, 'user' =>$user,'token'=>'abc'];
