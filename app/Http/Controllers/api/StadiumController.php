@@ -128,6 +128,28 @@ class StadiumController extends Controller
     }
 
 
+    public function bookingsHistory(Request $request){
+        $user=User::find($request['user_id']);
+        $stadium=Stadium::find($user->stadium_id);
+        $sbs = StadiumBooking::where('stadium_id', $stadium->id)->get();
+        foreach ($sbs as $sb) {
+            $sb->day = Carbon::create($sb->date)->format('D');
+
+            $sb->f_date = Carbon::create($sb->date)->format('d');
+
+            $sb->f_from = Carbon::create($sb->from)->format('h:i');
+            $sb->f_to = Carbon::create($sb->to)->format('h:i');
+            $sb->user = User::find($sb->user_id);
+            $sb->stadium = Stadium::find($sb->stadium_id);
+        }
+        return ['success' => true, 'data' => $sbs];
+
+    }
+
+
+
+
+
 
     public function createBooking(Request $request){
         $booking_id=Str::random(6);
