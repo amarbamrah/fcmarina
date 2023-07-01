@@ -59,6 +59,8 @@ class UserController extends Controller
 
 
             $user->status = 1;
+            $user->role = 'User';
+
             $user->save();
             $user_id = $user->id;
 
