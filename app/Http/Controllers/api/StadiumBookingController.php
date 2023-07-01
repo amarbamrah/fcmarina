@@ -45,23 +45,20 @@ class StadiumBookingController extends Controller
     public function generateOrder(Request $request)
     {
        
-         $key = "rzp_test_Bn6XzeDx8pXFK4";
-         $secret = "gVNSxo5kYjNYfooTPWRu9PCS";
-        $user=User::find($request['user_id']);
 
-        // $key = "rzp_live_0eq7rV1ZT6Fejw";
-        // $secret = "CVji636Hl4vZc9ZmECRDK9Lb";
+        $key = "rzp_test_Bn6XzeDx8pXFK4";
+        $secret = "gVNSxo5kYjNYfooTPWRu9PCS";
         $api = new Api($key, $secret);
 
         $razorpayOrder = $api->order->create(
             array(
                 'receipt' => 'IM' . Str::random(6),
-                'amount' => $request['price'] * 100,
+                'amount' => $request['amount'] * 100,
                 'currency' => 'INR',
             )
         );
 
-        return ['success' => true, 'orderid' => $razorpayOrder->id, 'key' => $key, 'user' => auth()->user()];
+        return ['success' => true, 'orderid' => $razorpayOrder->id, 'key' => $key, 'user' => User::find($request['user_id'])];
     }
 
     /**

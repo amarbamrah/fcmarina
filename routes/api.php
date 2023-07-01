@@ -70,6 +70,9 @@ Route::post('/user-venue-bookings', [StadiumController::class,'createBooking']);
 
 Route::get('/user-venue-bookings', [StadiumController::class,'bookings']);
 
+Route::post('/generate-order', [StadiumBookingController::class,'generateOrder']);
+
+
 
 
 
