@@ -67,7 +67,7 @@ Route::get('/user-venue-details', [AuthController::class,'stadiumDetails']);
 
 Route::post('/user-venue-bookings', [StadiumController::class,'createBooking']);
 
-Route::post('/user-venue-bookings-history', [StadiumController::class,'bookingsHistory']);
+Route::get('/user-venue-bookings-history', [StadiumController::class,'bookingsHistory']);
 
 
 
