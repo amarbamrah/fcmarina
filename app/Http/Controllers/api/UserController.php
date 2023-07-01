@@ -59,7 +59,6 @@ class UserController extends Controller
 
 
             $user->status = 1;
-            $user->is_app_user = 1;
             $user->save();
             $user_id = $user->id;
 
