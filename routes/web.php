@@ -78,3 +78,9 @@ Route::prefix('admin')->middleware('auth')->group(function () {
 
     Route::get('/app-users', [AppUserController::class, 'index'])->name('appuser.index');
 });
+
+
+Route::get('gettime', function () {
+    date_default_timezone_set("Asia/Kolkata");
+    return date('Y-m-d H:i:s');
+});
