@@ -143,8 +143,8 @@ class StadiumController extends Controller
         $sb->booking_id = 'FC-'.substr(str_shuffle("ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789"), 1, 6);
 
 
-        if(User::where('phonenumber',$request['phone'])->where('is_app_user',1)->exists()){
-            $user= User::where('phonenumber',$request['phone'])->where('is_app_user',1)->first();
+        if(User::where('phonenumber',$request['phone'])->exists()){
+            $user= User::where('phonenumber',$request['phone'])->first();
             $sb->phone = $user->phonenumber;
             $sb->email = $user->email;
             $sb->name = $user->name;
