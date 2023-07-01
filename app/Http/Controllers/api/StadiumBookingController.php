@@ -53,10 +53,13 @@ class StadiumBookingController extends Controller
         $secret = "gVNSxo5kYjNYfooTPWRu9PCS";
         $api = new Api($key, $secret);
 
+        $ad=$request['amount']*10;
+        $ad=$ad/100;
+
         $razorpayOrder = $api->order->create(
             array(
                 'receipt' => 'IM' . Str::random(6),
-                'amount' => $request['amount'] * 100,
+                'amount' => $ad * 100,
                 'currency' => 'INR',
             )
         );
