@@ -5,7 +5,7 @@
 
              <div class="card">
                 <div class="card-body">
-                    <form method="get" action="/stadium-bookings">
+                    <form method="get" action="/admin/stadium-bookings">
                         <div class="row">
 
                         <div class="form-group  col-md-6 mb-3">
