@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\StadiumBooking;
+
+use App\Models\Stadium;
+
 use Illuminate\Http\Request;
 
 class StadiumBookingController extends Controller
@@ -10,9 +13,23 @@ class StadiumBookingController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $stds=Stadium::all();
+        $stadiumbooking=StadiumBooking::all();
+
+        $stadiumbooking = StadiumBooking::query();
+
+
+        if($request->has('stadium') && $request['stadium']!="all"){
+            $stadiumbooking->where('stadium_id', $request['stadium']);
+        }
+
+        if($request->has('date') && $request['date']!=null){
+            $stadiumbooking->whereDate('date', $request['date']);
+        }
+        $stadiumbooking=$stadiumbooking->get();
+        return view('admin.stadiumbookings.index',compact('stadiumbooking','stds'));
     }
 
     /**
