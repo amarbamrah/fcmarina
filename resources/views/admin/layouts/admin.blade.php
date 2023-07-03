@@ -59,8 +59,8 @@
                                 <div class="dropdown-menu p-0" aria-labelledby="profileDropdown">
                                     <div class="d-flex flex-column align-items-center border-bottom px-5 py-3">
                                         <div class="mb-3">
-                                            <img class="wd-80 ht-80 rounded-circle"
-                                                src="https://via.placeholder.com/80x80" alt="">
+                                            
+                                        <i data-feather="user"></i>
                                         </div>
                                         <div class="text-center">
                                             <p class="tx-16 fw-bolder">{{auth()->user()->name}}</p>
@@ -89,7 +89,7 @@
                 <div class="container">
                     <ul class="nav page-navigation">
                         <li class="nav-item">
-                            <a class="nav-link" href="/">
+                            <a class="nav-link" href="{{url('/admin')}}">
                                 <i class="link-icon" data-feather="home"></i>
                                 <span class="menu-title">Dashboard</span>
                             </a>

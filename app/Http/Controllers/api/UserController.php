@@ -84,7 +84,7 @@ class UserController extends Controller
         $user = User::find($request['user_id']);
         //return $user_info;
 
-        if($user){
+        if($user){  
             return ['success'=>true, 'data'=>$user ];
         }else{
             return ['success'=>false];
@@ -111,6 +111,7 @@ class UserController extends Controller
         $user->email=$request['email'];
         $user->age=$request['age'];
         $user->save();
+        return ['success'=>true];
 
 
 
