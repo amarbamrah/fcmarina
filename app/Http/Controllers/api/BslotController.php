@@ -88,6 +88,7 @@ class BslotController extends Controller
         }
 
         foreach ($morning as $i => $slot) {
+            $fully = 0;
 
             if ($i % 2 == 0) {
                 $slot->start = Carbon::create($slot->from)->format('h');
@@ -146,6 +147,7 @@ class BslotController extends Controller
         }
 
         foreach ($noon as $i => $slot) {
+            $fully = 0;
 
             if ($i % 2 == 0) {
                 $slot->start = Carbon::create($slot->from)->format('h');
@@ -204,6 +206,7 @@ class BslotController extends Controller
         }
 
         foreach ($evening as $i => $slot) {
+            $fully = 0;
 
             if ($i % 2 == 0) {
                 $slot->start = Carbon::create($slot->from)->format('h');
