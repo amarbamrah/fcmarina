@@ -20,7 +20,7 @@
                         </div>
                         <div class="form-group  col-md-6 mb-3">
                             <label class="form-label">Date:</label>
-                            <input type="date" class="form-control" value="{{Request::get('date')}}" name="date">
+                            <input type="date" class="form-control" value="{{Request::get('date')==null? \Carbon\Carbon::now()->format('Y-m-d') : Request::get('date')}}" name="date">
                         </div>
 
                       

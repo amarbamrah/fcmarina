@@ -6,6 +6,8 @@ use App\Models\StadiumBooking;
 
 use App\Models\Stadium;
 
+use Carbon\Carbon;
+
 use Illuminate\Http\Request;
 
 class StadiumBookingController extends Controller
@@ -27,6 +29,9 @@ class StadiumBookingController extends Controller
 
         if($request->has('date') && $request['date']!=null){
             $stadiumbooking->whereDate('date', $request['date']);
+        }else{
+            $stadiumbooking->whereDate('date', Carbon::now());
+
         }
         $stadiumbooking=$stadiumbooking->get();
         return view('admin.stadiumbookings.index',compact('stadiumbooking','stds'));
