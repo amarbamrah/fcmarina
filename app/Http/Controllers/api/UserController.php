@@ -102,4 +102,16 @@ class UserController extends Controller
             return ['success'=>false, 'message'=>'Invalid Otp'];
         }
     }
+
+
+    public function updateUser(Request $request){
+        $user=User::find($request['user_id']);
+        $user->name=$request['name'];
+        $user->email=$request['email'];
+        $user->age=$request['age'];
+        $user->save();
+
+
+
+    }
 }

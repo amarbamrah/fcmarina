@@ -75,6 +75,9 @@ Route::get('/user-venue-bookings', [StadiumController::class,'bookings']);
 
 Route::post('/generate-order', [StadiumBookingController::class,'generateOrder']);
 
+Route::post('/update-user', [UserController::class,'updateUser']);
+
+
 
 
 
