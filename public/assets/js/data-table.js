@@ -5,6 +5,15 @@ $(function() {
   'use strict';
 
   $(function() {
+
+    $('#bookingTable').DataTable( {
+      dom: 'Bfrtip',
+      buttons: [
+          'copy', 'excel', 'pdf'
+      ]
+  } );
+
+
     $('#dataTableExample').DataTable({
       "aLengthMenu": [
         [10, 30, 50, -1],

@@ -44,7 +44,7 @@
                 </div>
             <div class="card-body">
              <div class="table-responsive">
-               <table id="dataTableExample" class="table">
+               <table id="bookingTable" class="table">
                     <thead>
                       <tr>
                       <th>Booking ID</th>

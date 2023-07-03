@@ -205,6 +205,8 @@
     <!-- Custom js for this page -->
     <script src="{{ asset('assets/js/data-table.js')}}"></script>
 
+    <script src="{{asset('assets/vendors/datatables.net-bs5/dataTables.bootstrap5.js')}}"></script>
+
     <script src="{{ asset('assets/js/dashboard-light.js')}}"></script>
 </body>
 
