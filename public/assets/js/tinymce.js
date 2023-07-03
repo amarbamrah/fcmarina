@@ -12,6 +12,8 @@ $(function() {
       default_text_color: 'red',
       menubar:false,
       promotion:false,
+      branding:false,
+
       plugins: [
         'advlist', 'autoresize', 'autolink', 'lists', 'link', 'image', 'charmap', 'preview', 'anchor', 'pagebreak',
         'searchreplace', 'wordcount', 'visualblocks', 'visualchars', 'code', 'fullscreen',
