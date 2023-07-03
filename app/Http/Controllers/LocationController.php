@@ -30,7 +30,7 @@ class LocationController extends Controller
     public function store(Request $request)
     {
         $loc=new Location();
-        $loc->title=$request['title'];
+        $loc->name=$request['title'];
         $loc->save();
         return redirect()->back();
     }
