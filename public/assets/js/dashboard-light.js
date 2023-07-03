@@ -198,74 +198,87 @@ $(function () {
 
 
 
+  $.ajax({
+    url: window.location.origin + "/api/users-chart-data",
+    type: 'GET',
+    success: function (data) {
+      var months = data.data.map((row) => row.month);
+      var orders = data.data.map((row) => row.total_users);
 
-  // New Customers Chart
-  if ($('#customersChart').length) {
-    var options1 = {
-      chart: {
-        type: "line",
-        height: 60,
-        sparkline: {
-          enabled: !0
-        }
-      },
-      series: [{
-        name: '',
-        data: [3844, 3855, 3841, 3867, 3822, 3843, 3821, 3841, 3856, 3827, 3843]
-      }],
-      xaxis: {
-        type: 'datetime',
-        categories: ["Jan 01 2022", "Jan 02 2022", "Jan 03 2022", "Jan 04 2022", "Jan 05 2022", "Jan 06 2022", "Jan 07 2022", "Jan 08 2022", "Jan 09 2022", "Jan 10 2022", "Jan 11 2022",],
-      },
-      stroke: {
-        width: 2,
-        curve: "smooth"
-      },
-      markers: {
-        size: 0
-      },
-      colors: [colors.primary],
-    };
-    new ApexCharts(document.querySelector("#customersChart"), options1).render();
-  }
+      // New Customers Chart
+      if ($('#customersChart').length) {
+        var options1 = {
+          chart: {
+            type: "line",
+            height: 60,
+            sparkline: {
+              enabled: !0
+            }
+          },
+          series: [{
+            name: '',
+            data:orders
+          }],
+          xaxis: {
+            categories: months
+          },
+          stroke: {
+            width: 2,
+            curve: "smooth"
+          },
+          markers: {
+            size: 0
+          },
+          colors: [colors.primary],
+        };
+        new ApexCharts(document.querySelector("#customersChart"), options1).render();
+      }
+    }
+  });
   // New Customers Chart - END
 
 
 
+  function setupBminChart(data, months) {
+    // Orders Chart
+    if ($('#ordersChart').length) {
+      var options2 = {
+        chart: {
+          type: "bar",
+          height: 60,
+          sparkline: {
+            enabled: !0
+          }
+        },
+        plotOptions: {
+          bar: {
+            borderRadius: 2,
+            columnWidth: "60%"
+          }
+        },
+        colors: [colors.primary],
+        series: [{
+          name: '',
+          data: data
+        }],
+        xaxis: {
+          categories: months
+        },
+      };
+      new ApexCharts(document.querySelector("#ordersChart"), options2).render();
+    }
+    // Orders Chart - END
 
-  // Orders Chart
-  if ($('#ordersChart').length) {
-    var options2 = {
-      chart: {
-        type: "bar",
-        height: 60,
-        sparkline: {
-          enabled: !0
-        }
-      },
-      plotOptions: {
-        bar: {
-          borderRadius: 2,
-          columnWidth: "60%"
-        }
-      },
-      colors: [colors.primary],
-      series: [{
-        name: '',
-        data: [36, 77, 52, 90, 74, 35, 55, 23, 47, 10, 63]
-      }],
-      xaxis: {
-        type: 'datetime',
-        categories: ["Jan 01 2022", "Jan 02 2022", "Jan 03 2022", "Jan 04 2022", "Jan 05 2022", "Jan 06 2022", "Jan 07 2022", "Jan 08 2022", "Jan 09 2022", "Jan 10 2022", "Jan 11 2022",],
-      },
-    };
-    new ApexCharts(document.querySelector("#ordersChart"), options2).render();
   }
-  // Orders Chart - END
 
 
 
-
+  $.ajax({
+    url: window.location.origin + "/api/stadiums-chart-data",
+    type: 'GET',
+    success: function (data) {
+      var months = data.data.map((row) => row.month);
+      var orders = data.data.map((row) => row.total_sts);
   // Growth Chart
   if ($('#growthChart').length) {
     var options3 = {
@@ -278,11 +291,11 @@ $(function () {
       },
       series: [{
         name: '',
-        data: [41, 45, 44, 46, 52, 54, 43, 74, 82, 82, 89]
+        data: orders
       }],
       xaxis: {
-        type: 'datetime',
-        categories: ["Jan 01 2022", "Jan 02 2022", "Jan 03 2022", "Jan 04 2022", "Jan 05 2022", "Jan 06 2022", "Jan 07 2022", "Jan 08 2022", "Jan 09 2022", "Jan 10 2022", "Jan 11 2022",],
+       
+        categories: months
       },
       stroke: {
         width: 2,
@@ -295,6 +308,8 @@ $(function () {
     };
     new ApexCharts(document.querySelector("#growthChart"), options3).render();
   }
+}
+});
   // Growth Chart - END
 
 
@@ -390,11 +405,13 @@ $(function () {
           },
           stroke: {
             width: 2,
-            curve: "straight",
+            curve: "smooth"
           },
         };
         var apexLineChart = new ApexCharts(document.querySelector("#revenueChart"), lineChartOptions);
         apexLineChart.render();
+
+        setupBminChart(orders, months);
       }
       // Revenue Chart - END
     }

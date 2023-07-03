@@ -7,6 +7,7 @@ use App\Models\AppUser;
 use App\Models\User;
 
 use App\Models\PointTransaction;
+use Carbon\Carbon;
 
 
 use Illuminate\Http\Request;
@@ -113,5 +114,49 @@ class UserController extends Controller
 
 
 
+    }
+
+
+
+
+    public function getUsersChartData()
+    {
+
+        $data = [];
+
+        $startDate = Carbon::now()->subMonth(7)->startOfMonth();
+        $endDate = $startDate->endOfMonth();
+
+        $monthName = $startDate->format('M');
+
+        $from = $startDate->format('Y-m-d');
+        $to = $endDate->format('Y-m-d');
+
+        $users = User::where('role','User')->whereDate('created_at', '>=', $from)->whereDate('created_at', '<=', $to)->count();
+
+        $month = ['month' => $monthName, 'total_users' => $users,'from'=>$from,'to'=>$to];
+
+      //  array_push($data, $month);
+
+        // $to=
+
+        for ($i = 6; $i >=0; $i--) {
+            $startDate = Carbon::now()->subMonth($i)->startOfMonth();
+            $endDate = Carbon::now()->subMonth($i)->endOfMonth();
+            $monthName = $startDate->format('M');
+
+            $from = $startDate->format('Y-m-d');
+            $to = $endDate->format('Y-m-d');
+
+            $users = User::where('role','User')->whereDate('created_at', '>=', $from)->whereDate('created_at', '<=', $to)->count();
+
+            $month = ['month' => $monthName, 'total_users' => $users,'from'=>$from,'to'=>$to];
+
+
+            array_push($data, $month);
+
+        }
+
+        return ['success' => true, 'data' => $data];
     }
 }

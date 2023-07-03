@@ -183,4 +183,49 @@ class StadiumController extends Controller
         $sb->save();
         return ['success' => true, 'booking_id' => $sb->id];
     }
+
+
+
+
+
+    public function getStadiumChartData()
+    {
+
+        $data = [];
+
+        $startDate = Carbon::now()->subMonth(7)->startOfMonth();
+        $endDate = $startDate->endOfMonth();
+
+        $monthName = $startDate->format('M');
+
+        $from = $startDate->format('Y-m-d');
+        $to = $endDate->format('Y-m-d');
+
+        $sts = Stadium::whereDate('created_at', '>=', $from)->whereDate('created_at', '<=', $to)->count();
+
+        $month = ['month' => $monthName, 'total_sts' => $sts,'from'=>$from,'to'=>$to];
+
+      //  array_push($data, $month);
+
+        // $to=
+
+        for ($i = 6; $i >=0; $i--) {
+            $startDate = Carbon::now()->subMonth($i)->startOfMonth();
+            $endDate = Carbon::now()->subMonth($i)->endOfMonth();
+            $monthName = $startDate->format('M');
+
+            $from = $startDate->format('Y-m-d');
+            $to = $endDate->format('Y-m-d');
+
+            $sts = Stadium::whereDate('created_at', '>=', $from)->whereDate('created_at', '<=', $to)->count();
+
+            $month = ['month' => $monthName, 'total_sts' => $sts,'from'=>$from,'to'=>$to];
+
+
+            array_push($data, $month);
+
+        }
+
+        return ['success' => true, 'data' => $data];
+    }
 }
