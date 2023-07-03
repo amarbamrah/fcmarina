@@ -77,6 +77,8 @@ Route::post('/generate-order', [StadiumBookingController::class,'generateOrder']
 
 Route::post('/update-user', [UserController::class,'updateUser']);
 
+Route::get('/bookings-chart-data',[StadiumBookingController::class,'getBookingsChartData']);
+
 
 
 
