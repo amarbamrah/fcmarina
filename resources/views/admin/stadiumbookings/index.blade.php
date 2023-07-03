@@ -4,11 +4,18 @@
 <div class="page-content">
 
              <div class="card">
+             <div class="card-header pb-0">
+                    <div class="d-flex justify-content-between">
+                        <h4 class="card-title mg-b-2 mt-2">Filters</h4>
+                        <i class="mdi mdi-dots-horizontal text-gray"></i>
+                    </div>
+
+                </div>
                 <div class="card-body">
                     <form method="get" action="/admin/stadium-bookings">
                         <div class="row">
 
-                        <div class="form-group  col-md-6 mb-3">
+                        <div class="form-group  col-md-4 mb-3">
                             <label class="form-label">Stadium:</label>
                             <select name="stadium" class="form-select" id="">
                               <option value="all">All</option>
@@ -18,15 +25,26 @@
 
                             </select>
                         </div>
-                        <div class="form-group  col-md-6 mb-3">
+                        <div class="form-group  col-md-4 mb-3">
                             <label class="form-label">Date:</label>
                             <input type="date" class="form-control" value="{{Request::get('date')==null? \Carbon\Carbon::now()->format('Y-m-d') : Request::get('date')}}" name="date">
+                        </div>
+
+
+                         <div class="form-group  col-md-4 mb-3">
+                            <label class="form-label">Status:</label>
+                            <select name="status" class="form-select" id="">
+                              <option value="all" {{Request::get('status')=='all'?'selected':''}}>All</option>
+                              <option value="Confirmed" {{Request::get('status')=='Confirmed'?'selected':''}}>Confirmed</option>
+                              <option value="Cancelled" {{Request::get('status')=='Cancelled'?'selected':''}}>Cancelled</option>
+
+                            </select>
                         </div>
 
                       
                     
                     </div>
-                    <input type="submit" class="btn btn-primary" value="Filter" />
+                    <input type="submit" class="btn btn-primary" value="Filter Data" />
                       </form>
                     </div>
                </div>

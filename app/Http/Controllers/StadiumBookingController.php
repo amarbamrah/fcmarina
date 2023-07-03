@@ -27,6 +27,10 @@ class StadiumBookingController extends Controller
             $stadiumbooking->where('stadium_id', $request['stadium']);
         }
 
+        if($request->has('status') && $request['status']!="all"){
+            $stadiumbooking->where('status', $request['status']);
+        }
+
         if($request->has('date') && $request['date']!=null){
             $stadiumbooking->whereDate('date', $request['date']);
         }else{
