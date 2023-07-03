@@ -258,7 +258,10 @@ class StadiumBookingController extends Controller
 
         }
 
-        $payable_amount=$total_amount-$discount;
+        $amount=$total_amount-$discount;
+
+        $payable_amount=$amount*10;
+        $payable_amount=$payable_amount/100;
 
 
         return ['success'=>true,'total_amount'=>$total_amount,'discount'=>$discount, 'discountPer'=>$discountPer,'discountMsg'=>$discountMsg,'payable_amount'=>$payable_amount];
