@@ -107,7 +107,7 @@
 
                         <li class="nav-item">
                             <a href="#" class="nav-link">
-                                <i class="link-icon" data-feather=""></i>
+                                <i class="link-icon" data-feather="box"></i>
                                 <span class="menu-title">Stadiums</span>
                                 <i class="link-arrow"></i>
                             </a>
@@ -132,7 +132,7 @@
 
                         <li class="nav-item">
                             <a href="#" class="nav-link">
-                                <i class="link-icon" data-feather=""></i>
+                                <i class="link-icon" data-feather="box"></i>
                                 <span class="menu-title">Masters</span>
                                 <i class="link-arrow"></i>
                             </a>
