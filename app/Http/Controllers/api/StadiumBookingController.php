@@ -221,7 +221,7 @@ class StadiumBookingController extends Controller
 
 
     public function cancelReasons(){
-        return ['success'=>true,'data'=>CancelReason::all()];
+        return ['success'=>true,'data'=>CancelReason::all(),'refund_amount'=>50];
     }
 
     public function cancelBooking(Request $request){
