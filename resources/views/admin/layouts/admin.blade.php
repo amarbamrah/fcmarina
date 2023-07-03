@@ -89,7 +89,7 @@
                 <div class="container">
                     <ul class="nav page-navigation">
                         <li class="nav-item">
-                            <a class="nav-link" href="../../dashboard.html">
+                            <a class="nav-link" href="/">
                                 <i class="link-icon" data-feather="home"></i>
                                 <span class="menu-title">Dashboard</span>
                             </a>
