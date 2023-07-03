@@ -156,6 +156,9 @@ class StadiumController extends Controller
         $sb = new StadiumBooking();
         $sb->stadium_id = $request['stadium_id'];
         $sb->total_amount = $request['total_amount'];
+        $sb->rem_amount = 0;
+        $sb->advance = 0;
+
         $sb->stadium_type = $request['stadium_type'];
         $sb->from = $request['from'];
 
