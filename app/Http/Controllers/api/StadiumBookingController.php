@@ -84,6 +84,9 @@ class StadiumBookingController extends Controller
 
         
         $sb->advance = $advance;
+
+        $sb->status = 'Confirmed';
+
         $sb->rem_amount =$request['total_amount']-$advance;
 
         $sb->stadium_type = $request['stadium_type'];

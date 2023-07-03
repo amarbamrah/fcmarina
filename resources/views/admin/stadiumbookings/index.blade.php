@@ -56,6 +56,8 @@
                        <th>Booking Date</th>
                        <th>Booking Time</th>
                        <th>Total Amount</th>
+                       <th>Status</th>
+                       <th>Action</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -70,6 +72,17 @@
                                     <td>{{$stdbook->date}}</td>
                                    <td> {{Carbon\Carbon::create($stdbook->from)->format(  'g:i A')}} -- {{Carbon\Carbon::create($stdbook->to)->format(' g:i A')}}</td>
                                     <td>Rs {{$stdbook->total_amount}}</td>
+                                    <td>
+                                    <span class="badge bg-primary">  
+                                    {{$stdbook->status}}
+</span>
+                                  </td>
+                                    <td>
+                                      <a href="">
+                                      View <i style="width:17px;" data-feather="arrow-right"></i>
+                                      </a>
+                                    </td>
+
                                         
                                 </tr>
                                 @endforeach

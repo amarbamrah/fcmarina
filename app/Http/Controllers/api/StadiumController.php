@@ -158,6 +158,9 @@ class StadiumController extends Controller
         $sb->total_amount = $request['total_amount'];
         $sb->stadium_type = $request['stadium_type'];
         $sb->from = $request['from'];
+
+        $sb->status = 'Confirmed';
+
         $sb->to = $request['to'];
 
         $sb->faculity_id=$request['user_id'];
