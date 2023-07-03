@@ -8,6 +8,9 @@ use App\Http\Controllers\StadiumController;
 
 use App\Http\Controllers\LocationController;
 
+use App\Http\Controllers\CancelReasonController;
+
+
 
 use App\Http\Controllers\StadiumBookingController;
 
@@ -81,6 +84,9 @@ Route::prefix('admin')->middleware('auth')->group(function () {
 
 
     Route::resource('/locations', LocationController::class);
+
+    Route::resource('/cancel-reasons', CancelReasonController::class);
+
 
 
 

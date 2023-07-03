@@ -7,6 +7,14 @@ use App\Models\Stadium;
 
 use Illuminate\Support\Str;
 use App\Models\StadiumBooking;
+
+use App\Models\CancelReason;
+
+use App\Models\CancelBookingReason;
+
+
+
+
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -209,5 +217,25 @@ class StadiumBookingController extends Controller
         }
 
         return ['success' => true, 'data' => $data];
+    }
+
+
+    public function cancelReasons(){
+        return ['success'=>true,'data'=>CancelReason::all()];
+    }
+
+    public function cancelBooking(Request $request){
+        $booking=StadiumBooking::find($request['booking_id']);
+        $booking->status='Cancelled';
+        $booking->save();
+
+        $cr=CancelReason::find($request['reason_id']);
+        $cb=new CancelBookingReason();
+        $cb->reason=$cr->title;
+        $cb->remarks=$request['remarks'];
+
+        $cb->booking_id=$booking->id;
+        $cb->save();
+        return ['success'=>true];
     }
 }

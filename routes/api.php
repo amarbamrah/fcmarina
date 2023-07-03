@@ -85,6 +85,13 @@ Route::get('/stadiums-chart-data',[StadiumController::class,'getStadiumChartData
 
 
 
+Route::get('/cancel-reasons',[StadiumBookingController::class,'cancelReasons']);
+
+Route::post('/cancel-booking',[StadiumBookingController::class,'cancelBooking']);
+
+
+
+
 
 
 
