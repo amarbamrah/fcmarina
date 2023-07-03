@@ -12,7 +12,8 @@ class LocationController extends Controller
      */
     public function index()
     {
-        //
+        $locations=Location::all();
+        return view('admin.masters.locations.index',compact('locations'));
     }
 
     /**
@@ -28,7 +29,10 @@ class LocationController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $loc=new Location();
+        $loc->title=$request['title'];
+        $loc->save();
+        return redirect()->back();
     }
 
     /**

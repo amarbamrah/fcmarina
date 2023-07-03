@@ -77,6 +77,10 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     Route::resource('/stadiums', StadiumController::class);
 
 
+    Route::resource('/locations', LocationController::class);
+
+
+
     // Route::post('/stadiums/store', [StadiumController::class, 'store'])->name('stadium.store');
 
     Route::get('/stadium-bookings', [StadiumBookingController::class, 'index'])->name('stadiumbooking.index');
