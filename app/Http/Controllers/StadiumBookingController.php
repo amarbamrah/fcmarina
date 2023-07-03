@@ -53,7 +53,9 @@ class StadiumBookingController extends Controller
      */
     public function show(StadiumBooking $stadiumBooking)
     {
-        //
+        $booking=$stadiumBooking;
+        return view('admin.stadiumbookings.view',compact('booking'));
+        
     }
 
     /**
