@@ -13,24 +13,24 @@
 
     <div class="row">
 
-    <div class="col-md-6 grid-margin stretch-card">
+        <div class="col-md-6 grid-margin stretch-card">
             <div class="card">
                 <div class="card-body">
                     <form action="/admin/locations" method="post">
-                        @csrf 
-                       <div class="form-group">
-                        <label for="">
-                            Title
-                        </label>
+                        @csrf
+                        <div class="form-group mb-3">
+                            <label for="">
+                                Title
+                            </label>
 
-                        <input type="text" name="title" class="form-control">
-                       </div>
+                            <input type="text" name="title" class="form-control">
+                        </div>
 
-                       <button type="submit" class="btn btn-primary">ADD LOCATION</button>
+                        <button type="submit" class="btn btn-primary">ADD LOCATION</button>
                     </form>
                 </div>
-                </div>
-                </div>
+            </div>
+        </div>
 
 
 
