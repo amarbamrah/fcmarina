@@ -114,10 +114,8 @@
                             
                             <div class="submenu">
                                 <ul class="submenu-item">
-                                    <li class="nav-item"><a class="nav-link" href="{{url('/admin/stadiums')}}"><i
-                                                class="link-icon" data-feather="box"></i>All Stadiums</a></li>
-                                    <li class="nav-item"><a class="nav-link" href="{{url('/admin/stadiums/create')}}"><i
-                                                class="link-icon" data-feather="box"></i>Create New Stadium</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="{{url('/admin/stadiums')}}">All Stadiums</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="{{url('/admin/stadiums/create')}}">Create New Stadium</a></li>
                                 </ul>
                             </div>
                         </li>
