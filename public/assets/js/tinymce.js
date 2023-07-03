@@ -10,7 +10,7 @@ $(function() {
       selector: '#tinymceExample',
       min_height: 350,
       default_text_color: 'red',
-      menu:false,
+      menubar:false,
       promotion:false,
       plugins: [
         'advlist', 'autoresize', 'autolink', 'lists', 'link', 'image', 'charmap', 'preview', 'anchor', 'pagebreak',
