@@ -89,6 +89,9 @@ Route::get('/cancel-reasons',[StadiumBookingController::class,'cancelReasons']);
 
 Route::post('/cancel-booking',[StadiumBookingController::class,'cancelBooking']);
 
+Route::post('/get-summary',[StadiumBookingController::class,'getSummary']);
+
+
 
 
 

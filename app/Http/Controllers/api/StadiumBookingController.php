@@ -238,4 +238,28 @@ class StadiumBookingController extends Controller
         $cb->save();
         return ['success'=>true];
     }
+
+
+    public function getSummary(Request $request){
+        $user=User::find($request['user_id']);
+        $total_amount=$request['total_amount'];
+
+        $bCount=StadiumBooking::where('user_id',$request['user_id'])->count();
+        $discount=0;
+        $discountPer=0;
+
+        $discountMsg='';
+        if($bCount<=2){
+            $discountPer=10;
+            $discount=$discountPer* $total_amount;
+            $discount=$discount/100;
+
+        $discountMsg='10% off as a Welcome Discount ';
+
+        }
+
+        $payable_amount=0;
+
+        return ['success'=>true,'total_amount'=>$total_amount,'discount'=>$discount, 'discountPer'=>$discountPer,'discountMsg'=>$discountMsg,'payable_amount'=>$payable_amount];
+    }
 }
