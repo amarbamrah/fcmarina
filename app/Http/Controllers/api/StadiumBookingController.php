@@ -3,24 +3,17 @@
 namespace App\Http\Controllers\api;
 
 use App\Http\Controllers\Controller;
-use App\Models\Stadium;
-
-use Illuminate\Support\Str;
-use App\Models\StadiumBooking;
-
-use App\Models\CancelReason;
-
 use App\Models\CancelBookingReason;
-
-
-
-
+use App\Models\CancelReason;
+use App\Models\Stadium;
+use App\Models\StadiumBooking;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
+use App\Models\PointTransaction;
+use Illuminate\Support\Str;
 use Razorpay\Api\Api;
-
 
 class StadiumBookingController extends Controller
 {
@@ -51,18 +44,15 @@ class StadiumBookingController extends Controller
         //
     }
 
-
-
     public function generateOrder(Request $request)
     {
-       
 
         $key = "rzp_test_Bn6XzeDx8pXFK4";
         $secret = "gVNSxo5kYjNYfooTPWRu9PCS";
         $api = new Api($key, $secret);
 
-        $ad=$request['amount']*10;
-        $ad=$ad/100;
+        $ad = $request['amount'] * 10;
+        $ad = $ad / 100;
 
         $razorpayOrder = $api->order->create(
             array(
@@ -81,30 +71,40 @@ class StadiumBookingController extends Controller
     public function store(Request $request)
     {
 
-        $booking_id=Str::random(6);
+        $booking_id = Str::random(6);
         $sb = new StadiumBooking();
         $sb->stadium_id = $request['stadium_id'];
         $sb->user_id = $request['user_id'];
         $sb->total_amount = $request['total_amount'];
 
-        $advance=10/100;
-        $advance=$advance*$request['total_amount'];
+        $advance = 10 / 100;
+        $advance = $advance * $request['total_amount'];
 
-        
         $sb->advance = $advance;
 
         $sb->status = 'Confirmed';
 
-        $sb->rem_amount =$request['total_amount']-$advance;
+        $sb->rem_amount = $request['total_amount'] - $advance;
 
         $sb->stadium_type = $request['stadium_type'];
         $sb->from = $request['from'];
         $sb->to = $request['to'];
 
         $sb->date = $request['date'];
-        $sb->booking_id = 'FC-'.substr(str_shuffle("ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789"), 1, 6);
+        $sb->booking_id = 'FC-' . substr(str_shuffle("ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789"), 1, 6);
 
         $sb->save();
+
+        $pts=$total_amount/100;
+        $pts=round($pts);
+
+        $pt = new PointTransaction();
+        $pt->points = $pts*10;
+        $pt->type = 'cr';
+        $pt->user_id = $request['user_id'];
+
+        $pt->remarks = 'Earned From Booking ID:'.$booking_id;
+        $pt->save();
         return ['success' => true, 'booking_id' => $sb->id];
 
     }
@@ -124,31 +124,26 @@ class StadiumBookingController extends Controller
         $stadiumBooking->f_from = Carbon::create($stadiumBooking->from)->format('h:i');
         $stadiumBooking->f_to = Carbon::create($stadiumBooking->to)->format('h:i');
 
-        $stadiumBooking->booked_by =  'Venue';
+        $stadiumBooking->booked_by = 'Venue';
 
+        $day_division = '';
+        if (Carbon::create($stadiumBooking->from) < Carbon::createFromFormat('H:i a', '06:00 AM')) {
+            $day_division = 'Twilight';
 
+        } elseif (Carbon::create($stadiumBooking->from) >= Carbon::createFromFormat('H:i a', '06:00 AM') && Carbon::create($stadiumBooking->from) < Carbon::createFromFormat('H:i a', '12:00 PM')) {
+            $day_division = 'Morning';
 
+        } elseif (Carbon::create($stadiumBooking->from) >= Carbon::createFromFormat('H:i a', '12:00 PM') && Carbon::create($stadiumBooking->from) < Carbon::createFromFormat('H:i a', '06:00 PM')) {
+            $day_division = 'Noon';
 
+        } elseif (Carbon::create($stadiumBooking->from) >= Carbon::createFromFormat('H:i a', '06:00 PM') && Carbon::create($stadiumBooking->from) < Carbon::createFromFormat('H:i a', '12:00 AM')) {
+            $day_division = 'Evening';
 
-        $day_division='';
-        if(Carbon::create($stadiumBooking->from)<Carbon::createFromFormat('H:i a','06:00 AM')){
-        $day_division='Twilight';
-            
-        }elseif(Carbon::create($stadiumBooking->from)>=Carbon::createFromFormat('H:i a','06:00 AM') && Carbon::create($stadiumBooking->from)<Carbon::createFromFormat('H:i a','12:00 PM')){
-            $day_division='Morning';
-
-        }elseif(Carbon::create($stadiumBooking->from)>=Carbon::createFromFormat('H:i a','12:00 PM') && Carbon::create($stadiumBooking->from)<Carbon::createFromFormat('H:i a','06:00 PM')){
-        $day_division='Noon';
-
-        }elseif(Carbon::create($stadiumBooking->from)>=Carbon::createFromFormat('H:i a','06:00 PM') && Carbon::create($stadiumBooking->from)<Carbon::createFromFormat('H:i a','12:00 AM')){
-            $day_division='Evening';
-    
-            }
-            else{
+        } else {
             //    $day_division='NA';
 
         }
-        $stadiumBooking->day_division=$day_division;
+        $stadiumBooking->day_division = $day_division;
         return ['success' => true, 'data' => $stadiumBooking];
     }
 
@@ -176,8 +171,6 @@ class StadiumBookingController extends Controller
         //
     }
 
-
-
     public function getBookingsChartData()
     {
 
@@ -193,13 +186,13 @@ class StadiumBookingController extends Controller
 
         $orders = StadiumBooking::whereDate('created_at', '>=', $from)->whereDate('created_at', '<=', $to)->count();
 
-        $month = ['month' => $monthName, 'total_orders' => $orders,'from'=>$from,'to'=>$to];
+        $month = ['month' => $monthName, 'total_orders' => $orders, 'from' => $from, 'to' => $to];
 
-      //  array_push($data, $month);
+        //  array_push($data, $month);
 
         // $to=
 
-        for ($i = 6; $i >=0; $i--) {
+        for ($i = 6; $i >= 0; $i--) {
             $startDate = Carbon::now()->subMonth($i)->startOfMonth();
             $endDate = Carbon::now()->subMonth($i)->endOfMonth();
             $monthName = $startDate->format('M');
@@ -209,8 +202,7 @@ class StadiumBookingController extends Controller
 
             $orders = StadiumBooking::whereDate('created_at', '>=', $from)->whereDate('created_at', '<=', $to)->count();
 
-            $month = ['month' => $monthName, 'total_orders' => $orders,'from'=>$from,'to'=>$to];
-
+            $month = ['month' => $monthName, 'total_orders' => $orders, 'from' => $from, 'to' => $to];
 
             array_push($data, $month);
 
@@ -219,51 +211,51 @@ class StadiumBookingController extends Controller
         return ['success' => true, 'data' => $data];
     }
 
-
-    public function cancelReasons(){
-        return ['success'=>true,'data'=>CancelReason::all(),'refund_amount'=>50];
+    public function cancelReasons()
+    {
+        return ['success' => true, 'data' => CancelReason::all(), 'refund_amount' => 50];
     }
 
-    public function cancelBooking(Request $request){
-        $booking=StadiumBooking::find($request['booking_id']);
-        $booking->status='Cancelled';
+    public function cancelBooking(Request $request)
+    {
+        $booking = StadiumBooking::find($request['booking_id']);
+        $booking->status = 'Cancelled';
         $booking->save();
 
-        $cr=CancelReason::find($request['reason_id']);
-        $cb=new CancelBookingReason();
-        $cb->reason=$cr->title;
-        $cb->remarks=$request['remarks'];
+        $cr = CancelReason::find($request['reason_id']);
+        $cb = new CancelBookingReason();
+        $cb->reason = $cr->title;
+        $cb->remarks = $request['remarks'];
 
-        $cb->booking_id=$booking->id;
+        $cb->booking_id = $booking->id;
         $cb->save();
-        return ['success'=>true];
+        return ['success' => true];
     }
 
+    public function getSummary(Request $request)
+    {
+        $user = User::find($request['user_id']);
+        $total_amount = $request['total_amount'];
 
-    public function getSummary(Request $request){
-        $user=User::find($request['user_id']);
-        $total_amount=$request['total_amount'];
+        $bCount = StadiumBooking::where('user_id', $request['user_id'])->count();
+        $discount = 0;
+        $discountPer = 0;
 
-        $bCount=StadiumBooking::where('user_id',$request['user_id'])->count();
-        $discount=0;
-        $discountPer=0;
+        $discountMsg = '';
+        if ($bCount <= 2) {
+            $discountPer = 10;
+            $discount = $discountPer * $total_amount;
+            $discount = $discount / 100;
 
-        $discountMsg='';
-        if($bCount<=2){
-            $discountPer=10;
-            $discount=$discountPer* $total_amount;
-            $discount=$discount/100;
-
-        $discountMsg='10% off as a Welcome Discount ';
+            $discountMsg = '10% off as a Welcome Discount ';
 
         }
 
-        $amount=$total_amount-$discount;
+        $amount = $total_amount - $discount;
 
-        $payable_amount=$amount*10;
-        $payable_amount=$payable_amount/100;
+        $payable_amount = $amount * 10;
+        $payable_amount = $payable_amount / 100;
 
-
-        return ['success'=>true,'amount'=>$total_amount,'total_amount'=>$amount,'discount'=>$discount, 'discountPer'=>$discountPer,'discountMsg'=>$discountMsg,'payable_amount'=>$payable_amount];
+        return ['success' => true, 'amount' => $total_amount, 'total_amount' => $amount, 'discount' => $discount, 'discountPer' => $discountPer, 'discountMsg' => $discountMsg, 'payable_amount' => $payable_amount];
     }
 }
