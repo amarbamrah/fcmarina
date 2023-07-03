@@ -69,7 +69,7 @@ class BslotController extends Controller
                             if ($fully == 0) {
                                 $fully++;
                                 if($request['stadium_type']=='7s'){
-                                   // $slot->isFilled = true;
+                                    $slot->isFilled = falsefd;
 
                                 }else{
                                     $slot->isFilled = false;
