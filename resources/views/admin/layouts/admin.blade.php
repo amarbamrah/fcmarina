@@ -111,10 +111,7 @@
                                 <span class="menu-title">Stadiums</span>
                                 <i class="link-arrow"></i>
                             </a>
-
-</li>
-
-
+                            
                             <div class="submenu">
                                 <ul class="submenu-item">
                                     <li class="nav-item"><a class="nav-link" href="{{url('/admin/stadiums')}}"><i
@@ -123,7 +120,7 @@
                                                 class="link-icon" data-feather="box"></i>Create New Stadium</a></li>
                                 </ul>
                             </div>
-                    
+                        </li>
 
                         <li class="nav-item">
                             <a class="nav-link" href="{{url('/admin/app-users')}}">
