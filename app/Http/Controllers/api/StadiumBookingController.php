@@ -105,6 +105,12 @@ class StadiumBookingController extends Controller
 
         $pt->remarks = 'Earned From Booking ID:'.$booking_id;
         $pt->save();
+
+        $user=User::find($request['user_id']);
+
+        $user->points = $user->points+$pts;;
+            $user->total_points = $user->total_points+$pts;
+            $user->save();
         return ['success' => true, 'booking_id' => $sb->id];
 
     }
