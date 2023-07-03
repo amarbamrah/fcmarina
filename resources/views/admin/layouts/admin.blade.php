@@ -90,7 +90,7 @@
                     <ul class="nav page-navigation">
                         <li class="nav-item">
                             <a class="nav-link" href="../../dashboard.html">
-                                <i class="link-icon" data-feather="box"></i>
+                                <i class="link-icon" data-feather="home"></i>
                                 <span class="menu-title">Dashboard</span>
                             </a>
                         </li>
@@ -99,7 +99,7 @@
 
                         <li class="nav-item">
                             <a class="nav-link" href="{{url('/admin/stadium-bookings')}}">
-                                <i class="link-icon" data-feather="box"></i>
+                                <i class="link-icon" data-feather="menu"></i>
                                 <span class="menu-title">Bookings</span>
                             </a>
                         </li>
