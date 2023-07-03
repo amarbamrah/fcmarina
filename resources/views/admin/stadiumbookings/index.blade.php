@@ -62,8 +62,8 @@
                     @foreach($stadiumbooking as $i=>$stdbook)
                                 <tr>
                                   <td>{{$stdbook->booking_id}}</td>
-                                <td>{{$stdbook['user']['name']}}</td> 
-                                <td>{{$stdbook['user']['phonenumber']}}</td> 
+                                <td>{{$stdbook['user']==null?$stdbook->name:$stdbook['user']['name']}}</td> 
+                                <td>{{$stdbook['user']==null?$stdbook->Phone:$stdbook['user']['phonenumber']}}</td> 
 
                                 <td>{{$stdbook['stadium']['name']}}</td> 
                                     <td>{{$stdbook->stadium_type}}</td>
