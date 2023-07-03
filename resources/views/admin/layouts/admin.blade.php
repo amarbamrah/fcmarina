@@ -139,8 +139,7 @@
                             
                             <div class="submenu">
                                 <ul class="submenu-item">
-                                    <li class="nav-item"><a class="nav-link" href="{{url('/admin/locations')}}"><i
-                                                class="link-icon" data-feather="box"></i>Locations</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="{{url('/admin/locations')}}">Locations</a></li>
                                   
                                 </ul>
                             </div>
