@@ -27,7 +27,7 @@
                     @foreach($locations as $i=>$loc)
                       <tr>
                       <td>{{$i+1}}</td>
-                      <td>{{$loc->title}}</td>
+                      <td>{{$loc->name}}</td>
                       </tr>
                       @endforeach
                     </tbody>
