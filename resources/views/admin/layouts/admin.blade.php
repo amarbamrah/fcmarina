@@ -131,10 +131,19 @@
 
 
                         <li class="nav-item">
-                            <a class="nav-link" href="{{url('/app-users')}}">
-                                <i class="link-icon" data-feather="box"></i>
+                            <a href="#" class="nav-link">
+                                <i class="link-icon" data-feather=""></i>
                                 <span class="menu-title">Masters</span>
+                                <i class="link-arrow"></i>
                             </a>
+                            
+                            <div class="submenu">
+                                <ul class="submenu-item">
+                                    <li class="nav-item"><a class="nav-link" href="{{url('/admin/locations')}}"><i
+                                                class="link-icon" data-feather="box"></i>Locations</a></li>
+                                  
+                                </ul>
+                            </div>
                         </li>
 
 
