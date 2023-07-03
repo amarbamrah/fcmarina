@@ -6,6 +6,9 @@ use App\Http\Controllers\DashboardController;
 
 use App\Http\Controllers\StadiumController;
 
+use App\Http\Controllers\LocationController;
+
+
 use App\Http\Controllers\StadiumBookingController;
 
 
