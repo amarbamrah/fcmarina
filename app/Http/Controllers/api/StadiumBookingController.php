@@ -75,7 +75,7 @@ class StadiumBookingController extends Controller
         $sb = new StadiumBooking();
         $sb->stadium_id = $request['stadium_id'];
         $sb->user_id = $request['user_id'];
-        $sb->total_amount = $request['total_amount'];
+        $sb->total_amount = 
 
         $advance = 10 / 100;
         $advance = $advance * $request['total_amount'];
@@ -95,7 +95,7 @@ class StadiumBookingController extends Controller
 
         $sb->save();
 
-        $pts=$total_amount/100;
+        $pts=$request['total_amount']/100;
         $pts=round($pts);
 
         $pt = new PointTransaction();
