@@ -163,6 +163,8 @@ class StadiumController extends Controller
         $sb->from = $request['from'];
 
         $sb->status = 'Confirmed';
+        $sb->sport_type = $request['game'];
+
 
         $sb->to = $request['to'];
 
