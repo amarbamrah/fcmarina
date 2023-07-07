@@ -3,28 +3,15 @@
 namespace App\Http\Controllers\api;
 
 use App\Http\Controllers\Controller;
-use App\Models\Stadium;
-
-use App\Models\StadiumImage;
-
-use App\Models\StadiumBooking;
-
-use App\Models\PaymentBooking;
-
-
-use App\Models\User;
-
-
-use Carbon\Carbon;
-
-
-
 use App\Models\Location;
-
+use App\Models\PaymentBooking;
+use App\Models\Stadium;
+use App\Models\StadiumBooking;
+use App\Models\StadiumImage;
+use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
-
 use Illuminate\Support\Str;
-
 
 class StadiumController extends Controller
 {
@@ -33,19 +20,18 @@ class StadiumController extends Controller
      */
     public function index()
     {
-        $stadiums=Stadium::all();
-        
+        $stadiums = Stadium::all();
 
-        foreach($stadiums as $stadium){
-            $stadium->images=StadiumImage::where('stadium_id',$stadium->id)->get();
-            $loc=Location::find($stadium->location_id);
-            $stadium->location_name=$loc->name;
+        foreach ($stadiums as $stadium) {
+            $stadium->images = StadiumImage::where('stadium_id', $stadium->id)->get();
+            $loc = Location::find($stadium->location_id);
+            $stadium->location_name = $loc->name;
 
-            $slotsLeft=2;
-            $stadium->slots_left=$slotsLeft;
+            $slotsLeft = 2;
+            $stadium->slots_left = $slotsLeft;
 
         }
-        return ['data'=>$stadiums,'success'=>true];
+        return ['data' => $stadiums, 'success' => true];
     }
 
     /**
@@ -69,13 +55,13 @@ class StadiumController extends Controller
      */
     public function show(Stadium $stadium)
     {
-        $loc=Location::find($stadium->location_id);
-            $stadium->location_name=$loc->name;
-            $stadium->images=StadiumImage::where('stadium_id',$stadium->id)->get();
-            $slotsLeft=2;
-            $stadium->slots_left=$slotsLeft;
+        $loc = Location::find($stadium->location_id);
+        $stadium->location_name = $loc->name;
+        $stadium->images = StadiumImage::where('stadium_id', $stadium->id)->get();
+        $slotsLeft = 2;
+        $stadium->slots_left = $slotsLeft;
 
-        return ['data'=>$stadium,'success'=>true];
+        return ['data' => $stadium, 'success' => true];
 
     }
 
@@ -103,19 +89,16 @@ class StadiumController extends Controller
         //
     }
 
-
-    public function venueLogin(){
+    public function venueLogin()
+    {
 
     }
 
-
-
-
-
-    public function bookings(Request $request){
-        $user=User::find($request['user_id']);
-        $stadium=Stadium::find($user->stadium_id);
-        $sbs = StadiumBooking::where('stadium_id', $stadium->id)->whereDate('date',Carbon::Create($request['date']))->get();
+    public function bookings(Request $request)
+    {
+        $user = User::find($request['user_id']);
+        $stadium = Stadium::find($user->stadium_id);
+        $sbs = StadiumBooking::where('stadium_id', $stadium->id)->whereDate('date', Carbon::Create($request['date']))->get();
         foreach ($sbs as $sb) {
             $sb->day = Carbon::create($sb->date)->format('D');
 
@@ -130,10 +113,10 @@ class StadiumController extends Controller
 
     }
 
-
-    public function bookingsHistory(Request $request){
-        $user=User::find($request['user_id']);
-        $stadium=Stadium::find($user->stadium_id);
+    public function bookingsHistory(Request $request)
+    {
+        $user = User::find($request['user_id']);
+        $stadium = Stadium::find($user->stadium_id);
         $sbs = StadiumBooking::where('stadium_id', $stadium->id)->get();
         foreach ($sbs as $sb) {
             $sb->day = Carbon::create($sb->date)->format('D');
@@ -149,13 +132,9 @@ class StadiumController extends Controller
 
     }
 
-
-
-
-
-
-    public function createBooking(Request $request){
-        $booking_id=Str::random(6);
+    public function createBooking(Request $request)
+    {
+        $booking_id = Str::random(6);
         $sb = new StadiumBooking();
         $sb->stadium_id = $request['stadium_id'];
         $sb->total_amount = $request['total_amount'];
@@ -168,38 +147,30 @@ class StadiumController extends Controller
         $sb->status = 'Confirmed';
         $sb->sport_type = $request['game'];
 
-        $sb->booked_for=$request['booked_for'];
-
+        $sb->booked_for = $request['booked_for'];
 
         $sb->to = $request['to'];
 
-        $sb->faculity_id=$request['user_id'];
+        $sb->faculity_id = $request['user_id'];
         $sb->date = $request['date'];
-        $sb->booking_id = 'FC-'.substr(str_shuffle("ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789"), 1, 6);
+        $sb->booking_id = 'FC-' . substr(str_shuffle("ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789"), 1, 6);
 
-
-        if($request->has('phone') && User::where('phonenumber',$request['phone'])->exists()){
-            $user= User::where('phonenumber',$request['phone'])->first();
+        if ($request->has('phone') && User::where('phonenumber', $request['phone'])->exists()) {
+            $user = User::where('phonenumber', $request['phone'])->first();
             $sb->phone = $user->phonenumber;
             $sb->email = $user->email;
             $sb->name = $user->name;
             $sb->user_id = $user->id;
 
-        }else{
+        } else {
             $sb->phone = $request['phone'];
             $sb->email = $request['email'];
             $sb->name = $request['name'];
         }
 
-
-
         $sb->save();
         return ['success' => true, 'booking_id' => $sb->id];
     }
-
-
-
-
 
     public function getStadiumChartData()
     {
@@ -216,13 +187,13 @@ class StadiumController extends Controller
 
         $sts = Stadium::whereDate('created_at', '>=', $from)->whereDate('created_at', '<=', $to)->count();
 
-        $month = ['month' => $monthName, 'total_sts' => $sts,'from'=>$from,'to'=>$to];
+        $month = ['month' => $monthName, 'total_sts' => $sts, 'from' => $from, 'to' => $to];
 
-      //  array_push($data, $month);
+        //  array_push($data, $month);
 
         // $to=
 
-        for ($i = 6; $i >=0; $i--) {
+        for ($i = 6; $i >= 0; $i--) {
             $startDate = Carbon::now()->subMonth($i)->startOfMonth();
             $endDate = Carbon::now()->subMonth($i)->endOfMonth();
             $monthName = $startDate->format('M');
@@ -232,8 +203,7 @@ class StadiumController extends Controller
 
             $sts = Stadium::whereDate('created_at', '>=', $from)->whereDate('created_at', '<=', $to)->count();
 
-            $month = ['month' => $monthName, 'total_sts' => $sts,'from'=>$from,'to'=>$to];
-
+            $month = ['month' => $monthName, 'total_sts' => $sts, 'from' => $from, 'to' => $to];
 
             array_push($data, $month);
 
@@ -242,33 +212,33 @@ class StadiumController extends Controller
         return ['success' => true, 'data' => $data];
     }
 
-
-    public function completeBooking(Request $request){
-        $booking=Booking::find($request['booking_id']);
-        $booking->status='Completed';
+    public function completeBooking(Request $request)
+    {
+        $booking = Booking::find($request['booking_id']);
+        $booking->status = 'Completed';
         $booking->save();
 
-        $paymentMode=$request['payment_mode'];
-        if($paymentMode=='CashUpi'){
-            $pb=new PaymentBooking();
-            $pb->amount=$request['upi_amount'];
-            $pb->booking_id=$request['booking_id'];
-            $pb->payment_mode='Cash';
+        $paymentMode = $request['payment_mode'];
+        if ($paymentMode == 'CashUpi') {
+            $pb = new PaymentBooking();
+            $pb->amount = $request['upi_amount'];
+            $pb->booking_id = $request['booking_id'];
+            $pb->payment_mode = 'Cash';
             $pb->save();
 
-            $pb=new PaymentBooking();
-            $pb->amount=$request['cash_amount'];
-            $pb->booking_id=$request['booking_id'];
-            $pb->payment_mode='Upi';
+            $pb = new PaymentBooking();
+            $pb->amount = $request['cash_amount'];
+            $pb->booking_id = $request['booking_id'];
+            $pb->payment_mode = 'Upi';
             $pb->save();
-        }else{
-            $pb=new PaymentBooking();
-            $pb->amount=$request['amount'];
-            $pb->booking_id=$request['booking_id'];
-            $pb->payment_mode=$request['payment_mode'];
+        } else {
+            $pb = new PaymentBooking();
+            $pb->amount = $request['amount'];
+            $pb->booking_id = $request['booking_id'];
+            $pb->payment_mode = $request['payment_mode'];
             $pb->save();
         }
-       
-        return ['success'=>true,'message'=>'Booking Completed Successfully'];
+
+        return ['success' => true, 'message' => 'Booking Completed Successfully'];
     }
 }
