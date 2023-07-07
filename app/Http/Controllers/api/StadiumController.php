@@ -223,19 +223,25 @@ class StadiumController extends Controller
             $pb = new PaymentBooking();
             $pb->amount = $request['upi_amount'];
             $pb->booking_id = $request['booking_id'];
+            $pb->user_id = $request['user_id'];
+
             $pb->payment_mode = 'Cash';
             $pb->save();
 
             $pb = new PaymentBooking();
             $pb->amount = $request['cash_amount'];
             $pb->booking_id = $request['booking_id'];
+            $pb->user_id = $request['user_id'];
+
             $pb->payment_mode = 'Upi';
             $pb->save();
         } else {
             $pb = new PaymentBooking();
-            $pb->amount = $request['amount'];
+            $pb->amount = $booking->rem_amount;
             $pb->booking_id = $request['booking_id'];
             $pb->payment_mode = $request['payment_mode'];
+            $pb->user_id = $request['user_id'];
+
             $pb->save();
         }
 
