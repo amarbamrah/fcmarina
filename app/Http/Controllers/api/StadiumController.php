@@ -222,7 +222,7 @@ class StadiumController extends Controller
 
         $paymentMode = $request['payment_mode'];
         if ($paymentMode == 'CashUpi') {
-            $pb = new PaymentBooking();
+            $pb = new BookingPayment();
             $pb->amount = $request['upi_amount'];
             $pb->booking_id = $request['booking_id'];
             $pb->user_id = $request['user_id'];
@@ -230,7 +230,7 @@ class StadiumController extends Controller
             $pb->payment_mode = 'Cash';
             $pb->save();
 
-            $pb = new PaymentBooking();
+            $pb = new BookingPayment();
             $pb->amount = $request['cash_amount'];
             $pb->booking_id = $request['booking_id'];
             $pb->user_id = $request['user_id'];
@@ -238,7 +238,7 @@ class StadiumController extends Controller
             $pb->payment_mode = 'Upi';
             $pb->save();
         } else {
-            $pb = new PaymentBooking();
+            $pb = new BookingPayment();
             $pb->amount = $booking->rem_amount;
             $pb->booking_id = $request['booking_id'];
             $pb->payment_mode = $request['payment_mode'];
