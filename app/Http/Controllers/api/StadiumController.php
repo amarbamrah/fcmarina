@@ -4,7 +4,7 @@ namespace App\Http\Controllers\api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Location;
-use App\Models\PaymentBooking;
+use App\Models\BookingPayment;
 use App\Models\Stadium;
 use App\Models\StadiumBooking;
 
