@@ -7,6 +7,8 @@ use App\Models\Location;
 use App\Models\PaymentBooking;
 use App\Models\Stadium;
 use App\Models\StadiumBooking;
+
+
 use App\Models\StadiumImage;
 use App\Models\User;
 use Carbon\Carbon;
@@ -214,7 +216,7 @@ class StadiumController extends Controller
 
     public function completeBooking(Request $request)
     {
-        $booking = Booking::find($request['booking_id']);
+        $booking = StadiumBooking::find($request['booking_id']);
         $booking->status = 'Completed';
         $booking->save();
 
