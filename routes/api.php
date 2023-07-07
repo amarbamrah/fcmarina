@@ -91,6 +91,9 @@ Route::post('/cancel-booking',[StadiumBookingController::class,'cancelBooking'])
 
 Route::post('/get-summary',[StadiumBookingController::class,'getSummary']);
 
+Route::post('/complete-booking',[StadiumController::class,'completeBooking']);
+
+
 
 
 

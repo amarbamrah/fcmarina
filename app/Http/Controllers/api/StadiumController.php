@@ -238,4 +238,12 @@ class StadiumController extends Controller
 
         return ['success' => true, 'data' => $data];
     }
+
+
+    public function completeBooking(Request $request){
+        $booking=Booking::find($request['booking_id']);
+        $booking->status='Completed';
+        $booking->save();
+        return ['success'=>true,'message'=>'Booking Completed Successfully'];
+    }
 }
