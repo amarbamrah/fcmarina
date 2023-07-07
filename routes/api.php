@@ -101,6 +101,3 @@ Route::post('/complete-booking',[StadiumController::class,'completeBooking']);
 
 
 
-
-
-

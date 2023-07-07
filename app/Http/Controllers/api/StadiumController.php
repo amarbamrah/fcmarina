@@ -9,6 +9,9 @@ use App\Models\StadiumImage;
 
 use App\Models\StadiumBooking;
 
+use App\Models\PaymentBooking;
+
+
 use App\Models\User;
 
 
@@ -244,6 +247,28 @@ class StadiumController extends Controller
         $booking=Booking::find($request['booking_id']);
         $booking->status='Completed';
         $booking->save();
+
+        $paymentMode=$request['payment_mode'];
+        if($paymentMode=='CashUpi'){
+            $pb=new PaymentBooking();
+            $pb->amount=$request['upi_amount'];
+            $pb->booking_id=$request['booking_id'];
+            $pb->payment_mode='Cash';
+            $pb->save();
+
+            $pb=new PaymentBooking();
+            $pb->amount=$request['cash_amount'];
+            $pb->booking_id=$request['booking_id'];
+            $pb->payment_mode='Upi';
+            $pb->save();
+        }else{
+            $pb=new PaymentBooking();
+            $pb->amount=$request['amount'];
+            $pb->booking_id=$request['booking_id'];
+            $pb->payment_mode=$request['payment_mode'];
+            $pb->save();
+        }
+       
         return ['success'=>true,'message'=>'Booking Completed Successfully'];
     }
 }
