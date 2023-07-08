@@ -132,6 +132,8 @@ class StadiumController extends Controller
                 'id'=>$sb->id,
                 'title'=>'Booking ID:'.$sb->booking_id. 'Timeslots:'.$sb->from.'-'.$sb->to .' ' .$username ,
                 'date'=>$sb->from,
+                'booking_id'=>$sb->booking_id,
+                'name'=>$username,
                 'start'=>Carbon::createFromFormat('Y-m-d H:i:s',$sb->date.' '.$sb->from,'Asia/Kolkata'),
                 'end'=>Carbon::createFromFormat('Y-m-d H:i:s',$sb->date.' '.$sb->to),
                 'color'=>'#F4CAA6'
