@@ -279,7 +279,7 @@ class StadiumBookingController extends Controller
             $pt->type = 'cr';
             $pt->user_id = $booking->user_id;
 
-            $pt->remarks = 'Earned From Booking ID:' . $booking_id;
+            $pt->remarks = 'Earned From Booking ID:' . $booking->booking_id;
             $pt->save();
 
             $user = User::find($booking->user_id);
