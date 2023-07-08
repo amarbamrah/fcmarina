@@ -131,7 +131,7 @@ class StadiumController extends Controller
                 'id'=>$sb->id,
                 'title'=>$user->name,
                 'date'=>$sb->date,
-                'start'=>Carbon::create($sb->date)->format('d'),
+                'start'=>Carbon::create($sb->date.' '.$sb->from),
                 'end'=>Carbon::create($sb->date.' '.$sb->to),
                 'color'=>'#333333'
             ];
