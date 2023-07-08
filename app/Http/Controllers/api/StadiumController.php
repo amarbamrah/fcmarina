@@ -123,16 +123,17 @@ class StadiumController extends Controller
 
         $bookings=[];
         foreach ($sbs as $sb) {
-            $sb->day = Carbon::create($sb->date)->format('D');
-
-            $sb->f_date = Carbon::create($sb->date)->format('d');
-
-            $sb->f_from = Carbon::create($sb->from)->format('h:i');
-            $sb->f_to = Carbon::create($sb->to)->format('h:i');
+      
             $user = User::find($sb->user_id);
-            $sb->stadium = Stadium::find($sb->stadium_id);
 
-            $booking=['id'=>$sb->id,'title'=>$user->name,'start'=>$sb->from,'end'=>$sb->to,'color'=>'#333333'];
+        
+            $booking=[
+                'id'=>$sb->id,
+                'title'=>$user->name,
+                'start'=>Carbon::createFromFormat('Y-m-d H:i:s',$booking->date.' '.$booking->from),
+                'end'=>Carbon::createFromFormat('Y-m-d H:i:s',$booking->date.' '.$booking->to),
+                'color'=>'#333333'
+            ];
             array_push($bookings,$booking);
         }
 
