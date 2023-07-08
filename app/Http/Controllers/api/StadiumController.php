@@ -121,6 +121,9 @@ class StadiumController extends Controller
     {
 
         $bslots = Bslot::all();
+        foreach($bslots as $slots){
+            $bslots->from=Carbon::create($slot->from)->format('h a');
+        }
 
         $user = User::find($request['user_id']);
         $stadium = Stadium::find($user->stadium_id);
