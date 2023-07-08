@@ -131,8 +131,8 @@ class StadiumController extends Controller
                 'id'=>$sb->id,
                 'title'=>$user->name,
                 'date'=>$sb->date,
-                'start'=>Carbon::createFromFormat('Y-m-d H:i:s',$sb->date.' '.$sb->from),
-                'end'=>Carbon::createFromFormat('Y-m-d H:i:s',$sb->date.' '.$sb->to),
+                'start'=>new Carbon('Y-m-d H:i:s',$sb->date.' '.$sb->from),
+                'end'=>new Carbon('Y-m-d H:i:s',$sb->date.' '.$sb->to),
                 'color'=>'#333333'
             ];
             array_push($bookings,$booking);
