@@ -59,6 +59,9 @@ Route::apiResource('/stadium-bookings', StadiumBookingController::class);
 
 Route::apiResource('/point-transactions', PointTransactionController::class);
 
+Route::apiResource('/wallet-transactions', PointTransactionController::class);
+
+
 
 
 Route::post('/venue-login', [AuthController::class,'venueLogin']);
