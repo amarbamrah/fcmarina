@@ -267,7 +267,7 @@ class StadiumBookingController extends Controller
         $cb->booking_id = $booking->id;
         $cb->save();
 
-        $refundAmount = $sb->advance;
+        $refundAmount = $booking->advance;
         if ($bookingDate->diffInHours(Carbon::now()) < 24) {
             $refundAmount = 0;
         }
