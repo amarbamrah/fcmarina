@@ -5,13 +5,17 @@ namespace App\Http\Controllers\api;
 use App\Http\Controllers\Controller;
 use App\Models\CancelBookingReason;
 use App\Models\CancelReason;
+use App\Models\PointTransaction;
+
+use App\Models\WalletTransaction;
+
+
+
 use App\Models\Stadium;
 use App\Models\StadiumBooking;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-
-use App\Models\PointTransaction;
 use Illuminate\Support\Str;
 use Razorpay\Api\Api;
 
@@ -97,43 +101,40 @@ class StadiumBookingController extends Controller
 
         $sb->save();
 
-        $pts=$request['total_amount']/100;
-        $pts=round($pts);
+        $pts = $request['total_amount'] / 100;
+        $pts = round($pts);
 
         $pt = new PointTransaction();
-        $pt->points = $pts*10;
+        $pt->points = $pts * 10;
         $pt->type = 'cr';
         $pt->user_id = $request['user_id'];
 
-        $pt->remarks = 'Earned From Booking ID:'.$booking_id;
+        $pt->remarks = 'Earned From Booking ID:' . $booking_id;
         $pt->save();
 
+        $user = User::find($request['user_id']);
 
+        $user->points = $user->points + $pt->points;
+        $user->total_points = $user->total_points + $pt->points;
+        $user->save();
 
-        $user=User::find($request['user_id']);
+        $stadium = Stadium::find($request['stadium_id']);
 
-        $user->points = $user->points+$pt->points;
-            $user->total_points = $user->total_points+$pt->points;
-            $user->save();
+        $datee = Carbon::create($sb->date)->format('d-m-Y');
 
-            $stadium=Stadium::find($request['stadium_id']);
+        $time = $sb->from . "-" . $sb->to;
 
-            $datee=Carbon::create($sb->date)->format('d-m-Y');
-
-            $time =$sb->from."-".$sb->to;
-
-
-            $url = "http://api.nsite.in/api/v2/SendSMS?SenderId=FCMARI&Is_Unicode=false&Is_Flash=false&Message=Slot%20Booked%20!%20%5CnHi%20".str_replace(' ','%20',$user->name).",%20you%20have%20booked%20a%20slot%20with%20FC%20MARINA%20BOOK%20APP.%20%5CnVenue%20:%20".$stadium->name."%20%5CnDate%20:%20".$datee."%20%5CnTime%20:%20".$time."%20%5CnCourt%20:%20".$sb->stadium_type."%20%5CnAdvance%20Paid:%20".$sb->advance."%20%5CnBalance%20to%20pay:%20".$sb->rem_amount."%20%5CnBooking%20ID:%20".$sb->booking_id."&MobileNumbers=".$user->phonenumber."&ApiKey=mLdRdY8ey1ZTzMY0OifcDjaTO7rJ7gMTgsogL8ragGs=&ClientId=7a0c1703-92c1-4a91-918b-4ac7d9b8d1b3";
-            $curl = curl_init($url);
-curl_setopt($curl, CURLOPT_URL, $url);
-curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        $url = "http://api.nsite.in/api/v2/SendSMS?SenderId=FCMARI&Is_Unicode=false&Is_Flash=false&Message=Slot%20Booked%20!%20%5CnHi%20" . str_replace(' ', '%20', $user->name) . ",%20you%20have%20booked%20a%20slot%20with%20FC%20MARINA%20BOOK%20APP.%20%5CnVenue%20:%20" . $stadium->name . "%20%5CnDate%20:%20" . $datee . "%20%5CnTime%20:%20" . $time . "%20%5CnCourt%20:%20" . $sb->stadium_type . "%20%5CnAdvance%20Paid:%20" . $sb->advance . "%20%5CnBalance%20to%20pay:%20" . $sb->rem_amount . "%20%5CnBooking%20ID:%20" . $sb->booking_id . "&MobileNumbers=" . $user->phonenumber . "&ApiKey=mLdRdY8ey1ZTzMY0OifcDjaTO7rJ7gMTgsogL8ragGs=&ClientId=7a0c1703-92c1-4a91-918b-4ac7d9b8d1b3";
+        $curl = curl_init($url);
+        curl_setopt($curl, CURLOPT_URL, $url);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
 
 //for debug only!
-curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
-curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
 
-$resp = curl_exec($curl);
-curl_close($curl);
+        $resp = curl_exec($curl);
+        curl_close($curl);
 
         return ['success' => true, 'booking_id' => $sb->id];
 
@@ -243,11 +244,11 @@ curl_close($curl);
 
     public function cancelReasons(Request $request)
     {
-        $sb=StadiumBooking::find($request['booking_id']);
-        $bookingDate=Carbon::create($sb->date);
-        $refundAmount=$sb->advance;
-        if($bookingDate->diffInHours(Carbon::now())<24){
-            $refundAmount=0;
+        $sb = StadiumBooking::find($request['booking_id']);
+        $bookingDate = Carbon::create($sb->date);
+        $refundAmount = $sb->advance;
+        if ($bookingDate->diffInHours(Carbon::now()) < 24) {
+            $refundAmount = 0;
         }
         return ['success' => true, 'data' => CancelReason::all(), 'refund_amount' => $refundAmount];
     }
@@ -265,6 +266,27 @@ curl_close($curl);
 
         $cb->booking_id = $booking->id;
         $cb->save();
+
+        $refundAmount = $sb->advance;
+        if ($bookingDate->diffInHours(Carbon::now()) < 24) {
+            $refundAmount = 0;
+        }
+
+        if ($refundAmount > 0) {
+            $pt = new WalletTransaction();
+            $pt->amount = $refundAmount;
+            $pt->type = 'cr';
+            $pt->user_id = $booking->user_id;
+
+            $pt->remarks = 'Earned From Booking ID:' . $booking_id;
+            $pt->save();
+
+            $user = User::find($booking->user_id);
+            $user->wallet_amount = $user->wallet_amount + $refundAmount;
+            $user->save();
+
+        }
+
         return ['success' => true];
     }
 
