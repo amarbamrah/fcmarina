@@ -9,6 +9,8 @@ use App\Models\Stadium;
 use App\Models\StadiumBooking;
 use App\Models\StadiumImage;
 use App\Models\User;
+use App\Models\Bslot;
+
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -117,6 +119,9 @@ class StadiumController extends Controller
 
     public function venueBookings(Request $request)
     {
+
+        $bslots = Bslot::all();
+
         $user = User::find($request['user_id']);
         $stadium = Stadium::find($user->stadium_id);
         $sbs = StadiumBooking::where('stadium_id', $stadium->id)->whereDate('date', Carbon::Create($request['date']))->get();
@@ -145,7 +150,7 @@ class StadiumController extends Controller
         }
 
         
-        return ['success' => true, 'data' => $bookings];
+        return ['success' => true, 'data' => $bookings,'slots'=>$bslots];
 
     }
 
