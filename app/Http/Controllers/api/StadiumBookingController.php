@@ -246,7 +246,7 @@ curl_close($curl);
         $sb=StadiumBooking::find($request['booking_id']);
         $bookingDate=Carbon::create($sb->date);
         $refundAmount=$sb->advance;
-        if($bookingDate->diffInSeconds(Carbon::now())<24){
+        if($bookingDate->diffInHours(Carbon::now())<24){
             $refundAmount=0;
         }
         return ['success' => true, 'data' => CancelReason::all(), 'refund_amount' => $refundAmount];
