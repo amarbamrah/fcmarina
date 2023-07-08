@@ -7,6 +7,7 @@ use App\Models\WalletTransaction;
 use App\Models\User;
 use Illuminate\Http\Request;
 
+use Carbon\Carbon;
 class WalletTransactionController extends Controller
 {
     /**
@@ -16,6 +17,10 @@ class WalletTransactionController extends Controller
     {
         $wts=WalletTransaction::where('user_id',$request['user_id'])->get();
         $user=User::find($request['user_id']);
+
+        foreach($wts as $pt){
+            $pt->f_date=Carbon::create($pt->created_at)->format('d M Y');
+        }
         return ['data'=>$wts,'success'=>true,'user'=>$user];
     }
 
