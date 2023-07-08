@@ -6,12 +6,17 @@ use App\Http\Controllers\Controller;
 use App\Models\WalletTransaction;
 use Illuminate\Http\Request;
 
-class WallerTransactionController extends Controller
+class WalletTransactionController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
- 
+    public function index(Request $request)
+    {
+        $wts=WalletTransaction::where('user_id',$request['user_id'])->get();
+        $user=User::find($request['user_id']);
+        return ['data'=>$wts,'success'=>true,'user'=>$user];
+    }
 
     /**
      * Show the form for creating a new resource.
