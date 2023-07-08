@@ -120,10 +120,7 @@ class StadiumController extends Controller
     public function venueBookings(Request $request)
     {
 
-        $bslots = Bslot::all();
-        foreach($bslots as $slot){
-            $bslots->from=Carbon::create($slot->f_from)->format('h a');
-        }
+       
 
         $user = User::find($request['user_id']);
         $stadium = Stadium::find($user->stadium_id);
@@ -153,7 +150,7 @@ class StadiumController extends Controller
         }
 
         
-        return ['success' => true, 'data' => $bookings,'slots'=>$bslots];
+        return ['success' => true, 'data' => $bookings];
 
     }
 
