@@ -4,6 +4,7 @@ namespace App\Http\Controllers\api;
 
 use App\Http\Controllers\Controller;
 use App\Models\WalletTransaction;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class WalletTransactionController extends Controller
