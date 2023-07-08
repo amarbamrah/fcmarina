@@ -241,9 +241,15 @@ curl_close($curl);
         return ['success' => true, 'data' => $data];
     }
 
-    public function cancelReasons()
+    public function cancelReasons(Request $request)
     {
-        return ['success' => true, 'data' => CancelReason::all(), 'refund_amount' => 50];
+        $sb=StadiumBooking::find($request['booking_id']);
+        $bookingDate=Carbon::create($sb->date);
+        $refundAmount=$sb->advance;
+        if($bookingDate->diffInSeconds(Carbon::now())<24){
+            $refundAmount=0;
+        }
+        return ['success' => true, 'data' => CancelReason::all(), 'refund_amount' => $refundAmount];
     }
 
     public function cancelBooking(Request $request)
