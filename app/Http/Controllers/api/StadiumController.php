@@ -121,7 +121,7 @@ class StadiumController extends Controller
     {
 
         $bslots = Bslot::all();
-        foreach($bslots as $slots){
+        foreach($bslots as $slot){
             $bslots->from=Carbon::create($slot->from)->format('h a');
         }
 
