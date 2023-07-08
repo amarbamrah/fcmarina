@@ -218,6 +218,8 @@ class StadiumController extends Controller
     {
         $booking = StadiumBooking::find($request['booking_id']);
         $booking->status = 'Completed';
+        $booking->rem_amount = 0;
+
         $booking->save();
 
         $paymentMode = $request['payment_mode'];
