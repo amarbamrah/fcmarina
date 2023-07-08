@@ -59,7 +59,7 @@ Route::apiResource('/stadium-bookings', StadiumBookingController::class);
 
 Route::apiResource('/point-transactions', PointTransactionController::class);
 
-Route::apiResource('/wallet-transactions', PointTransactionController::class);
+Route::apiResource('/wallet-transactions', WalletTransactionController::class);
 
 
 
