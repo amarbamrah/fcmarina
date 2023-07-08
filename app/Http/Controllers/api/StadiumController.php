@@ -3,12 +3,10 @@
 namespace App\Http\Controllers\api;
 
 use App\Http\Controllers\Controller;
-use App\Models\Location;
 use App\Models\BookingPayment;
+use App\Models\Location;
 use App\Models\Stadium;
 use App\Models\StadiumBooking;
-
-
 use App\Models\StadiumImage;
 use App\Models\User;
 use Carbon\Carbon;
@@ -139,17 +137,26 @@ class StadiumController extends Controller
         $booking_id = Str::random(6);
         $sb = new StadiumBooking();
         $sb->stadium_id = $request['stadium_id'];
-        $sb->total_amount = $request['total_amount'];
-        $sb->rem_amount = 0;
-        $sb->advance = $request['total_amount'];
 
         $sb->stadium_type = $request['stadium_type'];
         $sb->from = $request['from'];
 
-        $sb->status = 'Confirmed';
         $sb->sport_type = $request['game'];
 
-        $sb->booked_for = $request['booked_for'];
+        if ($request->has('booked_for') && $request['booked_for'] != null) {
+            $sb->booked_for = $request['booked_for'];
+            $sb->total_amount = 0;
+            $sb->rem_amount = 0;
+            $sb->advance = 0;
+            $sb->status = 'Completed';
+
+        } else {
+            $sb->total_amount = $request['total_amount'];
+            $sb->rem_amount = 0;
+            $sb->advance = $request['total_amount'];
+            $sb->status = 'Confirmed';
+
+        }
 
         $sb->to = $request['to'];
 
