@@ -130,7 +130,7 @@ class StadiumController extends Controller
         
             $booking=[
                 'id'=>$sb->id,
-                'title'=>'Booking ID:'.$sb->booking_id. '\nTimeslots:'.$sb->from.'-'.$sb->to .' ' .$username ,
+                'title'=>'Booking ID:'.$sb->booking_id. 'Timeslots:'.$sb->from.'-'.$sb->to .' ' .$username ,
                 'date'=>$sb->from,
                 'start'=>Carbon::createFromFormat('Y-m-d H:i:s',$sb->date.' '.$sb->from,'Asia/Kolkata'),
                 'end'=>Carbon::createFromFormat('Y-m-d H:i:s',$sb->date.' '.$sb->to),
