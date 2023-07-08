@@ -80,6 +80,9 @@ Route::get('/user-venue-bookings-history', [StadiumController::class,'bookingsHi
 
 Route::get('/user-venue-bookings', [StadiumController::class,'bookings']);
 
+Route::get('/venue-bookings', [StadiumController::class,'venueBookings']);
+
+
 Route::post('/generate-order', [StadiumBookingController::class,'generateOrder']);
 
 Route::post('/update-user', [UserController::class,'updateUser']);
