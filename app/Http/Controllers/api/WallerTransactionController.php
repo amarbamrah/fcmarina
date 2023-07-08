@@ -14,7 +14,8 @@ class WallerTransactionController extends Controller
     public function index(Request $request)
     {
         $wts=WalletTransaction::where('user_id',$request['user_id'])->get();
-        return ['data'=>$wts,'success'=>true];
+        $user=User::find($request['user_id']);
+        return ['data'=>$wts,'success'=>true,'user'=>$user];
     }
 
     /**
