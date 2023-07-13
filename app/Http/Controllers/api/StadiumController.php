@@ -317,6 +317,7 @@ class StadiumController extends Controller
 
         $link = $response->short_url;
 
+        $link=rawurlencode($link);
         $url = "http://api.nsite.in/api/v2/SendSMS?SenderId=FCMARI&Is_Unicode=false&Is_Flash=false&Message=Dear%20" . $name . ",%20please%20make%20the%20payment%20to%20confirm%20your%20slot%20booking%20at%20FC%20MARINA%20Var.%20\nClick:%20" . $link . "%20to%20make%20the%20payment.%20\nPayment%20link%20is%20valid%20for%205%20minutes.%20Thank%20you.%20FC%20MARINA%20BOOKING%20APP.&MobileNumbers=" . $phno . "&ApiKey=mLdRdY8ey1ZTzMY0OifcDjaTO7rJ7gMTgsogL8ragGs=&ClientId=7a0c1703-92c1-4a91-918b-4ac7d9b8d1b3";
 
         $curl = curl_init($url);
