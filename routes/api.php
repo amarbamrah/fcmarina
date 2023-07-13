@@ -104,6 +104,10 @@ Route::post('/get-summary',[StadiumBookingController::class,'getSummary']);
 Route::post('/complete-booking',[StadiumController::class,'completeBooking']);
 
 
+Route::post('/send-payment-link',[StadiumController::class,'sendPaymentLink']);
+
+
+
 
 
 

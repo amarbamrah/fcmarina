@@ -9,11 +9,10 @@ use App\Models\Stadium;
 use App\Models\StadiumBooking;
 use App\Models\StadiumImage;
 use App\Models\User;
-use App\Models\Bslot;
-
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Razorpay\Api\Api;
 
 class StadiumController extends Controller
 {
@@ -111,45 +110,41 @@ class StadiumController extends Controller
             $sb->user = User::find($sb->user_id);
             $sb->stadium = Stadium::find($sb->stadium_id);
         }
-        
+
         return ['success' => true, 'data' => $sbs];
 
     }
 
-
     public function venueBookings(Request $request)
     {
-
-       
 
         $user = User::find($request['user_id']);
         $stadium = Stadium::find($user->stadium_id);
         $sbs = StadiumBooking::where('stadium_id', $stadium->id)->whereDate('date', Carbon::Create($request['date']))->get();
 
-        $bookings=[];
+        $bookings = [];
         foreach ($sbs as $sb) {
-      
+
             $user = User::find($sb->user_id);
 
-            $username=$user==null?$sb->name:$user->name;
-        
-            $booking=[
-                'id'=>$sb->id,
-                'title'=>'Booking ID:'.$sb->booking_id. 'Timeslots:'.$sb->from.'-'.$sb->to .' ' .$username ,
-                'date'=>$sb->from,
-                'booking_id'=>$sb->booking_id,
-                
-            'f_from' => Carbon::create($sb->from)->format('h:i'),
-            'f_to' => Carbon::create($sb->to)->format('h:i'),
-                'name'=>$username,
-                'start'=>Carbon::createFromFormat('Y-m-d H:i:s',$sb->date.' '.$sb->from,'Asia/Kolkata'),
-                'end'=>Carbon::createFromFormat('Y-m-d H:i:s',$sb->date.' '.$sb->to),
-                'color'=>'transparent'
+            $username = $user == null ? $sb->name : $user->name;
+
+            $booking = [
+                'id' => $sb->id,
+                'title' => 'Booking ID:' . $sb->booking_id . 'Timeslots:' . $sb->from . '-' . $sb->to . ' ' . $username,
+                'date' => $sb->from,
+                'booking_id' => $sb->booking_id,
+
+                'f_from' => Carbon::create($sb->from)->format('h:i'),
+                'f_to' => Carbon::create($sb->to)->format('h:i'),
+                'name' => $username,
+                'start' => Carbon::createFromFormat('Y-m-d H:i:s', $sb->date . ' ' . $sb->from, 'Asia/Kolkata'),
+                'end' => Carbon::createFromFormat('Y-m-d H:i:s', $sb->date . ' ' . $sb->to),
+                'color' => 'transparent',
             ];
-            array_push($bookings,$booking);
+            array_push($bookings, $booking);
         }
 
-        
         return ['success' => true, 'data' => $bookings];
 
     }
@@ -298,5 +293,44 @@ class StadiumController extends Controller
         }
 
         return ['success' => true, 'message' => 'Booking Completed Successfully'];
+    }
+
+    public function sendPaymentLink(Request $request)
+    {
+        $phno = $request['phoneno'];
+
+        $name = $request['name'];
+
+
+        $key = "rzp_live_vjwBasZlFwdr36";
+        $secret = "24HHwxlXpmXmARFoXvK1syzH";
+
+        $api = new Api($key, $secret);
+
+        $amount = $request['amount'];
+
+        $response = $api->paymentLink->create(array('amount' => $amount, 'currency' => 'INR', 'accept_partial' => true,
+            'description' => 'For FC Marina Booking', 'customer' => array('name' => $name,
+                'contact' => '+91'.$phno), 'notify' => array('sms' => false, 'email' => false),
+            'reminder_enable' => false, 'callback_url' => 'https://example-callback-url.com/',
+            'callback_method' => 'get'));
+
+        $link = $response->short_url;
+
+        $url = "http://api.nsite.in/api/v2/SendSMS?SenderId=FCMARI&Is_Unicode=false&Is_Flash=false&Message=Dear%20" . $name . ",%20please%20make%20the%20payment%20to%20confirm%20your%20slot%20booking%20at%20FC%20MARINA%20Var.%20\nClick:%20" . $link . "%20to%20make%20the%20payment.%20\nPayment%20link%20is%20valid%20for%205%20minutes.%20Thank%20you.%20FC%20MARINA%20BOOKING%20APP.&MobileNumbers=" . $phno . "&ApiKey=mLdRdY8ey1ZTzMY0OifcDjaTO7rJ7gMTgsogL8ragGs=&ClientId=7a0c1703-92c1-4a91-918b-4ac7d9b8d1b3";
+
+        $curl = curl_init($url);
+        curl_setopt($curl, CURLOPT_URL, $url);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+
+//for debug only!
+        curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+
+        $resp = curl_exec($curl);
+        curl_close($curl);
+
+        return ['success'=>true];
+
     }
 }
