@@ -330,7 +330,7 @@ class StadiumController extends Controller
         $resp = curl_exec($curl);
         curl_close($curl);
 
-        return ['success'=>true];
+        return ['success'=>true,'link'=>$link];
 
     }
 }
