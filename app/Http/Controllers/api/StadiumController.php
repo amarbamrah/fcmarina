@@ -297,7 +297,7 @@ class StadiumController extends Controller
 
     public function sendPaymentLink(Request $request)
     {
-        $phno = $request['phoneno'];
+        $phno = $request['phone'];
 
         $name = $request['name'];
 
