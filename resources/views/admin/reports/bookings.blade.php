@@ -102,15 +102,7 @@
 
 
 
-                <div class="mt-5 d-flex">
-                    <div class="flex-grow-1">
-                        Total Hours: <strong>{{$hours}}hrs</strong>
-                    </div>
-
-                    <div>
-                        Total Amount: <strong>{{$totalAmount}}Rs</strong>
-                    </div>
-                </div>
+                
             </div>
         </div>
     </div>
