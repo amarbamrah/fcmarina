@@ -14,7 +14,7 @@
         <div class="card">
             <div class="card-body">
              <div class="">
-               <table class="table">
+               <table class="table responsive">
                     <thead>
                       <tr>
                       <th> Stadium Image</th>
