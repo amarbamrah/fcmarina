@@ -183,7 +183,9 @@ class StadiumController extends Controller
         foreach($stadiumbookings as $booking){
 
         }
-        return view('admin.reports.bookings',compact('stadiumbookings','stds'));
+
+        $days=[];
+        return view('admin.reports.bookings',compact('stadiumbookings','stds','days'));
     }
 
 }
