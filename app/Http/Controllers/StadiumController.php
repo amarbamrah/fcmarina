@@ -141,26 +141,47 @@ class StadiumController extends Controller
 
         $stadiumbookings = StadiumBooking::query();
 
+        $data = [];
 
-        if($request->has('stadium') && $request['stadium']!="all"){
-            $stadiumbookings->where('stadium_id', $request['stadium']);
+        $startDate = Carbon::now()->subMonth(7)->startOfMonth();
+        $endDate = $startDate->endOfMonth();
+
+        $monthName = $startDate->format('M');
+
+        $from = $startDate->format('Y-m-d');
+        $to = $endDate->format('Y-m-d');
+
+        $sts = StadiumBooking::whereDate('created_at', '>=', $from)->whereDate('created_at', '<=', $to)->count();
+
+        $month = ['month' => $monthName, 'total_sts' => $sts, 'from' => $from, 'to' => $to];
+
+        //  array_push($data, $month);
+
+        // $to=
+
+        for ($i = 6; $i >= 0; $i--) {
+            $startDate = Carbon::now()->subMonth($i)->startOfMonth();
+            $endDate = Carbon::now()->subMonth($i)->endOfMonth();
+            $monthName = $startDate->format('M');
+
+            $from = $startDate->format('Y-m-d');
+            $to = $endDate->format('Y-m-d');
+
+            $sts = Stadium::whereDate('created_at', '>=', $from)->whereDate('created_at', '<=', $to)->count();
+
+            $month = ['month' => $monthName, 'total_sts' => $sts, 'from' => $from, 'to' => $to];
+
+            array_push($data, $month);
+
         }
 
-        if($request->has('status') && $request['status']!="all"){
-            $stadiumbookings->where('status', $request['status']);
-        }
+        return ['success' => true, 'data' => $data];
 
-        if($request->has('date') && $request['date']!=null){
-            $stadiumbookings->whereDate('date', $request['date']);
-        }else{
-            $stadiumbookings->whereDate('date', Carbon::now());
 
-        }
-        $stadiumbookings=$stadiumbookings->get();
 
 
         foreach($stadiumbookings as $booking){
-            
+
         }
         return view('admin.reports.bookings',compact('stadiumbookings','stds'));
     }
