@@ -14,7 +14,7 @@
         <div class="card">
             <div class="card-body">
              <div class="table-responsive">
-               <table id="dataTableExample" class="table">
+               <table class="table">
                     <thead>
                       <tr>
                       <th> Stadium Image</th>

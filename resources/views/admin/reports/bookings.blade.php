@@ -59,7 +59,7 @@
                 </div>
             <div class="card-body">
              <div class="table-responsive">
-               <table id="bookingTable" class="table">
+               <table class="table">
                     <thead>
                       <tr>
                       <th>Booking ID</th>
@@ -67,7 +67,6 @@
                         <th>User</th>
                         <th>User Phone</th>
                         <th>Stadium Name</th>
-                       <th>Stadium Type</th>
                        <th>Booking Date</th>
                        <th>Booking Time</th>
                        <th>Total Amount</th>
