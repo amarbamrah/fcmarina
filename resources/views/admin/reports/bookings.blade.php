@@ -29,7 +29,7 @@
                     <div class="form-group  col-md-6 mb-3">
                         <label class="form-label">Time Period:</label>
                         <input type="month" name="month"
-                            value="{{Request::get('month')==null?Carbon::now()->format('Y-m'):Request::get('month')}}"
+                            value="{{Request::get('month')==null?\Carbon\Carbon::now()->format('Y-m'):Request::get('month')}}"
                             class="form-control" id="">
                     </div>
 
