@@ -83,7 +83,13 @@
                             <div class="col-sm-6">
                                 <div class="mb-3">
                                     <label class="form-label">Featured Image</label>
+                                    @if(count($st->images)==0)
+                                    <input type="file" id="myDropify" class="form-control" name="image">
+
+                                    @else 
                                     <input type="file" id="myDropify" data-default-file="{{url(count($st->images)==0?'': $st->images[0]->image)}}"  class="form-control" name="image">
+
+                                    @endif
                                 </div>
                             </div><!-- Col -->
                         </div>
