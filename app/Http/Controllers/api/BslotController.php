@@ -279,7 +279,12 @@ class BslotController extends Controller
             
 
         ];
-        return ['success' => true, 'data' => $data,'price'=>200];
+
+        $price=200;
+        if($request['stadium_type']=='7s'){
+            $price=400;
+        }
+        return ['success' => true, 'data' => $data,'price'=>$price];
     }
 
     /**
