@@ -13,8 +13,8 @@
 	<div class="col-md-12 grid-margin stretch-card">
         <div class="card">
             <div class="card-body">
-             <div class="">
-               <table class="table responsive">
+             <div class="table-responsive">
+               <table class="table">
                     <thead>
                       <tr>
                       <th> Stadium Image</th>
