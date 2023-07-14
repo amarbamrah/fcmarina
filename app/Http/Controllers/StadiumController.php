@@ -159,6 +159,8 @@ class StadiumController extends Controller
         $days=[];
 
         foreach($dates as $date){
+
+            
             $rev=0;
             $hours=0;
 
@@ -171,6 +173,10 @@ class StadiumController extends Controller
             ];
             
             array_push($days,$day);
+
+            if($date->format('d-M-Y')==Carbon::now()->format('d-M-Y')){
+                break;
+            }
         }
 
        // return $days;

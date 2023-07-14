@@ -28,7 +28,9 @@
                     </div>
                     <div class="form-group  col-md-6 mb-3">
                         <label class="form-label">Time Period:</label>
-                       <input type="month" name="month" value="{{Request::get('month')==null?Carbon::now()->format('Y-m'):Request::get('month')}}" class="form-control" id="">
+                        <input type="month" name="month"
+                            value="{{Request::get('month')==null?Carbon::now()->format('Y-m'):Request::get('month')}}"
+                            class="form-control" id="">
                     </div>
 
 
@@ -45,6 +47,8 @@
 
 
 
+
+
     <div class="card mb-3 mt-3">
         <div class="card-header pb-0">
             <div class="d-flex justify-content-between">
@@ -53,39 +57,92 @@
             </div>
 
         </div>
-        <div class="card-body">
-            <div class="table-responsive">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>Date</th>
 
-                            <th>Hours</th>
-                            <th>Revenue (in Rs)</th>
-                           
-                        </tr>
+
+        <div class="accordion" id="accordionExample">
+
+            @foreach($days as $i=>$day)
+
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingOne">
+                    <button class="accordion-button collapsed d-flex" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#boxx{{$i}}" aria-expanded="true" aria-controls="boxx{{$i}}">
+                        <div class="col-md-4">
+                        {{$day['date']}}
+                        </div>
+
+                        <div class="flex-grow-1">
+                            Revenue Rs {{$day['rev']}} &nbsp;&nbsp; |&nbsp;&nbsp; Total Hours: {{$day['hours']}}
+                        </div>
+                    </button>
+                </h2>
+                <div id="boxx{{$i}}" class="accordion-collapse collapse" aria-labelledby="headingOne"
+                    data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                    <table class="table">
+                    <thead>
+                      <tr>
+                      <th>Booking ID</th>
+
+                        <th>User</th>
+                        <th>User Phone</th>
+                        <th>Stadium Name</th>
+                       <th>Stadium Type</th>
+                       <th>Booking Date</th>
+                       <th>Booking Time</th>
+                       <th>Total Amount</th>
+                       <th>Status</th>
+                       <th>Action</th>
+                      </tr>
                     </thead>
                     <tbody>
-                        @foreach($days as $i=>$day)
-                        <tr>
-                          <td>{{$day['date']}}</td>
-                          <td>{{$day['hours']}}</td>
-                          <td>{{$day['rev']}}</td>
+                    @foreach($day['bookings'] as $i=>$stdbook)
+                                <tr>
+                                  <td>{{$stdbook->booking_id}}</td>
+                                <td>{{$stdbook['user']==null?$stdbook->name:$stdbook['user']['name']}}</td> 
+                                <td>{{$stdbook['user']==null?$stdbook->Phone:$stdbook['user']['phonenumber']}}</td> 
 
+                                <td>{{$stdbook['stadium']['name']}}</td> 
+                                    <td>{{$stdbook->stadium_type}}</td>
+                                    <td>{{$stdbook->date}}</td>
+                                   <td> {{Carbon\Carbon::create($stdbook->from)->format(  'g:i A')}} -- {{Carbon\Carbon::create($stdbook->to)->format(' g:i A')}}</td>
+                                    <td>Rs {{$stdbook->total_amount}}</td>
+                                    <td>
+                                    <span class="badge {{$stdbook->status=='Confirmed'?'bg-primary':'bg-danger'}}">  
+                                    {{$stdbook->status}}
+</span>
+                                  </td>
+                                    <td>
+                                      <a href="/admin/stadium-bookings/{{$stdbook->id}}">
+                                      View <i style="width:17px;" data-feather="arrow-right"></i>
+                                      </a>
+                                    </td>
 
-                        </tr>
-                        @endforeach
+                                        
+                                </tr>
+                                @endforeach
 
 
 
                     </tbody>
-                </table>
+                  </table>
 
-
-
-              
+                  @if(count($day['bookings'])==0)
+                  <div class="text-center mt-2">
+                    <small>No Booking found</small>
+                  </div>
+                  @endif 
+                    </div>
+                </div>
             </div>
+
+            @endforeach
+
+
+
         </div>
+
+
     </div>
 </div>
 @endsection
