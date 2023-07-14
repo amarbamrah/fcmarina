@@ -51,8 +51,20 @@
 
     <div class="card mb-3 mt-3">
         <div class="card-header pb-0">
-            <div class="d-flex justify-content-between">
-                <h4 class="card-title mg-b-2 mt-2">Reports</h4>
+            <div class="d-flex  gap-4 align-items-center">
+                <h4 class="flex-grow-1 card-title mg-b-2 mt-2">Reports</h4>
+
+                <div>
+                    Total Bookings: <strong>{{$total_bookings}} </strong>
+                </div>
+
+                <div>
+                    Total Hours: <strong>{{$total_hours}} </strong>
+                </div>
+
+                <div>
+                    Total Rev: <strong>Rs {{$total_revs}} </strong>
+                </div>
                 <i class="mdi mdi-dots-horizontal text-gray"></i>
             </div>
 
@@ -68,70 +80,75 @@
                     <button class="accordion-button collapsed d-flex" type="button" data-bs-toggle="collapse"
                         data-bs-target="#boxx{{$i}}" aria-expanded="true" aria-controls="boxx{{$i}}">
                         <div class="col-md-4">
-                        {{$day['date']}}
+                            {{$day['date']}}
                         </div>
 
                         <div class="flex-grow-1">
                             Revenue Rs {{$day['rev']}} &nbsp;&nbsp; |&nbsp;&nbsp; Total Hours: {{$day['hours']}}
+                        </div>
+
+                        <div class="mr-3" style="margin-right:10px;">
+                            Total Bookings: {{count($day['bookings'])}}
                         </div>
                     </button>
                 </h2>
                 <div id="boxx{{$i}}" class="accordion-collapse collapse" aria-labelledby="headingOne"
                     data-bs-parent="#accordionExample">
                     <div class="accordion-body">
-                    <table class="table">
-                    <thead>
-                      <tr>
-                      <th>Booking ID</th>
-
-                        <th>User</th>
-                        <th>User Phone</th>
-                        <th>Stadium Name</th>
-                       <th>Stadium Type</th>
-                       <th>Booking Date</th>
-                       <th>Booking Time</th>
-                       <th>Total Amount</th>
-                       <th>Status</th>
-                       <th>Action</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                    @foreach($day['bookings'] as $i=>$stdbook)
+                        <table class="table">
+                            <thead>
                                 <tr>
-                                  <td>{{$stdbook->booking_id}}</td>
-                                <td>{{$stdbook['user']==null?$stdbook->name:$stdbook['user']['name']}}</td> 
-                                <td>{{$stdbook['user']==null?$stdbook->Phone:$stdbook['user']['phonenumber']}}</td> 
+                                    <th>Booking ID</th>
 
-                                <td>{{$stdbook['stadium']['name']}}</td> 
+                                    <th>User</th>
+                                    <th>User Phone</th>
+                                    <th>Stadium Name</th>
+                                    <th>Stadium Type</th>
+                                    <th>Booking Date</th>
+                                    <th>Booking Time</th>
+                                    <th>Total Amount</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($day['bookings'] as $i=>$stdbook)
+                                <tr>
+                                    <td>{{$stdbook->booking_id}}</td>
+                                    <td>{{$stdbook['user']==null?$stdbook->name:$stdbook['user']['name']}}</td>
+                                    <td>{{$stdbook['user']==null?$stdbook->Phone:$stdbook['user']['phonenumber']}}</td>
+
+                                    <td>{{$stdbook['stadium']['name']}}</td>
                                     <td>{{$stdbook->stadium_type}}</td>
                                     <td>{{$stdbook->date}}</td>
-                                   <td> {{Carbon\Carbon::create($stdbook->from)->format(  'g:i A')}} -- {{Carbon\Carbon::create($stdbook->to)->format(' g:i A')}}</td>
+                                    <td> {{Carbon\Carbon::create($stdbook->from)->format(  'g:i A')}} --
+                                        {{Carbon\Carbon::create($stdbook->to)->format(' g:i A')}}</td>
                                     <td>Rs {{$stdbook->total_amount}}</td>
                                     <td>
-                                    <span class="badge {{$stdbook->status=='Confirmed'?'bg-primary':'bg-danger'}}">  
-                                    {{$stdbook->status}}
-</span>
-                                  </td>
+                                        <span class="badge {{$stdbook->status=='Confirmed'?'bg-primary':'bg-danger'}}">
+                                            {{$stdbook->status}}
+                                        </span>
+                                    </td>
                                     <td>
-                                      <a href="/admin/stadium-bookings/{{$stdbook->id}}">
-                                      View <i style="width:17px;" data-feather="arrow-right"></i>
-                                      </a>
+                                        <a href="/admin/stadium-bookings/{{$stdbook->id}}">
+                                            View <i style="width:17px;" data-feather="arrow-right"></i>
+                                        </a>
                                     </td>
 
-                                        
+
                                 </tr>
                                 @endforeach
 
 
 
-                    </tbody>
-                  </table>
+                            </tbody>
+                        </table>
 
-                  @if(count($day['bookings'])==0)
-                  <div class="text-center mt-2">
-                    <small>No Booking found</small>
-                  </div>
-                  @endif 
+                        @if(count($day['bookings'])==0)
+                        <div class="text-center mt-2">
+                            <small>No Booking found</small>
+                        </div>
+                        @endif
                     </div>
                 </div>
             </div>

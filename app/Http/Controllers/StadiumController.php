@@ -158,6 +158,11 @@ class StadiumController extends Controller
 
         $days=[];
 
+        $total_hours=0;
+        $total_revs=0;
+
+        $total_bookings=0;
+
         foreach($dates as $date){
 
             
@@ -165,12 +170,21 @@ class StadiumController extends Controller
             $hours=0;
 
             $bookings=StadiumBooking::whereDate('date',$date)->get();
+
+            $total_bookings+=count($bookings);
+            foreach($bookings as $booking){
+                $hours+=Carbon::create($booking->from)->floatDiffInHours(Carbon::create($booking->to));
+                $rev+=$booking->total_amount;
+            }
             $day=[
                 'date'=>$date->format('D d M Y'),
                 'bookings'=>$bookings,
                 'rev'=>$rev,
                 'hours'=>$hours
             ];
+
+            $total_hours+=$hours;
+            $total_revs+=$rev;
             
             array_push($days,$day);
 
@@ -181,7 +195,7 @@ class StadiumController extends Controller
 
        // return $days;
 
-        return view('admin.reports.bookings',compact('stadiumbookings','stds','days'));
+        return view('admin.reports.bookings',compact('stadiumbookings','stds','days','total_revs','total_bookings','total_hours'));
     }
 
 }
