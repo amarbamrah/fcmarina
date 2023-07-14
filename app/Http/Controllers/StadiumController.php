@@ -28,8 +28,9 @@ class StadiumController extends Controller
     public function edit(Stadium $stadium)
     {
         $locations = Location::all();
+        $st=$stadium;
 
-        return view('stadiums/edit', compact('stadium', 'locations'));
+        return view('admin.stadiums.edit', compact('st', 'locations'));
     }
 
     public function store(Request $request)
@@ -41,8 +42,24 @@ class StadiumController extends Controller
         $stadium->type = $request['type'];
         $stadium->address = $request['address'];
         $stadium->contactno = $request['contactno'];
-        $stadium->price_5s = $request['price_5s'];
-        $stadium->price_7s = $request['price_7s'];
+     
+
+        // saving prices
+        $stadium->mon5s = $request['mon5s'];
+        $stadium->mon7s = $request['mon7s'];
+        $stadium->tue5s = $request['tue5s'];
+        $stadium->tue7s = $request['tue7s'];
+        $stadium->wed5s = $request['wed5s'];
+        $stadium->wed7s = $request['wed7s'];
+        $stadium->thu5s = $request['thu5s'];
+        $stadium->thu7s = $request['thu7s'];
+        $stadium->fri5s = $request['fri5s'];
+        $stadium->fri7s = $request['fri7s'];
+        $stadium->sat5s = $request['sat5s'];
+        $stadium->sat7s = $request['sat7s'];
+        $stadium->sun5s = $request['sun5s'];
+        $stadium->sun7s = $request['sun7s'];
+
         $stadium->save();
 
         $image = $request->file('image');
@@ -78,8 +95,26 @@ class StadiumController extends Controller
         $stadium->type = $request['type'];
         $stadium->address = $request['address'];
         $stadium->contactno = $request['contactno'];
-        $stadium->price_5s = $request['price_5s'];
-        $stadium->price_7s = $request['price_7s'];
+
+
+         // saving prices
+         $stadium->mon5s = $request['mon5s'];
+         $stadium->mon7s = $request['mon7s'];
+         $stadium->tue5s = $request['tue5s'];
+         $stadium->tue7s = $request['tue7s'];
+         $stadium->wed5s = $request['wed5s'];
+         $stadium->wed7s = $request['wed7s'];
+         $stadium->thu5s = $request['thu5s'];
+         $stadium->thu7s = $request['thu7s'];
+         $stadium->fri5s = $request['fri5s'];
+         $stadium->fri7s = $request['fri7s'];
+         $stadium->sat5s = $request['sat5s'];
+         $stadium->sat7s = $request['sat7s'];
+         $stadium->sun5s = $request['sun5s'];
+         $stadium->sun7s = $request['sun7s'];
+
+         
+
         $stadium->save();
 
         if ($request->file('image') != null) {
@@ -93,7 +128,7 @@ class StadiumController extends Controller
             $simg->stadium_id = $stadium->id;
             $simg->save();
         }
-        return redirect('allstadiums');
+        return redirect('admin/stadiums');
 
     }
 

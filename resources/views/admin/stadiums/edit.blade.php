@@ -13,8 +13,10 @@
         <div class="col-md-12 grid-margin stretch-card">
             <div class="card">
                 <div class="card-body">
-                    <form method="post" action="/update-stadiums/{{$st->id}}" enctype="multipart/form-data">
+                    <form method="post" action="/admin/stadiums/{{$st->id}}" enctype="multipart/form-data">
                         @csrf
+
+                        <input type="hidden" name="_method" value="PUT">
                         <h6 class="card-title">Create Stadium Form</h6>
 
                         <div class="row">
@@ -74,25 +76,7 @@
                             </div>
                         </div><!-- Row -->
 
-                        <div class="row">
-
-                            <div class="col-sm-6">
-                                <div class="mb-3">
-                                    <label class="form-label">5S Price</label>
-                                    <input type="number" value="{{$st->price_5s}}" class="form-control" name="price_5s" placeholder="Enter price"
-                                        required>
-                                </div>
-                            </div><!-- Col -->
-                            <div class="col-sm-6">
-                                <div class="mb-3">
-                                    <label class="form-label">7S Price</label>
-                                    <input type="number" value="{{$st->price_7s}}" class="form-control" name="price_7s" placeholder="Enter price"
-                                        required>
-                                </div>
-                            </div>
-
-
-                        </div>
+            
                         <div class="row">
 
                             <div class="col-sm-6">
@@ -102,6 +86,120 @@
                                 </div>
                             </div><!-- Col -->
                         </div>
+
+
+                        <hr>
+
+<h4>Pricing</h4>
+<br>
+
+<div class="row mb-3">
+    <div class="form-group col-6">
+        <label for="inputPassword6" class="form-label">Monday (5s)</label>
+
+        <input type="number" class="form-control" value="{{$st->mon5s}}" name="mon5s">
+    </div>
+
+
+    <div class="form-group col-6">
+        <label class="form-label">Monday (7s)</label>
+
+        <input type="number" class="form-control" value="{{$st->mon7s}}" name="mon7s">
+    </div>
+
+</div>
+
+<div class="row mb-3">
+    <div class="form-group col-6">
+        <label class="form-label">Tuesday (5s)</label>
+
+        <input type="number" class="form-control" value="{{$st->tue5s}}" name="tue5s">
+    </div>
+
+    <div class="form-group col-6">
+        <label class="form-label">Tuesday (7s)</label>
+
+        <input type="number" class="form-control" value="{{$st->tue7s}}" name="tue7s">
+    </div>
+
+</div>
+
+<div class="row mb-3">
+    <div class="form-group col-6">
+        <label class="form-label">Wednesday (5s)</label>
+
+        <input type="number" class="form-control" value="{{$st->wed5s}}" name="wed5s">
+    </div>
+
+    <div class="form-group col-6">
+        <label class="form-label">Wednesday (7s)</label>
+
+        <input type="number" class="form-control" value="{{$st->wed7s}}" name="wed7s">
+    </div>
+
+</div>
+
+
+<div class="row mb-3">
+    <div class="form-group col-6">
+        <label class="form-label">Thursday (5s)</label>
+
+        <input type="number" class="form-control" value="{{$st->thu5s}}" name="thu5s">
+    </div>
+
+    <div class="form-group col-6">
+        <label class="form-label">Thursday (7s)</label>
+
+        <input type="number" class="form-control" value="{{$st->thu7s}}" name="thu7s">
+    </div>
+
+</div>
+
+<div class="row mb-3">
+    <div class="form-group col-6">
+        <label class="form-label">Friday (5s)</label>
+
+        <input type="number" class="form-control" value="{{$st->fri5s}}" name="fri5s">
+    </div>
+
+    <div class="form-group col-6">
+        <label class="form-label">Friday (7s)</label>
+
+        <input type="number" class="form-control" value="{{$st->fri7s}}" name="fri7s">
+    </div>
+
+</div>
+
+<div class="row mb-3">
+    <div class="form-group col-6">
+        <label class="form-label">Saturday (5s)</label>
+
+        <input type="number" class="form-control" value="{{$st->sat5s}}" name="sat5s">
+    </div>
+
+    <div class="form-group col-6">
+        <label class="form-label">Saturday (7s)</label>
+
+        <input type="number" class="form-control" value="{{$st->sat7s}}" name="sat7s">
+    </div>
+
+</div>
+
+
+<div class="row mb-3">
+    <div class="form-group col-6">
+        <label class="form-label">Sunday (5s)</label>
+
+        <input type="number" class="form-control" value="{{$st->sun5s}}" name="sun5s">
+    </div>
+
+    <div class="form-group col-6">
+        <label class="form-label">Sunday (7s)</label>
+
+        <input type="number" class="form-control" value="{{$st->sun7s}}" name="sun7s">
+    </div>
+
+</div>
 
 
                         <input type="submit" class="btn btn-primary" value="Update Stadium" />

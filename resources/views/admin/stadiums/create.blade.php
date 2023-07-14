@@ -78,30 +78,126 @@
 
                             <div class="col-sm-6">
                                 <div class="mb-3">
-                                    <label class="form-label">5S Price</label>
-                                    <input type="number" class="form-control" name="price_5s" placeholder="Enter price"
-                                        required>
-                                </div>
-                            </div><!-- Col -->
-                            <div class="col-sm-6">
-                                <div class="mb-3">
-                                    <label class="form-label">7S Price</label>
-                                    <input type="number" class="form-control" name="price_7s" placeholder="Enter price"
-                                        required>
-                                </div>
-                            </div>
-
-
-                        </div>
-                        <div class="row">
-
-                            <div class="col-sm-6">
-                                <div class="mb-3">
                                     <label class="form-label">Featured Image</label>
                                     <input id="myDropify" type="file" class="form-control" name="image" required>
                                 </div>
                             </div><!-- Col -->
                         </div>
+
+                        <hr>
+
+                        <h4>Pricing</h4>
+                        <br>
+
+                        <div class="row mb-3">
+                            <div class="form-group col-6">
+                                <label for="inputPassword6" class="form-label">Monday (5s)</label>
+
+                                <input type="number" class="form-control" name="mon5s">
+                            </div>
+
+
+                            <div class="form-group col-6">
+                                <label class="form-label">Monday (7s)</label>
+
+                                <input type="number" class="form-control" name="mon7s">
+                            </div>
+
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="form-group col-6">
+                                <label class="form-label">Tuesday (5s)</label>
+
+                                <input type="number" class="form-control" name="tue5s">
+                            </div>
+
+                            <div class="form-group col-6">
+                                <label class="form-label">Tuesday (7s)</label>
+
+                                <input type="number" class="form-control" name="tue7s">
+                            </div>
+
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="form-group col-6">
+                                <label class="form-label">Wednesday (5s)</label>
+
+                                <input type="number" class="form-control" name="wed5s">
+                            </div>
+
+                            <div class="form-group col-6">
+                                <label class="form-label">Wednesday (7s)</label>
+
+                                <input type="number" class="form-control" name="wed7s">
+                            </div>
+
+                        </div>
+
+
+                        <div class="row mb-3">
+                            <div class="form-group col-6">
+                                <label class="form-label">Thursday (5s)</label>
+
+                                <input type="number" class="form-control" name="thu5s">
+                            </div>
+
+                            <div class="form-group col-6">
+                                <label class="form-label">Thursday (7s)</label>
+
+                                <input type="number" class="form-control" name="thu7s">
+                            </div>
+
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="form-group col-6">
+                                <label class="form-label">Friday (5s)</label>
+
+                                <input type="number" class="form-control" name="fri5s">
+                            </div>
+
+                            <div class="form-group col-6">
+                                <label class="form-label">Friday (7s)</label>
+
+                                <input type="number" class="form-control" name="fri7s">
+                            </div>
+
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="form-group col-6">
+                                <label class="form-label">Saturday (5s)</label>
+
+                                <input type="number" class="form-control" name="sat5s">
+                            </div>
+
+                            <div class="form-group col-6">
+                                <label class="form-label">Saturday (7s)</label>
+
+                                <input type="number" class="form-control" name="sat7s">
+                            </div>
+
+                        </div>
+
+
+                        <div class="row mb-3">
+                            <div class="form-group col-6">
+                                <label class="form-label">Sunday (5s)</label>
+
+                                <input type="number" class="form-control" name="sun5s">
+                            </div>
+
+                            <div class="form-group col-6">
+                                <label class="form-label">Sunday (7s)</label>
+
+                                <input type="number" class="form-control" name="sun7s">
+                            </div>
+
+                        </div>
+
+
 
 
                         <input type="submit" class="btn btn-primary" value="Submit" />
@@ -112,8 +208,8 @@
         </div>
     </div>
 
-    </div>
+</div>
 
 
 
-    @endsection
+@endsection

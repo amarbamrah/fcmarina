@@ -22,8 +22,6 @@
                         <th>Stadium Type</th>
                         <th>Address</th>
                         <th>Contact_Number</th>
-                        <th> 5S Price</th>
-                        <th> 7S Price</th>
                         <th>Action</th>
                       </tr>
                     </thead>
@@ -37,10 +35,8 @@
                         <td>{{$std->type}}</td>
                         <td>{{$std->address}}</td>
                         <td>{{$std->contactno}}</td>
-                        <td>{{$std->price_5s}}</td>
-                        <td>{{$std->price_7s}}</td>
                         <td>
-                          <a href="/edit-stadiums/{{$std->id}}">
+                          <a href="/admin/stadiums/{{$std->id}}/edit">
                             <i class="fas fa-edit"></i> Edit
                           </a>
                         </td>
