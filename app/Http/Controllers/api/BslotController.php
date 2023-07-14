@@ -35,7 +35,7 @@ class BslotController extends Controller
         $stadium=Stadium::find($request['stadium_id']);
         
         $dayName=$date->format('D');
-        return ['day'=>$dayName];
+       // return ['day'=>$dayName];
         foreach ($twilight as $i => $slot) {
 
             $fully = 0;
@@ -276,9 +276,10 @@ class BslotController extends Controller
             'morning' => $morning,
             'noon' => $noon,
             'evening' => $evening,
+            
 
         ];
-        return ['success' => true, 'data' => $data];
+        return ['success' => true, 'data' => $data,'price'=>200];
     }
 
     /**
