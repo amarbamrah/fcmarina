@@ -157,6 +157,9 @@ class StadiumController extends Controller
 
         }
         $stadiumbookings=$stadiumbookings->get();
+
+
+        foreach($stadiumbookings as $stadiumbookings)
         return view('admin.reports.bookings',compact('stadiumbookings','stds'));
     }
 
