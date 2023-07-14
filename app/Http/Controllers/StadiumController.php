@@ -169,12 +169,21 @@ class StadiumController extends Controller
             $rev=0;
             $hours=0;
 
-            $bookings=StadiumBooking::whereDate('date',$date)->get();
+            
+            if($request->has('stadium')){
+                $bookings=StadiumBooking::where('stadium_id',$request['stadium'])->whereDate('date',$date)->get();
+
+            }else{
+                $bookings=StadiumBooking::whereDate('date',$date)->get();
+
+            }
 
             $total_bookings+=count($bookings);
             foreach($bookings as $booking){
+                if($booking->status!='Cancelled'){
                 $hours+=Carbon::create($booking->from)->floatDiffInHours(Carbon::create($booking->to));
                 $rev+=$booking->total_amount;
+                }
             }
             $day=[
                 'date'=>$date->format('D d M Y'),
