@@ -28,6 +28,11 @@ class BslotController extends Controller
 
         $sbs = StadiumBooking::where('stadium_id', $request['stadium_id'])->whereDate('date', $date)->get();
 
+
+        $stadium=Stadium::find($request['stadium_id']);
+        
+        $dayName=$date->format('D');
+        return ['day'=>$dayName];
         foreach ($twilight as $i => $slot) {
 
             $fully = 0;
