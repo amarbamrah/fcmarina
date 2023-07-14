@@ -58,41 +58,18 @@
                 <table class="table">
                     <thead>
                         <tr>
-                            <th>Booking ID</th>
+                            <th>Date</th>
 
-                            <th>User</th>
-                            <th>User Phone</th>
-                            <th>Stadium Name</th>
-                            <th>Booking Date</th>
-                            <th>Booking Time</th>
-                            <th>Total Amount</th>
-                            <th>Status</th>
-                            <th>Action</th>
+                            <th>Hours</th>
+                            <th>Revenue (in Rs)</th>
+                           
                         </tr>
                     </thead>
                     <tbody>
                         @foreach($stadiumbookings as $i=>$stdbook)
                         <tr>
                             <td>{{$stdbook->booking_id}}</td>
-                            <td>{{$stdbook['user']==null?$stdbook->name:$stdbook['user']['name']}}</td>
-                            <td>{{$stdbook['user']==null?$stdbook->Phone:$stdbook['user']['phonenumber']}}</td>
-
-                            <td>{{$stdbook['stadium']['name']}}</td>
-                            <td>{{$stdbook->stadium_type}}</td>
-                            <td>{{$stdbook->date}}</td>
-                            <td> {{Carbon\Carbon::create($stdbook->from)->format(  'g:i A')}} --
-                                {{Carbon\Carbon::create($stdbook->to)->format(' g:i A')}}</td>
-                            <td>Rs {{$stdbook->total_amount}}</td>
-                            <td>
-                                <span class="badge {{$stdbook->status=='Confirmed'?'bg-primary':'bg-danger'}}">
-                                    {{$stdbook->status}}
-                                </span>
-                            </td>
-                            <td>
-                                <a href="/admin/stadium-bookings/{{$stdbook->id}}">
-                                    View <i style="width:17px;" data-feather="arrow-right"></i>
-                                </a>
-                            </td>
+                            
 
 
                         </tr>
