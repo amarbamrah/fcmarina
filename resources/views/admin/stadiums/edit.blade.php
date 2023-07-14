@@ -50,9 +50,10 @@
                                 <div class="mb-3">
                                     <label class="form-label">Stadium Type </label>
                                     <select name="type" class="form-select" required>
+                                    <option value="both" {{$st->location_id=='both'?'selected':''}}>Both (5s+7s)</option>
+
                                         <option value="5s" {{$st->location_id=='5s'?'selected':''}}>5s</option>
                                         <option value="7s" {{$st->location_id=='7s'?'selected':''}}>7s</option>
-                                        <option value="both" {{$st->location_id=='both'?'selected':''}}>Both</option>
                                     </select>
                                 </div>
                             </div><!-- Col -->

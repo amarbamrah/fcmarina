@@ -208,6 +208,13 @@
     <script src="{{asset('assets/vendors/datatables.net-bs5/dataTables.bootstrap5.js')}}"></script>
 
     <script src="{{ asset('assets/js/dashboard-light.js')}}"></script>
+
+    <script src="{{ asset('assets/js/custscript.js')}}"></script>
+
+
+
+
+
 </body>
 
 </html>
