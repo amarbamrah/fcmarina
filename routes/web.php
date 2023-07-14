@@ -95,6 +95,9 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     Route::resource('/stadium-bookings', StadiumBookingController::class);
 
     Route::get('/app-users', [AppUserController::class, 'index'])->name('appuser.index');
+
+    Route::get('/reports', [StadiumController::class, 'reports']);
+
 });
 
 

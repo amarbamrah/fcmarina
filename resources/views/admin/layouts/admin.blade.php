@@ -127,6 +127,13 @@
                             </a>
                         </li>
 
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{url('/admin/reports')}}">
+                                <i class="link-icon" data-feather="bar-chart"></i>
+                                <span class="menu-title">Reports</span>
+                            </a>
+                        </li>
+
 
                         <li class="nav-item">
                             <a href="#" class="nav-link">

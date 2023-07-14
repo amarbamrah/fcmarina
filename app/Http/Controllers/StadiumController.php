@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Location;
 use App\Models\Stadium;
 use App\Models\StadiumImage;
+
+use App\Models\StadiumBooking;
+use Carbon\Carbon;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -130,6 +133,31 @@ class StadiumController extends Controller
         }
         return redirect('admin/stadiums');
 
+    }
+
+
+    public function reports(Request $request){
+        $stds=Stadium::all();
+
+        $stadiumbookings = StadiumBooking::query();
+
+
+        if($request->has('stadium') && $request['stadium']!="all"){
+            $stadiumbookings->where('stadium_id', $request['stadium']);
+        }
+
+        if($request->has('status') && $request['status']!="all"){
+            $stadiumbookings->where('status', $request['status']);
+        }
+
+        if($request->has('date') && $request['date']!=null){
+            $stadiumbookings->whereDate('date', $request['date']);
+        }else{
+            $stadiumbookings->whereDate('date', Carbon::now());
+
+        }
+        $stadiumbookings=$stadiumbookings->get();
+        return view('admin.reports.bookings',compact('stadiumbookings','stds'));
     }
 
 }
