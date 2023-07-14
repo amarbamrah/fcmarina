@@ -44,6 +44,10 @@
                       @endforeach
                     </tbody>
                   </table>
+
+                  <div>
+                    Total Hours: 0hrs
+                  </div>
                 </div>
               </div>
             </div>
