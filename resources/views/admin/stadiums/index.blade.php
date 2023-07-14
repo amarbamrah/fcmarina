@@ -29,7 +29,7 @@
                     @foreach($stadium as $std)
                       <tr>
                         <td>
-                      <img src=" {{url($std->images[0]['image'])}}" width="100" alt="" srcset="">    
+                      <img src=" {{url(count($std->images)==0?'': $std->images[0]['image'])}}" width="100" alt="" srcset="">    
                       </td>
                         <td>{{$std->name}}</td>
                         <td>{{$std->type}}</td>
