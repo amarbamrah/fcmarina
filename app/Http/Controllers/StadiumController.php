@@ -175,7 +175,7 @@ class StadiumController extends Controller
 
         }
 
-        return ['success' => true, 'data' => $data];
+       // return ['success' => true, 'data' => $data];
 
 
 
