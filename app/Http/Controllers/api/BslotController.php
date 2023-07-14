@@ -33,6 +33,17 @@ class BslotController extends Controller
 
 
         $stadium=Stadium::find($request['stadium_id']);
+
+        if($request->has('stadium_type')){
+           $selGameType=$request['stadium_type'];
+        }else{
+            if($stadium->type=='both'){
+             $selGameType='5s';
+                
+            }else{
+             $selGameType=$stadium->type;
+            }
+        }
         
         $dayName=$date->format('D');
        // return ['day'=>$dayName];
@@ -76,7 +87,7 @@ class BslotController extends Controller
                         } else {
                             if ($fully == 0) {
                                 $fully++;
-                                if($request['stadium_type']=='7s'){
+                                if($selGameType=='7s'){
                                     $slot->isFilled = true;
 
                                 }else{
@@ -135,7 +146,7 @@ class BslotController extends Controller
                         } else {
                             if ($fully == 0) {
                                 $fully++;
-                                if($request['stadium_type']=='7s'){
+                                if($selGameType=='7s'){
                                     $slot->isFilled = true;
 
                                 }else{
@@ -194,7 +205,7 @@ class BslotController extends Controller
                         } else {
                             if ($fully == 0) {
                                 $fully++;
-                                if($request['stadium_type']=='7s'){
+                                if($selGameType=='7s'){
                                     $slot->isFilled = true;
 
                                 }else{
@@ -253,7 +264,7 @@ class BslotController extends Controller
                         } else {
                             if ($fully == 0) {
                                 $fully++;
-                                if($request['stadium_type']=='7s'){
+                                if($selGameType=='7s'){
                                     $slot->isFilled = true;
 
                                 }else{
@@ -281,10 +292,10 @@ class BslotController extends Controller
         ];
 
         $price=200;
-        if($request['stadium_type']=='7s'){
+        if($selGameType=='7s'){
             $price=400;
         }
-        return ['success' => true, 'data' => $data,'price'=>$price];
+        return ['success' => true, 'data' => $data,'price'=>$price,'stadium_types'=>$stadium->type,'sel_game_type'=>$selGameType];
     }
 
     /**
