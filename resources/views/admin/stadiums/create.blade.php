@@ -94,14 +94,14 @@
                             <div class="form-group col-6 5sprices">
                                 <label class="form-label">Monday (5s)</label>
 
-                                <input type="number" class="form-control" name="mon5s">
+                                <input type="number" class="form-control" required name="mon5s">
                             </div>
 
 
                             <div class="form-group col-6 7sprices">
                                 <label class="form-label">Monday (7s)</label>
 
-                                <input type="number" class="form-control" name="mon7s">
+                                <input type="number" class="form-control" required name="mon7s">
                             </div>
 
                         </div>
@@ -110,13 +110,13 @@
                             <div class="form-group col-6 5sprices">
                                 <label class="form-label">Tuesday (5s)</label>
 
-                                <input type="number" class="form-control" name="tue5s">
+                                <input type="number" class="form-control" required name="tue5s">
                             </div>
 
                             <div class="form-group col-6 7sprices">
                                 <label class="form-label">Tuesday (7s)</label>
 
-                                <input type="number" class="form-control" name="tue7s">
+                                <input type="number" class="form-control" required name="tue7s">
                             </div>
 
                         </div>
@@ -125,13 +125,13 @@
                             <div class="form-group col-6 5sprices">
                                 <label class="form-label">Wednesday (5s)</label>
 
-                                <input type="number" class="form-control" name="wed5s">
+                                <input type="number" class="form-control" required name="wed5s">
                             </div>
 
                             <div class="form-group col-6 7sprices">
                                 <label class="form-label">Wednesday (7s)</label>
 
-                                <input type="number" class="form-control" name="wed7s">
+                                <input type="number" class="form-control" required name="wed7s">
                             </div>
 
                         </div>
@@ -141,13 +141,13 @@
                             <div class="form-group col-6 5sprices">
                                 <label class="form-label">Thursday (5s)</label>
 
-                                <input type="number" class="form-control" name="thu5s">
+                                <input type="number" class="form-control" required name="thu5s">
                             </div>
 
                             <div class="form-group col-6 7sprices">
                                 <label class="form-label">Thursday (7s)</label>
 
-                                <input type="number" class="form-control" name="thu7s">
+                                <input type="number" class="form-control" required name="thu7s">
                             </div>
 
                         </div>
@@ -156,13 +156,13 @@
                             <div class="form-group col-6 5sprices">
                                 <label class="form-label">Friday (5s)</label>
 
-                                <input type="number" class="form-control" name="fri5s">
+                                <input type="number" class="form-control" required name="fri5s">
                             </div>
 
                             <div class="form-group col-6 7sprices">
                                 <label class="form-label">Friday (7s)</label>
 
-                                <input type="number" class="form-control" name="fri7s">
+                                <input type="number" class="form-control" required name="fri7s">
                             </div>
 
                         </div>
@@ -171,13 +171,13 @@
                             <div class="form-group col-6 5sprices">
                                 <label class="form-label">Saturday (5s)</label>
 
-                                <input type="number" class="form-control" name="sat5s">
+                                <input type="number" class="form-control" required name="sat5s">
                             </div>
 
                             <div class="form-group col-6 7sprices">
                                 <label class="form-label">Saturday (7s)</label>
 
-                                <input type="number" class="form-control" name="sat7s">
+                                <input type="number" class="form-control" required name="sat7s">
                             </div>
 
                         </div>
@@ -187,13 +187,13 @@
                             <div class="form-group col-6 5sprices">
                                 <label class="form-label">Sunday (5s)</label>
 
-                                <input type="number" class="form-control" name="sun5s">
+                                <input type="number" class="form-control" required name="sun5s">
                             </div>
 
                             <div class="form-group col-6 7sprices">
                                 <label class="form-label">Sunday (7s)</label>
 
-                                <input type="number" class="form-control" name="sun7s">
+                                <input type="number" class="form-control" required name="sun7s">
                             </div>
 
                         </div>
