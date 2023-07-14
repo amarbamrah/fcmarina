@@ -66,9 +66,8 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($stadiumbookings as $i=>$stdbook)
+                        @foreach($days as $i=>$day)
                         <tr>
-                            <td>{{$stdbook->booking_id}}</td>
                             
 
 
