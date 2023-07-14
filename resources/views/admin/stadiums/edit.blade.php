@@ -83,7 +83,7 @@
                             <div class="col-sm-6">
                                 <div class="mb-3">
                                     <label class="form-label">Featured Image</label>
-                                    <input type="file" id="myDropify" data-default-file="{{url($st->images[0]->image)}}"  class="form-control" name="image">
+                                    <input type="file" id="myDropify" data-default-file="{{url(count($st->images)==0?'': $st->images[0]->image)}}"  class="form-control" name="image">
                                 </div>
                             </div><!-- Col -->
                         </div>
