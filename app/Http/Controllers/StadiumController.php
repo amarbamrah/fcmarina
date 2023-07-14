@@ -8,6 +8,12 @@ use App\Models\StadiumImage;
 
 use App\Models\StadiumBooking;
 use Carbon\Carbon;
+
+use Carbon\CarbonPeriod;
+
+use Carbon\CarbonInterval;
+
+
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -141,50 +147,34 @@ class StadiumController extends Controller
 
         $stadiumbookings = StadiumBooking::query();
 
-        $data = [];
+        $month=$request->has('month')?Carbon::create($request['month']):Carbon::now();
 
-        $startDate = Carbon::now()->subMonth(7)->startOfMonth();
-        $endDate = $startDate->endOfMonth();
-
-        $monthName = $startDate->format('M');
-
-        $from = $startDate->format('Y-m-d');
-        $to = $endDate->format('Y-m-d');
-
-        $sts = StadiumBooking::whereDate('created_at', '>=', $from)->whereDate('created_at', '<=', $to)->count();
-
-        $month = ['month' => $monthName, 'total_sts' => $sts, 'from' => $from, 'to' => $to];
-
-        //  array_push($data, $month);
-
-        // $to=
-
-        for ($i = 6; $i >= 0; $i--) {
-            $startDate = Carbon::now()->subMonth($i)->startOfMonth();
-            $endDate = Carbon::now()->subMonth($i)->endOfMonth();
-            $monthName = $startDate->format('M');
-
-            $from = $startDate->format('Y-m-d');
-            $to = $endDate->format('Y-m-d');
-
-            $sts = Stadium::whereDate('created_at', '>=', $from)->whereDate('created_at', '<=', $to)->count();
-
-            $month = ['month' => $monthName, 'total_sts' => $sts, 'from' => $from, 'to' => $to];
-
-            array_push($data, $month);
-
-        }
-
-       // return ['success' => true, 'data' => $data];
+        //return $month;
 
 
+        $dates=CarbonPeriod::create($month->startOfMonth(),$month->endOfMonth());
 
-
-        foreach($stadiumbookings as $booking){
-
-        }
+        $dates = CarbonPeriod::since($month->startOfMonth())->days(1)->until($month->endOfMonth());
 
         $days=[];
+
+        foreach($dates as $date){
+            $rev=0;
+            $hours=0;
+
+            $bookings=StadiumBooking::whereDate('date',$date)->get();
+            $day=[
+                'date'=>$date->format('D d M Y'),
+                'bookings'=>$bookings,
+                'rev'=>$rev,
+                'hours'=>$hours
+            ];
+            
+            array_push($days,$day);
+        }
+
+       // return $days;
+
         return view('admin.reports.bookings',compact('stadiumbookings','stds','days'));
     }
 
