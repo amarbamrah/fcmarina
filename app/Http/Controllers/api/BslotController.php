@@ -44,6 +44,21 @@ class BslotController extends Controller
              $selGameType=$stadium->type;
             }
         }
+
+        $price=$stadium->mon5s;
+
+
+        switch($date->format('D')){
+            case 'Mon': $price=$selGameType=='5s'?$stadium->mon5s:$stadium->mon7s;break;
+            case 'Tue': $price=$selGameType=='5s'?$stadium->tue5s:$stadium->tue7s;break;
+            case 'Wed': $price=$selGameType=='5s'?$stadium->wed5s:$stadium->wed7s;break;
+            case 'Thu': $price=$selGameType=='5s'?$stadium->thu5s:$stadium->thu7s;break;
+            case 'Fri': $price=$selGameType=='5s'?$stadium->fri5s:$stadium->fri7s;break;
+            case 'Sat': $price=$selGameType=='5s'?$stadium->sat5s:$stadium->sat7s;break;
+            case 'Sun': $price=$selGameType=='5s'?$stadium->sun5s:$stadium->sun7s;break;
+        }
+
+
         
         $dayName=$date->format('D');
        // return ['day'=>$dayName];
@@ -291,10 +306,7 @@ class BslotController extends Controller
 
         ];
 
-        $price=200;
-        if($selGameType=='7s'){
-            $price=400;
-        }
+       
         return ['success' => true, 'data' => $data,'price'=>$price,'stadium_types'=>$stadium->type,'sel_game_type'=>$selGameType];
     }
 
