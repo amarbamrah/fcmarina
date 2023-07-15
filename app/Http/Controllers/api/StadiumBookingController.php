@@ -106,6 +106,28 @@ class StadiumBookingController extends Controller
 
         $sb->save();
 
+
+
+        if($request['is_wallet']){
+            $pt = new WalletTransaction();
+            $pt->amount = $advance;
+            $pt->type = 'db';
+            $pt->user_id = $sb->user_id;
+
+            $pt->remarks = 'Booking ID:' . $sb->booking_id;
+            $pt->save();
+
+        $user = User::find($request['user_id']);
+           
+            $user->wallet_amount = $user->wallet_amount - $advance;
+            $user->save();
+
+        }
+
+
+
+
+
         $pts = $request['total_amount'] / 100;
         $pts = round($pts);
 
@@ -116,6 +138,7 @@ class StadiumBookingController extends Controller
 
         $pt->remarks = 'Earned From Booking ID:' . $booking_id;
         $pt->save();
+
 
         $user = User::find($request['user_id']);
 
