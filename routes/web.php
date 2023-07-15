@@ -70,6 +70,10 @@ Route::get('/terms-conditions',function(){
 
 
 
+Route::get('/nlogin',function(){
+    return view('login');
+});
+
 Route::prefix('admin')->middleware('auth')->group(function () {
 
 
