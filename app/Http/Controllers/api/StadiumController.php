@@ -214,6 +214,43 @@ class StadiumController extends Controller
         }
 
         $sb->save();
+
+        if ($request['booked_for'] == null) {
+            $phno = $request['phone'];
+
+            $name = $request['name'];
+
+            $key = "rzp_live_vjwBasZlFwdr36";
+            $secret = "24HHwxlXpmXmARFoXvK1syzH";
+
+            $api = new Api($key, $secret);
+
+            $amount = $request['total_amount'];
+
+            $response = $api->paymentLink->create(array('amount' => $amount, 'currency' => 'INR', 'accept_partial' => true,
+                'description' => 'For FC Marina Booking', 'customer' => array('name' => $name,
+                    'contact' => '+91' . $phno), 'notify' => array('sms' => false, 'email' => false),
+                'reminder_enable' => false, 'callback_url' => 'https://example-callback-url.com/',
+                'callback_method' => 'get'));
+
+            $link = $response->short_url;
+
+            $link = rawurlencode($link);
+            //  $url = "http://api.nsite.in/api/v2/SendSMS?SenderId=FCMARI&Is_Unicode=false&Is_Flash=false&Message=Dear%20" . $name . ",%20please%20make%20the%20payment%20to%20confirm%20your%20slot%20booking%20at%20FC%20MARINA%20Var.%20\nClick:%20" . $link . "%20to%20make%20the%20payment.%20\nPayment%20link%20is%20valid%20for%205%20minutes.%20Thank%20you.%20FC%20MARINA%20BOOKING%20APP.&MobileNumbers=" . $phno . "&ApiKey=mLdRdY8ey1ZTzMY0OifcDjaTO7rJ7gMTgsogL8ragGs=&ClientId=7a0c1703-92c1-4a91-918b-4ac7d9b8d1b3";
+
+            $url = 'http://api.nsite.in/api/v2/SendSMS?SenderId=FCMARI&Is_Unicode=false&Is_Flash=false&Message=Dear%20' . $name . ',%20please%20make%20the%20payment%20to%20confirm%20your%20slot%20booking%20at%20FC%20MARINA%20Var.%20Click:%20' . $link . '%20to%20make%20the%20payment.%20Payment%20link%20is%20valid%20for%205%20minutes.%20Thank%20you.%20FC%20MARINA%20BOOKING%20APP.&MobileNumbers=' . $phno . '&ApiKey=mLdRdY8ey1ZTzMY0OifcDjaTO7rJ7gMTgsogL8ragGs=&ClientId=7a0c1703-92c1-4a91-918b-4ac7d9b8d1b3';
+            $curl = curl_init($url);
+            curl_setopt($curl, CURLOPT_URL, $url);
+            curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+
+//for debug only!
+            curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
+            curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+
+            $resp = curl_exec($curl);
+            curl_close($curl);
+        }
+
         return ['success' => true, 'booking_id' => $sb->id];
     }
 
@@ -301,7 +338,6 @@ class StadiumController extends Controller
 
         $name = $request['name'];
 
-
         $key = "rzp_live_vjwBasZlFwdr36";
         $secret = "24HHwxlXpmXmARFoXvK1syzH";
 
@@ -311,16 +347,16 @@ class StadiumController extends Controller
 
         $response = $api->paymentLink->create(array('amount' => $amount, 'currency' => 'INR', 'accept_partial' => true,
             'description' => 'For FC Marina Booking', 'customer' => array('name' => $name,
-                'contact' => '+91'.$phno), 'notify' => array('sms' => false, 'email' => false),
+                'contact' => '+91' . $phno), 'notify' => array('sms' => false, 'email' => false),
             'reminder_enable' => false, 'callback_url' => 'https://example-callback-url.com/',
             'callback_method' => 'get'));
 
         $link = $response->short_url;
 
-        $link=rawurlencode($link);
-      //  $url = "http://api.nsite.in/api/v2/SendSMS?SenderId=FCMARI&Is_Unicode=false&Is_Flash=false&Message=Dear%20" . $name . ",%20please%20make%20the%20payment%20to%20confirm%20your%20slot%20booking%20at%20FC%20MARINA%20Var.%20\nClick:%20" . $link . "%20to%20make%20the%20payment.%20\nPayment%20link%20is%20valid%20for%205%20minutes.%20Thank%20you.%20FC%20MARINA%20BOOKING%20APP.&MobileNumbers=" . $phno . "&ApiKey=mLdRdY8ey1ZTzMY0OifcDjaTO7rJ7gMTgsogL8ragGs=&ClientId=7a0c1703-92c1-4a91-918b-4ac7d9b8d1b3";
+        $link = rawurlencode($link);
+        //  $url = "http://api.nsite.in/api/v2/SendSMS?SenderId=FCMARI&Is_Unicode=false&Is_Flash=false&Message=Dear%20" . $name . ",%20please%20make%20the%20payment%20to%20confirm%20your%20slot%20booking%20at%20FC%20MARINA%20Var.%20\nClick:%20" . $link . "%20to%20make%20the%20payment.%20\nPayment%20link%20is%20valid%20for%205%20minutes.%20Thank%20you.%20FC%20MARINA%20BOOKING%20APP.&MobileNumbers=" . $phno . "&ApiKey=mLdRdY8ey1ZTzMY0OifcDjaTO7rJ7gMTgsogL8ragGs=&ClientId=7a0c1703-92c1-4a91-918b-4ac7d9b8d1b3";
 
-        $url='http://api.nsite.in/api/v2/SendSMS?SenderId=FCMARI&Is_Unicode=false&Is_Flash=false&Message=Dear%20'.$name.',%20please%20make%20the%20payment%20to%20confirm%20your%20slot%20booking%20at%20FC%20MARINA%20Var.%20Click:%20'.$link.'%20to%20make%20the%20payment.%20Payment%20link%20is%20valid%20for%205%20minutes.%20Thank%20you.%20FC%20MARINA%20BOOKING%20APP.&MobileNumbers='.$phno.'&ApiKey=mLdRdY8ey1ZTzMY0OifcDjaTO7rJ7gMTgsogL8ragGs=&ClientId=7a0c1703-92c1-4a91-918b-4ac7d9b8d1b3';
+        $url = 'http://api.nsite.in/api/v2/SendSMS?SenderId=FCMARI&Is_Unicode=false&Is_Flash=false&Message=Dear%20' . $name . ',%20please%20make%20the%20payment%20to%20confirm%20your%20slot%20booking%20at%20FC%20MARINA%20Var.%20Click:%20' . $link . '%20to%20make%20the%20payment.%20Payment%20link%20is%20valid%20for%205%20minutes.%20Thank%20you.%20FC%20MARINA%20BOOKING%20APP.&MobileNumbers=' . $phno . '&ApiKey=mLdRdY8ey1ZTzMY0OifcDjaTO7rJ7gMTgsogL8ragGs=&ClientId=7a0c1703-92c1-4a91-918b-4ac7d9b8d1b3';
         $curl = curl_init($url);
         curl_setopt($curl, CURLOPT_URL, $url);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
@@ -332,8 +368,7 @@ class StadiumController extends Controller
         $resp = curl_exec($curl);
         curl_close($curl);
 
-
-        return ['success'=>true,'link'=>$url,'name'=>$name,'phone'=>$phno];
+        return ['success' => true, 'link' => $url, 'name' => $name, 'phone' => $phno];
 
     }
 }
