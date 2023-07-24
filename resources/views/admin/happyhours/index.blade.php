@@ -21,12 +21,18 @@
                             <th>Stadium Name</th>
                             <th>Timing</th>
                             <th>Discount</th>
-                            <th>Specific for User</th>
+                            <th>Applicable for</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach($hrs as $i=>$hr)
                         <tr>
+
+                        <td>{{$hr->stadium->name}}</td>
+                        <td>{{\Carbon\Carbon::create($hr->from)->format('h:i a')}} - {{\Carbon\Carbon::create($hr->to)->format('h:i a')}}</td>
+                        <td>{{$hr->discount}} %</td>
+                        <td>{{$hr->user_id!=null?'Specific':'All User'}}</td>
+
 
 
                         </tr>
@@ -58,14 +64,15 @@
             </div>
             <div class="modal-body">
                 <form action="/admin/happy-hours" method="post">
+                    @csrf
                     <div class="row mb-3">
                         <label for=""> Timing [From-To]</label>
                         <div class="col-md-6">
-                            <input type="time" class="form-control">
+                            <input type="time"  name="from" class="form-control">
                         </div>
 
                         <div class="col-md-6">
-                            <input type="time" class="form-control">
+                            <input type="time"  name="to" class="form-control">
                         </div>
                     </div>
 
@@ -76,20 +83,110 @@
 
 
                     <div class="form-group mb-3">
-                            <label class="form-label">Select Stadium:</label>
-                            <select name="stadium" class="form-select" id="">
-                              <option value="all">All</option>
-                              @foreach($stds as $st)
-                                 <option value="{{$st->id}}" {{Request::get('stadium')==$st->id?'selected':''}}>{{$st->name}}</option>
-                              @endforeach
+                        <label class="form-label">Select Stadium:</label>
+                        <select name="stadium" class="form-select" id="">
+                            <option value="all">All</option>
+                            @foreach($stds as $st)
+                            <option value="{{$st->id}}" {{Request::get('stadium')==$st->id?'selected':''}}>{{$st->name}}
+                            </option>
+                            @endforeach
 
-                            </select>
-                        </div>
-                </form>
+                        </select>
+                    </div>
+
+
+                    <div class="form-group mb-3">
+                        <label class="form-label">Applicable For:</label>
+                        <select name="applicable" class="form-select" id="applicable">
+                            <option value="all">All Users</option>
+                            <option value="spec">Specific User</option>4
+                          
+
+                        </select>
+                    </div>
+
+                    <div class="form-group mb-3" id="userbox" style="display:none;">
+                        <label for="">User's Phone No</label>
+                        <input type="phone" name="phone" class="form-control" id="">
+                    </div>
+
+
+
+                    <div class="form-group mb-3">
+                        <label class="form-label">Select Days:</label>
+                    <div class="form-check">
+                        <input class="form-check-input" name="days[]" checked
+                            type="checkbox" value="Mon" id="Mon">
+                        <label class="form-check-label" for="Mon">
+                            Monday
+                        </label>
+                    </div>
+
+                    <div class="form-check">
+                        <input class="form-check-input" name="days[]" checked
+                            type="checkbox" value="Tue" id="Tue">
+                        <label class="form-check-label" for="Tue">
+                            Tuesday
+                        </label>
+                    </div>
+
+
+                    <div class="form-check">
+                        <input class="form-check-input" name="days[]" checked
+                            type="checkbox" value="Wed" id="Wed">
+                        <label class="form-check-label" for="Wed">
+                            Wednesday
+                        </label>
+                    </div>
+
+
+                   
+
+                    <div class="form-check">
+                        <input class="form-check-input" name="days[]" checked
+                            type="checkbox" value="Thu" id="Thu">
+                        <label class="form-check-label" for="Thu">
+                            Thursday
+                        </label>
+                    </div>
+
+
+                    <div class="form-check">
+                        <input class="form-check-input" name="days[]" checked
+                            type="checkbox" value="Fri" id="Fri">
+                        <label class="form-check-label" for="Fri">
+                            Friday
+                        </label>
+                    </div>
+
+
+                    <div class="form-check">
+                        <input class="form-check-input" name="days[]" checked
+                            type="checkbox" value="Sat" id="Sat">
+                        <label class="form-check-label" for="Sat">
+                            Saturday
+                        </label>
+                    </div>
+
+                    <div class="form-check">
+                        <input class="form-check-input" name="days[]" checked
+                            type="checkbox" value="Sun" id="Sun">
+                        <label class="form-check-label" for="Sun">
+                            Sunday
+                        </label>
+                    </div>
+
+                    </div>
+
+
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
+                <button type="submit" class="btn btn-primary">Save changes</button>
+
+
+                </form>
+
             </div>
         </div>
     </div>

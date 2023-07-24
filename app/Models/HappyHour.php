@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class HappyHour extends Model
 {
     use HasFactory;
+
+
+    public function stadium(){
+        return $this->belongsTo(Stadium::class,'stadium_id');
+    }
 }

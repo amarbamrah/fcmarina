@@ -36,4 +36,15 @@ $(document).ready(function(){
 
        
     })
+
+
+    $('#applicable').on('change',function(){
+        if($(this).val()=='all'){
+            $('#userbox').css('display','none');
+
+        }else{
+            $('#userbox').css('display','block');
+
+        }
+    });
 });

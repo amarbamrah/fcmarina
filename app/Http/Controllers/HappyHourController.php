@@ -33,7 +33,16 @@ class HappyHourController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $happyHour = new HappyHour();
+        $happyHour->from = $request['from'];
+        $happyHour->to = $request['to'];
+        $happyHour->days = json_encode($request['days']);
+        $happyHour->user_id = $request['user_id'];
+        $happyHour->discount = $request['discount'];
+        $happyHour->stadium_id= $request['stadium'];
+
+        $happyHour->save();
+        return redirect()->back();
     }
 
     /**
