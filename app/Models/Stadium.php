@@ -14,7 +14,7 @@ class Stadium extends Model
     }
 
     public function amenities(){
-        return $this->hasManyThrough(Amenity::class,StadiumAmenity::class);
+        return $this->hasMany(Amenity::class);
     }
 
     
