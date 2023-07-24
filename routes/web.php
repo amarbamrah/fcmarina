@@ -14,6 +14,11 @@ use App\Http\Controllers\CancelReasonController;
 
 use App\Http\Controllers\StadiumBookingController;
 
+use App\Http\Controllers\HappyHourController;
+
+
+
+
 
 use App\Http\Controllers\AppUserController;
 
@@ -97,6 +102,10 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     // Route::post('/stadiums/store', [StadiumController::class, 'store'])->name('stadium.store');
 
     Route::resource('/stadium-bookings', StadiumBookingController::class);
+
+
+    Route::resource('/happy-hours', HappyHourController::class);
+
 
     Route::get('/app-users', [AppUserController::class, 'index'])->name('appuser.index');
 

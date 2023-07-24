@@ -128,6 +128,13 @@
                         </li>
 
                         <li class="nav-item">
+                            <a class="nav-link" href="{{url('/admin/happy-hours')}}">
+                                <i class="link-icon" data-feather="clock"></i>
+                                <span class="menu-title">Happy Hours</span>
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
                             <a class="nav-link" href="{{url('/admin/reports')}}">
                                 <i class="link-icon" data-feather="bar-chart"></i>
                                 <span class="menu-title">Reports</span>

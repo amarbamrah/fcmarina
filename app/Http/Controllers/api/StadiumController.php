@@ -31,6 +31,8 @@ class StadiumController extends Controller
             $slotsLeft = 2;
             $stadium->slots_left = $slotsLeft;
 
+            $stadium->happy_hour_msg='10% off from 9am to 12pm';
+
         }
         return ['data' => $stadiums, 'success' => true];
     }
@@ -190,7 +192,7 @@ class StadiumController extends Controller
             $sb->total_amount = $request['total_amount'];
             $sb->rem_amount = 0;
             $sb->advance = $request['total_amount'];
-            $sb->status = 'Confirmed';
+            $sb->status = 'Processing';
 
         }
 
@@ -286,13 +288,20 @@ class StadiumController extends Controller
             $sts = Stadium::whereDate('created_at', '>=', $from)->whereDate('created_at', '<=', $to)->count();
 
             $month = ['month' => $monthName, 'total_sts' => $sts, 'from' => $from, 'to' => $to];
-
             array_push($data, $month);
-
         }
-
         return ['success' => true, 'data' => $data];
     }
+
+    public function confirmBookingFromRpay(Request $request)
+    {
+        $booking=Booking::where('plink_id',$request['razorpay_payment_link_id'])->first();
+        if($booking){
+            $booking->status='Confirmed';
+            $booking->save();
+        }
+    }
+
 
     public function completeBooking(Request $request)
     {
