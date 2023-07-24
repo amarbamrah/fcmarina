@@ -42,7 +42,7 @@ class StadiumController extends Controller
 
             $happyHours=HappyHour::where('stadium_id',$stadium->id)->first();
             if($happyHours){
-                $stadium->happy_hour_msg=$happyHours->discount.'% off from '.$happyHours->from. ' to '.$happyHours->to;
+                $stadium->happy_hour_msg=$happyHours->discount.'% off from '.Carbon::create($happyHours->from)->format('h:i a'). ' to '.Carbon::create($happyHours->to)->format('h:i a');
 
             }
 
