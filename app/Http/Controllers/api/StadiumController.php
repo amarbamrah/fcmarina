@@ -71,7 +71,7 @@ class StadiumController extends Controller
         $stadium->slots_left = $slotsLeft;
 
         $ams=[];
-        $sas=StadiumAmenity::where('stadium_id',$stadium->id)->get;
+        $sas=StadiumAmenity::where('stadium_id',$stadium->id)->get();
 
         foreach($sas as $sa){
             $am=Amenity::find($sa->amenity_id);
