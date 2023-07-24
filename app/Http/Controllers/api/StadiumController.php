@@ -76,7 +76,7 @@ class StadiumController extends Controller
         foreach($sas as $sa){
             $am=Amenity::find($sa->amenity_id);
             array_push($ams,[
-                'title'=>$am->title
+                'title'=>$am->title,
             ]);
         }
         $stadium->amenities= $ams;
