@@ -40,7 +40,7 @@ class StadiumController extends Controller
             $slotsLeft = 2;
             $stadium->slots_left = $slotsLeft;
 
-            $happyHours=HappyHours::where('stadium_id',$stadium->id)->first();
+            $happyHours=HappyHour::where('stadium_id',$stadium->id)->first();
             if($happyHours){
                 $stadium->happy_hour_msg=$happyHours->discount.'% off from '.$happyHours->from. ' to '.$happyHours->to;
 
