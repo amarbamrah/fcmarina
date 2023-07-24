@@ -7,6 +7,9 @@ use App\Models\BookingPayment;
 use App\Models\Location;
 use App\Models\Stadium;
 use App\Models\StadiumBooking;
+
+use App\Models\HappyHour;
+
 use App\Models\StadiumImage;
 use App\Models\User;
 
