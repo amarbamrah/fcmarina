@@ -41,6 +41,8 @@ class HappyHourController extends Controller
         $happyHour->discount = $request['discount'];
         $happyHour->hours = $request['hours'];
 
+        
+
         $happyHour->stadium_id= $request['stadium'];
 
         $happyHour->save();
