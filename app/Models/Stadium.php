@@ -12,4 +12,10 @@ class Stadium extends Model
     public function images(){
         return $this->hasMany(StadiumImage::class);
     }
+
+    public function amenities(){
+        return $this->hasMany(Amenity::class);
+    }
+
+    
 }
