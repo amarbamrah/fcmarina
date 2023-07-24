@@ -46,9 +46,9 @@
                             </div><!-- Col -->
                             <div class="col-sm-6">
                                 <div class="mb-3">
-                                    <label class="form-label">Stadium Type  <span class="text-danger">*</span> </label>
-                                    <select name="type"  id="stypebox" class="form-select" required>
-                                    <option value="both">Both (5s+7s)</option>
+                                    <label class="form-label">Stadium Type <span class="text-danger">*</span> </label>
+                                    <select name="type" id="stypebox" class="form-select" required>
+                                        <option value="both">Both (5s+7s)</option>
 
                                         <option value="5s">5s</option>
                                         <option value="7s">7s</option>
@@ -198,6 +198,28 @@
 
                         </div>
 
+
+                        <hr>
+                        <div class="row mb-3">
+
+                            <h4 class="mb-3">Amenities</h4>
+
+                            <br>
+                            @foreach($ameneties as $am)
+                            <div class="form-check">
+                                <input class="form-check-input" name="ams[]" type="checkbox" value="{{$am->id}}"
+                                    id="flexCheckDefault{{$am->id}}">
+                                <label class="form-check-label" for="flexCheckDefault{{$am->id}}">
+                                    {{$am->title}}
+                                </label>
+                            </div>
+
+                            @endforeach
+                        </div>
+
+
+
+                        <hr>
 
 
 

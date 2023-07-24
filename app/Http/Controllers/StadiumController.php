@@ -7,6 +7,14 @@ use App\Models\Stadium;
 use App\Models\StadiumImage;
 
 use App\Models\StadiumBooking;
+
+use App\Models\Amenity;
+
+use App\Models\StadiumAmenity;
+
+
+
+
 use Carbon\Carbon;
 
 use Carbon\CarbonPeriod;
@@ -30,8 +38,9 @@ class StadiumController extends Controller
 
     public function create()
     {
+        $ameneties=Amenity::all();
         $locations = Location::all();
-        return view('admin.stadiums.create', compact('locations'));
+        return view('admin.stadiums.create', compact('locations','ameneties'));
     }
 
     public function edit(Stadium $stadium)
@@ -39,11 +48,26 @@ class StadiumController extends Controller
         $locations = Location::all();
         $st=$stadium;
 
-        return view('admin.stadiums.edit', compact('st', 'locations'));
+        $ameneties=Amenity::all();
+
+        $sams=StadiumAmenity::where('stadium_id',$stadium->id)->get();
+
+        $sas=[];
+
+
+
+        foreach($sams as $sam){
+            array_push($sas,$sam->amenity_id );
+        }
+
+
+        return view('admin.stadiums.edit', compact('st', 'locations','ameneties','sas'));
     }
 
     public function store(Request $request)
     {
+
+        $ams= $request['ams'];
         $stadium = new Stadium();
         $stadium->name = $request['name'];
         $stadium->description = $request['description'];
@@ -91,12 +115,22 @@ class StadiumController extends Controller
 
         $user->save();
 
+
+        foreach($ams as $am){
+            $sa=new StadiumAmenity();
+            $sa->stadium_id=$stadium->id;
+            $sa->amenity_id=$am;
+            $sa->save();
+        }
         return redirect('/admin/stadiums');
 
     }
 
     public function update(Request $request, $id)
     {
+
+        $ams= $request['ams'];
+
         $stadium = Stadium::find($id);
         $stadium->name = $request['name'];
         $stadium->description = $request['description'];
@@ -137,6 +171,18 @@ class StadiumController extends Controller
             $simg->stadium_id = $stadium->id;
             $simg->save();
         }
+
+
+        StadiumAmenity::where('stadium_id',$stadium->id)->delete();
+
+        foreach($ams as $am){
+            $sa=new StadiumAmenity();
+            $sa->stadium_id=$stadium->id;
+            $sa->amenity_id=$am;
+            $sa->save();
+        }
+
+
         return redirect('admin/stadiums');
 
     }

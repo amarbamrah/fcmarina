@@ -65,8 +65,6 @@ class StadiumController extends Controller
         $stadium->slots_left = $slotsLeft;
 
         $stadium->happy_hour_msg='10% off from 9am to 12pm';
-
-
         return ['data' => $stadium, 'success' => true];
 
     }
