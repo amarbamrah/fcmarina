@@ -90,7 +90,6 @@
                     <div class="form-group mb-3">
                         <label class="form-label">Select Stadium:</label>
                         <select name="stadium" class="form-select" id="">
-                            <option value="all">All</option>
                             @foreach($stds as $st)
                             <option value="{{$st->id}}" {{Request::get('stadium')==$st->id?'selected':''}}>{{$st->name}}
                             </option>
