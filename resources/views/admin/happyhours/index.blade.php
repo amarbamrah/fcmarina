@@ -20,6 +20,8 @@
                         <tr>
                             <th>Stadium Name</th>
                             <th>Timing</th>
+                            <th>Min Hours</th>
+
                             <th>Discount</th>
                             <th>Applicable for</th>
                         </tr>
@@ -30,6 +32,8 @@
 
                         <td>{{$hr->stadium->name}}</td>
                         <td>{{\Carbon\Carbon::create($hr->from)->format('h:i a')}} - {{\Carbon\Carbon::create($hr->to)->format('h:i a')}}</td>
+                        <td>{{$hr->hours}}hrs</td>
+
                         <td>{{$hr->discount}} %</td>
                         <td>{{$hr->user_id!=null?'Specific':'All User'}}</td>
 
