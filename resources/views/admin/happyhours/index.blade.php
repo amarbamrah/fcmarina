@@ -81,6 +81,11 @@
                         <input type="number" name="discount" class="form-control" id="">
                     </div>
 
+                    <div class="form-group mb-3">
+                        <label for="">Min Hours</label>
+                        <input type="number" name="hours" class="form-control" id="">
+                    </div>
+
 
                     <div class="form-group mb-3">
                         <label class="form-label">Select Stadium:</label>
