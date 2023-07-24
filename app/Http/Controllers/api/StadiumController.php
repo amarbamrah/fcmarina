@@ -65,6 +65,14 @@ class StadiumController extends Controller
         $stadium->slots_left = $slotsLeft;
 
         $ams=[];
+        $sas=StadiumAmenity::where('stadium_id',$stadium->id)->get;
+
+        foreach($sas as $sa){
+            $am=Amenity::find($sa->amenity_id);
+            array_push($ams,[
+                'title'=>$am->title
+            ]);
+        }
         $stadium->amenities= $ams;
         $stadium->happy_hour_msg='10% off from 9am to 12pm';
         return ['data' => $stadium, 'success' => true];
