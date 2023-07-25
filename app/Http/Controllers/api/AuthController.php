@@ -3,17 +3,11 @@
 namespace App\Http\Controllers\api;
 
 use App\Http\Controllers\Controller;
-
-use Illuminate\Support\Facades\Auth;
-
-use App\Models\User;
 use App\Models\Stadium;
 use App\Models\StadiumImage;
-
-
-
-
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
@@ -23,21 +17,25 @@ class AuthController extends Controller
     public function venueLogin(Request $request)
     {
         if (Auth::attempt(['email' => $request['username'], 'password' => $request['password']])) {
-            $user= Auth::user();
-         //   $token = $user()->createToken($request['username']);
-            return ['success' => true, 'user' =>$user,'token'=>'abc'];
+            $user = Auth::user();
+            //   $token = $user()->createToken($request['username']);
+            return ['success' => true, 'user' => $user, 'token' => 'abc'];
         } else {
             return ['success' => false];
         }
     }
 
-
     public function stadiumDetails(Request $request)
     {
-        $user=User::find($request['user_id']);
-        $stadium=Stadium::find($user->stadium_id);
-        $stadium->images=StadiumImage::where('stadium_id',$stadium->id)->get();
-        return ['success'=>true,'data'=>$stadium];
+        $user = User::find($request['user_id']);
+        if ($user->role == 'Admin') {
+            $stadium = Stadium::first();
+        } else {
+            $stadium = Stadium::find($user->stadium_id);
+        }
+        $stadium->images = StadiumImage::where('stadium_id', $stadium->id)->get();
+
+        return ['success' => true, 'data' => $stadium];
     }
 
     /**
@@ -87,9 +85,5 @@ class AuthController extends Controller
     {
         //
     }
-
-
-    
-
 
 }
