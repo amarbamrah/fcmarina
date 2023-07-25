@@ -34,7 +34,7 @@ class AuthController extends Controller
     public function stadiumDetails(Request $request)
     {
        
-            $stadium = Stadium::find($request['sid']);
+            $stadium = Stadium::find($request['stadium_id']);
         
         $stadium->images = StadiumImage::where('stadium_id', $stadium->id)->get();
 
