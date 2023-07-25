@@ -128,8 +128,8 @@ class StadiumController extends Controller
 
     public function bookings(Request $request)
     {
-        $user = User::find($request['user_id']);
-        $stadium = Stadium::find($user->stadium_id);
+        $stadium = Stadium::find($request['sid']);
+       
         $sbs = StadiumBooking::where('stadium_id', $stadium->id)->whereDate('date', Carbon::Create($request['date']))->get();
         foreach ($sbs as $sb) {
             $sb->day = Carbon::create($sb->date)->format('D');

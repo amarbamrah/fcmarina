@@ -19,7 +19,13 @@ class AuthController extends Controller
         if (Auth::attempt(['email' => $request['username'], 'password' => $request['password']])) {
             $user = Auth::user();
             //   $token = $user()->createToken($request['username']);
-            return ['success' => true, 'user' => $user, 'token' => 'abc'];
+            if ($user->role == 'Admin') {
+                $stadium = Stadium::first();
+            } else {
+                $stadium = Stadium::find($user->stadium_id);
+            }
+
+            return ['success' => true, 'user' => $user, 'token' => 'abc','stadium_id'=>$stadium->id];
         } else {
             return ['success' => false];
         }
@@ -27,12 +33,9 @@ class AuthController extends Controller
 
     public function stadiumDetails(Request $request)
     {
-        $user = User::find($request['user_id']);
-        if ($user->role == 'Admin') {
-            $stadium = Stadium::first();
-        } else {
-            $stadium = Stadium::find($user->stadium_id);
-        }
+       
+            $stadium = Stadium::find($request['sid']);
+        
         $stadium->images = StadiumImage::where('stadium_id', $stadium->id)->get();
 
         return ['success' => true, 'data' => $stadium];
