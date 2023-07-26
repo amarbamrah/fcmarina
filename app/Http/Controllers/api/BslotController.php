@@ -34,6 +34,12 @@ class BslotController extends Controller
 
         $stadium=Stadium::find($request['stadium_id']);
 
+
+
+
+
+        $offers=HappyHour::where('day','LIKE','%'.$date->format('D').'%')->get();
+
         if($request->has('stadium_type')){
            $selGameType=$request['stadium_type'];
         }else{
@@ -314,7 +320,7 @@ class BslotController extends Controller
         
 
        
-        return ['success' => true, 'data' => $data,'price'=>$price,'stadium_types'=>$stadium->type,'sel_game_type'=>$selGameType];
+        return ['success' => true, 'data' => $data,'price'=>$price,'stadium_types'=>$stadium->type,'sel_game_type'=>$selGameType,'offers'=>$offers];
     }
 
     /**
