@@ -119,6 +119,10 @@ class BslotController extends Controller
                 }
             }
 
+            if (Carbon::create($slot->from) < $now && $date->toDateString() == Carbon::now()->toDateString()) {
+                $slot->isFilled = true;
+            }
+
         }
 
         foreach ($morning as $i => $slot) {
@@ -305,6 +309,9 @@ class BslotController extends Controller
             
 
         ];
+
+
+        
 
        
         return ['success' => true, 'data' => $data,'price'=>$price,'stadium_types'=>$stadium->type,'sel_game_type'=>$selGameType];
