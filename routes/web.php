@@ -111,6 +111,11 @@ Route::prefix('admin')->middleware('auth')->group(function () {
 
     Route::get('/reports', [StadiumController::class, 'reports']);
 
+    Route::post('/export-report', [StadiumController::class, 'exportReport']);
+
+
+    
+
 });
 
 

@@ -6,9 +6,15 @@ use App\Models\Location;
 use App\Models\Stadium;
 use App\Models\StadiumImage;
 
+use Maatwebsite\Excel\Facades\Excel;
+
+
 use App\Models\StadiumBooking;
 
 use App\Models\Amenity;
+
+use App\Exports\ReportExport;
+
 
 use App\Models\StadiumAmenity;
 
@@ -260,6 +266,14 @@ class StadiumController extends Controller
        // return $days;
 
         return view('admin.reports.bookings',compact('stadiumbookings','stds','days','total_revs','total_bookings','total_hours'));
+    }
+
+
+
+    public function exportReport(Request $request){
+
+        return Excel::download(new ReportExport($request['sid'],$request['from'],$request['to'],$request['period']), 'report.xlsx');
+
     }
 
 }

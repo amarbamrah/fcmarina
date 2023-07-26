@@ -88,6 +88,18 @@
                 <div>
                     Total Rev: <strong>Rs {{$total_revs}} </strong>
                 </div>
+
+                <div>
+                    <form action="/admin/export-report" method="post">
+                        @csrf
+                        <input type="hidden" name="sid" value="">
+                        <input type="hidden" name="from" value="">
+                        <input type="hidden" name="to" value="">
+                        <input type="hidden" name="period" value="">
+
+                        <button type="submit" class="btn btn-primary">Export Data</button>
+                    </form>
+                </div>
                 <i class="mdi mdi-dots-horizontal text-gray"></i>
             </div>
 
