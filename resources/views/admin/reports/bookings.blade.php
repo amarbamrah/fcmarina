@@ -26,6 +26,15 @@
 
                         </select>
                     </div>
+
+
+                    <div class="form-group  col-md-6 mb-3">
+                        <label class="form-label">Time Period:</label>
+                         <select name="period" id="" class="form-select">
+                            <option value="curr">This Month</option>
+                            <option value="custom">Custom</option>
+                         </select>
+                    </div>
                     <div class="form-group  col-md-6 mb-3">
                         <label class="form-label">Time Period:</label>
                         <input type="month" name="month"
