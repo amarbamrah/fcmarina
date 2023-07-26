@@ -193,14 +193,23 @@ class StadiumController extends Controller
 
         $stadiumbookings = StadiumBooking::query();
 
-        $month=$request->has('month')?Carbon::create($request['month']):Carbon::now();
+        $month=$request->has('period') && $request['period']=='curr'?Carbon::create($request['month']):Carbon::now();
 
+
+
+        $dates = CarbonPeriod::since($month->startOfMonth())->days(1)->until($month->endOfMonth());
+
+        if($request->has('period') && $request['period']=='custom'){
+        $dates = CarbonPeriod::since(Carbon::create($request['from']))->days(1)->until(Carbon::create($request['to']));
+            
+        }
         //return $month;
 
 
-        $dates=CarbonPeriod::create($month->startOfMonth(),$month->endOfMonth());
+        //$dates=CarbonPeriod::create($month->startOfMonth(),$month->endOfMonth());
 
-        $dates = CarbonPeriod::since($month->startOfMonth())->days(1)->until($month->endOfMonth());
+        
+
 
         $days=[];
 
