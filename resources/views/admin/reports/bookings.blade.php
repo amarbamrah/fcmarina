@@ -30,17 +30,31 @@
 
                     <div class="form-group  col-md-6 mb-3">
                         <label class="form-label">Time Period:</label>
-                         <select name="period" id="" class="form-select">
+                        <select name="period" id="periodbox" class="form-select">
                             <option value="curr">This Month</option>
                             <option value="custom">Custom</option>
-                         </select>
+                        </select>
+
+
+                    <div class="row" id="custombox" style="display:none;">
+
+                            <div class="form-group  col-md-6 mb-3">
+                                <label class="">From:</label>
+                                <input type="date" name="from"
+                                    value="{{Request::get('from')==null?\Carbon\Carbon::now()->format('Y-m-d'):Request::get('from')}}"
+                                    class="form-control" id="">
+                            </div>
+
+                            <div class="form-group  col-md-6 mb-3">
+                                <label class="">To:</label>
+                                <input type="date" name="to"
+                                    value="{{Request::get('to')==null?\Carbon\Carbon::now()->format('Y-m-d'):Request::get('to')}}"
+                                    class="form-control" id="">
+                            </div>
+                        </div>
+
                     </div>
-                    <div class="form-group  col-md-6 mb-3">
-                        <label class="form-label">Time Period:</label>
-                        <input type="month" name="month"
-                            value="{{Request::get('month')==null?\Carbon\Carbon::now()->format('Y-m'):Request::get('month')}}"
-                            class="form-control" id="">
-                    </div>
+                    
 
 
 

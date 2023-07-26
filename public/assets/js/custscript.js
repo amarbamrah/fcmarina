@@ -47,4 +47,15 @@ $(document).ready(function(){
 
         }
     });
+
+
+    $('#periodbox').on('change',function(){
+        if($(this).val()=='custom'){
+            $('#custombox').css('display','');
+
+        }else{
+            $('#custombox').css('display','none');
+
+        }
+    });
 });
