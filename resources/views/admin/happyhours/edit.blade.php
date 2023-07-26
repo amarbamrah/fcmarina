@@ -69,14 +69,14 @@
                 <div class="form-group mb-3">
                     <label class="form-label">Select Days:</label>
                     <div class="form-check">
-                        <input class="form-check-input" name="days[]" checked type="checkbox" value="Mon" id="Mon">
+                        <input class="form-check-input" name="days[]" {{ in_array('Mon',json_decode($happyHour->days))?'checked':'' }} type="checkbox" value="Mon" id="Mon">
                         <label class="form-check-label" for="Mon">
                             Monday
                         </label>
                     </div>
 
                     <div class="form-check">
-                        <input class="form-check-input" name="days[]" checked type="checkbox" value="Tue" id="Tue">
+                        <input class="form-check-input" name="days[]" {{ in_array('Tue',json_decode($happyHour->days))?'checked':'' }} type="checkbox" value="Tue" id="Tue">
                         <label class="form-check-label" for="Tue">
                             Tuesday
                         </label>
@@ -84,7 +84,7 @@
 
 
                     <div class="form-check">
-                        <input class="form-check-input" name="days[]" checked type="checkbox" value="Wed" id="Wed">
+                        <input class="form-check-input" name="days[]" {{ in_array('Wed',json_decode($happyHour->days))?'checked':'' }} type="checkbox" value="Wed" id="Wed">
                         <label class="form-check-label" for="Wed">
                             Wednesday
                         </label>
@@ -94,7 +94,7 @@
 
 
                     <div class="form-check">
-                        <input class="form-check-input" name="days[]" checked type="checkbox" value="Thu" id="Thu">
+                        <input class="form-check-input" name="days[]" {{ in_array('Thu',json_decode($happyHour->days))?'checked':'' }} type="checkbox" value="Thu" id="Thu">
                         <label class="form-check-label" for="Thu">
                             Thursday
                         </label>
@@ -102,7 +102,7 @@
 
 
                     <div class="form-check">
-                        <input class="form-check-input" name="days[]" checked type="checkbox" value="Fri" id="Fri">
+                        <input class="form-check-input" name="days[]" {{ in_array('Fri',json_decode($happyHour->days))?'checked':'' }} type="checkbox" value="Fri" id="Fri">
                         <label class="form-check-label" for="Fri">
                             Friday
                         </label>
@@ -110,14 +110,14 @@
 
 
                     <div class="form-check">
-                        <input class="form-check-input" name="days[]" checked type="checkbox" value="Sat" id="Sat">
+                        <input class="form-check-input" name="days[]" {{ in_array('Sat',json_decode($happyHour->days))?'checked':'' }} type="checkbox" value="Sat" id="Sat">
                         <label class="form-check-label" for="Sat">
                             Saturday
                         </label>
                     </div>
 
                     <div class="form-check">
-                        <input class="form-check-input" name="days[]" checked type="checkbox" value="Sun" id="Sun">
+                        <input class="form-check-input" name="days[]" {{ in_array('Sun',json_decode($happyHour->days))?'checked':'' }} type="checkbox" value="Sun" id="Sun">
                         <label class="form-check-label" for="Sun">
                             Sunday
                         </label>
