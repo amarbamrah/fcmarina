@@ -24,6 +24,7 @@
 
                             <th>Discount</th>
                             <th>Applicable for</th>
+                            <th>Edit</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -36,6 +37,9 @@
 
                         <td>{{$hr->discount}} %</td>
                         <td>{{$hr->user_id!=null?'Specific':'All User'}}</td>
+                        <td>
+                            <a href="/admin/happy-hours/edit/{{$hr->id}}"><i data-feather="edit2"></i> Edit</a>
+                        </td>
 
 
 
