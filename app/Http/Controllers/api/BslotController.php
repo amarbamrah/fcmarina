@@ -75,6 +75,8 @@ class BslotController extends Controller
 
             $fully = 0;
 
+
+
             if ($i % 2 == 0) {
                 $slot->start = Carbon::create($slot->from)->format('h a');
                 $slot->end = null;
@@ -93,6 +95,7 @@ class BslotController extends Controller
 
 
 
+            $slot->discount=0;
 
             foreach ($offers as $offer) {
 
