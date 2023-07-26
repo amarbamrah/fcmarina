@@ -18,22 +18,22 @@
                 <div class="row mb-3">
                     <label for=""> Timing [From-To]</label>
                     <div class="col-md-6">
-                        <input type="time" name="from" class="form-control">
+                        <input type="time" name="from" class="form-control" value="{{$happyHour->from}}">
                     </div>
 
                     <div class="col-md-6">
-                        <input type="time" name="to" class="form-control">
+                        <input type="time" name="to" class="form-control" value="{{$happyHour->to}}">
                     </div>
                 </div>
 
                 <div class="form-group mb-3">
                     <label for="">Discount</label>
-                    <input type="number" name="discount" class="form-control" id="">
+                    <input type="number" name="discount" class="form-control" id="" value="{{$happyHour->discount}}">
                 </div>
 
                 <div class="form-group mb-3">
                     <label for="">Min Hours</label>
-                    <input type="number" name="hours" class="form-control" id="">
+                    <input type="number" name="hours" class="form-control" id="" value="{{$happyHour->hours}}">
                 </div>
 
 
@@ -41,7 +41,7 @@
                     <label class="form-label">Select Stadium:</label>
                     <select name="stadium" class="form-select" id="">
                         @foreach($stds as $st)
-                        <option value="{{$st->id}}" {{Request::get('stadium')==$st->id?'selected':''}}>{{$st->name}}
+                        <option value="{{$st->id}}" {{$happyHour->stadium_id==$st->id?'selected':''}}>{{$st->name}}
                         </option>
                         @endforeach
 
