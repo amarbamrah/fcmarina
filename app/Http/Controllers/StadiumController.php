@@ -193,7 +193,7 @@ class StadiumController extends Controller
 
         $stadiumbookings = StadiumBooking::query();
 
-        $month=$request->has('period') && $request['period']=='curr'?Carbon::create($request['month']):Carbon::now();
+        $month=$request->has('period') && $request['period']=='curr'?Carbon::now():Carbon::now();
 
 
 
