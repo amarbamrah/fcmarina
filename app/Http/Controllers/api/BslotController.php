@@ -108,9 +108,6 @@ class BslotController extends Controller
                 foreach ($periods as $i => $period) {
                     if (($i + 1) < count($periods) && $period == Carbon::create($slot->from)->toTimeString()) {
                         $slot->discount=$offer->discount;
-                    }else{
-                        $slot->discount=0;
-
                     }
                 }
             }
