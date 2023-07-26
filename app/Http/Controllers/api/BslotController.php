@@ -37,7 +37,7 @@ class BslotController extends Controller
 
         $stadium=Stadium::find($request['stadium_id']);
 
-        $offers=HappyHour::where('days','LIKE','%'.$date->format('D').'%')->get();
+        $offers=HappyHour::where('stadium_id',$stadium->id)->where('days','LIKE','%'.$date->format('D').'%')->get();
 
         foreach($offers as $offer){
             $offer->f_timing='From '.Carbon::create($offer->from)->format('h:i a').' - '.Carbon::create($offer->to)->format('h:i a');
