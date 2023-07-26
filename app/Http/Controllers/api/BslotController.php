@@ -91,6 +91,29 @@ class BslotController extends Controller
 
             }
 
+
+
+
+            foreach ($offers as $offer) {
+
+                $starttime = Carbon::create($offer->from);
+                $endtime = Carbon::create($offer->to);
+                $periods = [];
+                while ($starttime->lte($endtime)) {
+                    $to = $starttime->copy()->addMinutes(30);
+                    array_push($periods, $starttime->toTimeString());
+                    $starttime = $to;
+                }
+
+                foreach ($periods as $i => $period) {
+                    if (($i + 1) < count($periods) && $period == Carbon::create($slot->from)->toTimeString()) {
+                        $slot->discount=$offer->discount;
+                    }else{
+                        $slot->discount=0;
+
+                    }
+                }
+            }
             foreach ($sbs as $sb) {
 
                 $starttime = Carbon::create($sb->from);
