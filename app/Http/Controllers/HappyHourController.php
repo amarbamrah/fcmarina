@@ -62,7 +62,8 @@ class HappyHourController extends Controller
      */
     public function edit(HappyHour $happyHour)
     {
-        //
+        $stds=Stadium::all();
+        return view('admin.happyhours.edit',compact('happyHour','stds'));
     }
 
     /**
