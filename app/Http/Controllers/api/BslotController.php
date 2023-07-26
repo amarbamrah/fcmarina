@@ -111,6 +111,9 @@ class BslotController extends Controller
                 foreach ($periods as $i => $period) {
                     if (($i + 1) < count($periods) && $period == Carbon::create($slot->from)->toTimeString()) {
                         $slot->discount=$offer->discount;
+                        $slot->hours=$offer->hours;
+                       $slot->offer_id=$offer->id;
+
                     }
                 }
             }
@@ -193,6 +196,8 @@ class BslotController extends Controller
                 foreach ($periods as $i => $period) {
                     if (($i + 1) < count($periods) && $period == Carbon::create($slot->from)->toTimeString()) {
                         $slot->discount=$offer->discount;
+                        $slot->hours=$offer->hours;
+                       $slot->offer_id=$offer->id;
                     }
                 }
             }
@@ -272,6 +277,8 @@ class BslotController extends Controller
                 foreach ($periods as $i => $period) {
                     if (($i + 1) < count($periods) && $period == Carbon::create($slot->from)->toTimeString()) {
                         $slot->discount=$offer->discount;
+                        $slot->hours=$offer->hours;
+                       $slot->offer_id=$offer->id;
                     }
                 }
             }
@@ -351,6 +358,8 @@ class BslotController extends Controller
                 foreach ($periods as $i => $period) {
                     if (($i + 1) < count($periods) && $period == Carbon::create($slot->from)->toTimeString()) {
                         $slot->discount=$offer->discount;
+                        $slot->hours=$offer->hours;
+                       $slot->offer_id=$offer->id;
                     }
                 }
             }
