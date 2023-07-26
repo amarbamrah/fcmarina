@@ -4,6 +4,9 @@ namespace App\Http\Controllers\api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Bslot;
+
+use App\Models\HappyHour;
+
 use App\Models\StadiumBooking;
 
 use App\Models\Stadium;
