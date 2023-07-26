@@ -41,7 +41,7 @@ class BslotController extends Controller
 
 
 
-        $offers=HappyHour::where('day','LIKE','%'.$date->format('D').'%')->get();
+        $offers=HappyHour::where('days','LIKE','%'.$date->format('D').'%')->get();
 
         if($request->has('stadium_type')){
            $selGameType=$request['stadium_type'];
