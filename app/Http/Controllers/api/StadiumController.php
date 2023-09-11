@@ -73,8 +73,7 @@ class StadiumController extends Controller
     {
         $loc = Location::find($stadium->location_id);
         $stadium->location_name = $loc->name;
-        $stadium->lat = 28.5355;
-        $stadium->lng = 77.3910;
+
         $stadium->images = StadiumImage::where('stadium_id', $stadium->id)->get();
         $slotsLeft = 2;
         $stadium->slots_left = $slotsLeft;
