@@ -266,10 +266,9 @@ class StadiumController extends Controller
 
             $link = $response->short_url;
 
-            return ['data'=>$response->id];
 
             
-            $paylinkId=$request->id;
+            $paylinkId=$response->id;
 
             $sb->paylink_id = $paylinkId;
             $sb->save();
