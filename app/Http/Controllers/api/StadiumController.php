@@ -251,8 +251,11 @@ class StadiumController extends Controller
 
             $name = $request['name'];
 
-            $key = "rzp_live_vjwBasZlFwdr36";
-            $secret = "24HHwxlXpmXmARFoXvK1syzH";
+            // $key = "rzp_live_vjwBasZlFwdr36";
+            // $secret = "24HHwxlXpmXmARFoXvK1syzH";
+
+                  $key = "rzp_test_Bn6XzeDx8pXFK4";
+       $secret = "gVNSxo5kYjNYfooTPWRu9PCS";
 
             $api = new Api($key, $secret);
 
