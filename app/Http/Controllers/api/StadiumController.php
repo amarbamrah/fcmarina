@@ -220,7 +220,10 @@ class StadiumController extends Controller
         } else {
             $sb->total_amount = $request['total_amount'];
             $sb->rem_amount = 0;
-            $sb->advance = $request['total_amount'];
+
+            $advance=$request['total_amount']*10;
+            $advance=$advance/100;
+            $sb->advance = $advance;
             $sb->status = 'Processing';
 
         }
@@ -259,7 +262,7 @@ class StadiumController extends Controller
 
             $api = new Api($key, $secret);
 
-            $amount = $request['total_amount'];
+            $amount = $advance;
 
             $response = $api->paymentLink->create(array('amount' => $amount, 'currency' => 'INR', 'accept_partial' => false,
                 'description' => 'For FC Marina Booking', 'customer' => array('name' => $name,
