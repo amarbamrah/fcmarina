@@ -116,9 +116,11 @@ Route::prefix('admin')->middleware('auth')->group(function () {
 
     Route::get('/rec-paylink-status',[StadiumController::class,'recPayLinkStatus']);
     
-    Route::get('/fetch-payment-from-link',[StadiumBookingController::class,'fetchPaymentFromLink']);
 
 });
+
+
+Route::get('/fetch-payment-from-link',[StadiumBookingController::class,'fetchPaymentFromLink']);
 
 
 Route::get('gettime', function () {
