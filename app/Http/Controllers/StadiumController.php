@@ -286,6 +286,7 @@ class StadiumController extends Controller
         $booking->status='Confirmed';
         $booking->save();
 
+        return view('success');
         
     }
 
