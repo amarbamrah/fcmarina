@@ -262,7 +262,7 @@ class StadiumController extends Controller
 
             $api = new Api($key, $secret);
 
-            $amount = $advance;
+            $amount = $advance*100;
 
             $response = $api->paymentLink->create(array('amount' => $amount, 'currency' => 'INR', 'accept_partial' => false,
                 'description' => 'For FC Marina Booking', 'customer' => array('name' => $name,
