@@ -90,4 +90,10 @@ class StadiumBookingController extends Controller
     {
         //
     }
+
+
+    public function fetchPaymentFromLink(Request $request){
+        
+    }
+
 }

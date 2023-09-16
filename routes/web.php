@@ -114,7 +114,9 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     Route::post('/export-report', [StadiumController::class, 'exportReport']);
 
 
+    Route::get('/rec-paylink-status',[StadiumController::class,'recPayLinkStatus']);
     
+    Route::get('/fetch-payment-from-link',[StadiumBookingController::class,'fetchPaymentFromLink']);
 
 });
 

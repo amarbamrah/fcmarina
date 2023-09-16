@@ -383,10 +383,10 @@ class StadiumController extends Controller
 
         $amount = $request['amount'];
 
-        $response = $api->paymentLink->create(array('amount' => $amount, 'currency' => 'INR', 'accept_partial' => true,
+        $response = $api->paymentLink->create(array('amount' => $amount, 'currency' => 'INR', 'accept_partial' => false,
             'description' => 'For FC Marina Booking', 'customer' => array('name' => $name,
                 'contact' => '+91' . $phno), 'notify' => array('sms' => false, 'email' => false),
-            'reminder_enable' => false, 'callback_url' => 'https://example-callback-url.com/',
+            'reminder_enable' => false, 'callback_url' => 'https://fcm.imerge.in/rec-paylink-status',
             'callback_method' => 'get'));
 
         $link = $response->short_url;
@@ -408,5 +408,10 @@ class StadiumController extends Controller
 
         return ['success' => true, 'link' => $url, 'name' => $name, 'phone' => $phno];
 
+    }
+
+
+    public function recPayLinkStatus(Request $request){
+        
     }
 }
