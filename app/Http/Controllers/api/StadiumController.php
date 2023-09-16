@@ -265,6 +265,8 @@ class StadiumController extends Controller
                 'callback_method' => 'get'));
 
             $link = $response->short_url;
+
+            return ['data'=>$response];
             $paylinkId=$request->id;
 
             $sb->paylink_id = $paylinkId;
