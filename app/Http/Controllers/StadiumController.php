@@ -278,4 +278,15 @@ class StadiumController extends Controller
 
 
 
+    public function recPayLinkStatus(Request $request){
+        $plink_id=$request['razorpay_payment_link_id'];
+
+        $booking=StadiumBooking::where('paylink_id',$plink_id)->first();
+
+        $booking->status='Confirmed';
+        $booking->save();
+
+        
+    }
+
 }
