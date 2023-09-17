@@ -288,6 +288,8 @@ class StadiumController extends Controller
         $advance=$booking->payable_amount*10;
         $advance=$advance/100;
         $booking->advance=$advance;
+        $booking->rem_amount=$booking->payable_amount-$advance;
+
         $booking->save();
 
 
