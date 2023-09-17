@@ -284,6 +284,8 @@ class StadiumController extends Controller
         $booking=StadiumBooking::where('paylink_id',$plink_id)->first();
 
         $booking->status='Confirmed';
+
+        $booking->advance=280;
         $booking->save();
 
 
