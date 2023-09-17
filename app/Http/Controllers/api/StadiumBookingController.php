@@ -82,17 +82,19 @@ class StadiumBookingController extends Controller
 
         $sb->total_amount = $request['total_amount'];
 
-        $advance = 10 / 100;
-        $advance = $advance * $request['total_amount'];
-
         $sb->payable_amount = $request['total_amount'] - $request['discount'];
+
+
+        $advance = 10 / 100;
+        $advance = $advance *  $sb->payable_amount;
+
         $sb->discount = $request['discount'];
 
         $sb->advance = $advance;
 
         $sb->status = 'Confirmed';
 
-        $sb->rem_amount = $request['total_amount'] - $advance;
+        $sb->rem_amount =  $sb->payable_amount - $advance;
 
         $sb->stadium_type = $request['stadium_type'];
         $sb->from = $request['from'];
