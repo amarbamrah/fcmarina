@@ -90,6 +90,10 @@ class StadiumBookingController extends Controller
 
         $advance = 10 / 100;
         $advance = $advance * $request['total_amount'];
+        
+
+        $sb->payable_amount = $request['total_amount']-$request['discount'];
+        $sb->discount = $request['discount'];
 
         $sb->advance = $advance;
 
