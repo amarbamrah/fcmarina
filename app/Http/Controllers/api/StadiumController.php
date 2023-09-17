@@ -37,6 +37,9 @@ class StadiumController extends Controller
             $loc = Location::find($stadium->location_id);
             $stadium->location_name = $loc->name;
 
+            $stadium->mon5s = $stadium->mon5s*2;
+            $stadium->mon7s = $stadium->mon7s*2;
+
             $slotsLeft = 2;
             $stadium->slots_left = $slotsLeft;
 
@@ -78,7 +81,7 @@ class StadiumController extends Controller
         $slotsLeft = 2;
         $stadium->slots_left = $slotsLeft;
 
-        
+
         $stadium->mon5s = $stadium->mon5s*2;
         $stadium->mon7s = $stadium->mon7s*2;
 
