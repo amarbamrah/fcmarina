@@ -151,7 +151,7 @@ class StadiumController extends Controller
     {
 
         $stadium = Stadium::find($request['stadium_id']);
-        $sbs = StadiumBooking::where('stadium_id', $stadium->id)->whereDate('date', Carbon::Create($request['date']))->get();
+        $sbs = StadiumBooking::where('stadium_id', $stadium->id)->where('status','!=','Processing')->whereDate('date', Carbon::Create($request['date']))->get();
 
         $bookings = [];
         foreach ($sbs as $sb) {
