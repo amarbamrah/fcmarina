@@ -285,7 +285,9 @@ class StadiumController extends Controller
 
         $booking->status='Confirmed';
 
-        $booking->advance=280;
+        $advance=$booking->payable_amount*10;
+        $advance=$advance/100;
+        $booking->advance=$advance;
         $booking->save();
 
 
