@@ -55,7 +55,7 @@ class StadiumBookingController extends Controller
 
         $api = new Api($key, $secret);
 
-        $ad = $request['amount'] * 100;
+        $ad = $request['amount'];
 
         $razorpayOrder = $api->order->create(
             array(
