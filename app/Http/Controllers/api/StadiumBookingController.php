@@ -6,14 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Models\CancelBookingReason;
 use App\Models\CancelReason;
 use App\Models\PointTransaction;
-
-use App\Models\WalletTransaction;
-
-
-
 use App\Models\Stadium;
 use App\Models\StadiumBooking;
 use App\Models\User;
+use App\Models\WalletTransaction;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -51,12 +47,11 @@ class StadiumBookingController extends Controller
     public function generateOrder(Request $request)
     {
 
-    //     $key = "rzp_test_Bn6XzeDx8pXFK4";
-    //    $secret = "gVNSxo5kYjNYfooTPWRu9PCS";
+        //     $key = "rzp_test_Bn6XzeDx8pXFK4";
+        //    $secret = "gVNSxo5kYjNYfooTPWRu9PCS";
 
         $key = "rzp_live_vjwBasZlFwdr36";
         $secret = "24HHwxlXpmXmARFoXvK1syzH";
-
 
         $api = new Api($key, $secret);
 
@@ -90,9 +85,8 @@ class StadiumBookingController extends Controller
 
         $advance = 10 / 100;
         $advance = $advance * $request['total_amount'];
-        
 
-        $sb->payable_amount = $request['total_amount']-$request['discount'];
+        $sb->payable_amount = $request['total_amount'] - $request['discount'];
         $sb->discount = $request['discount'];
 
         $sb->advance = $advance;
@@ -110,9 +104,7 @@ class StadiumBookingController extends Controller
 
         $sb->save();
 
-
-
-        if($request['is_wallet']){
+        if ($request['is_wallet']) {
             $pt = new WalletTransaction();
             $pt->amount = $advance;
             $pt->type = 'db';
@@ -121,16 +113,12 @@ class StadiumBookingController extends Controller
             $pt->remarks = 'Booking ID:' . $sb->booking_id;
             $pt->save();
 
-        $user = User::find($request['user_id']);
-           
+            $user = User::find($request['user_id']);
+
             $user->wallet_amount = $user->wallet_amount - $advance;
             $user->save();
 
         }
-
-
-
-
 
         $pts = $request['total_amount'] / 100;
         $pts = round($pts);
@@ -142,7 +130,6 @@ class StadiumBookingController extends Controller
 
         $pt->remarks = 'Earned From Booking ID:' . $booking_id;
         $pt->save();
-
 
         $user = User::find($request['user_id']);
 
@@ -329,24 +316,26 @@ class StadiumBookingController extends Controller
         $total_amount = $request['total_amount'];
 
         $bCount = StadiumBooking::where('user_id', $request['user_id'])->count();
-        $discount = 0;
-        $discountPer = 0;
+        $discount = $request['discount'];
 
         $discountMsg = '';
-        if ($bCount <= 2) {
-            $discountPer = 10;
-            $discount = $discountPer * $total_amount;
-            $discount = $discount / 100;
 
-            $discountMsg = '10% off as a Welcome Discount ';
+        if ($discount > 0) {
+            if ($bCount <= 2) {
+                $discountPer = 10;
+                $discount = $discountPer * $total_amount;
+                $discount = $discount / 100;
+
+                $discountMsg = '10% off as a Welcome Discount ';
+
+            }
 
         }
-
         $amount = $total_amount - $discount;
 
         $payable_amount = $amount * 10;
         $payable_amount = $payable_amount / 100;
 
-        return ['success' => true, 'amount' => $total_amount, 'total_amount' => $amount, 'discount' => $discount, 'discountPer' => $discountPer, 'discountMsg' => $discountMsg, 'payable_amount' => $payable_amount];
+        return ['success' => true, 'amount' => $total_amount, 'total_amount' => $amount, 'discount' => $discount, 'discountMsg' => $discountMsg, 'payable_amount' => $payable_amount];
     }
 }
