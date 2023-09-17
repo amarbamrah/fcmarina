@@ -228,7 +228,7 @@ class StadiumController extends Controller
             $advance=$advance/100;
             $sb->discount = $request['discount'];
 
-            $sb->rem_amount = $request['total_amount'] - $advance;
+            $sb->rem_amount = $sb->payable_amount - $advance;
 
             $sb->advance = $advance;
             $sb->status = 'Processing';
