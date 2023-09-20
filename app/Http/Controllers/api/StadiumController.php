@@ -444,6 +444,7 @@ class StadiumController extends Controller
         $refundType=$request['refund_type'];
         $booking = StadiumBooking::find($request['booking_id']);
         $booking->status = 'Cancelled';
+        $booking->cancelled_by=30;
         $booking->save();
 
         $cr = CancelReason::find($request['reason_id']);
@@ -462,7 +463,7 @@ class StadiumController extends Controller
         }else{
 
         }
-        
+
         return ['success' => true];
     }
 
