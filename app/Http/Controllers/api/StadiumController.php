@@ -438,5 +438,33 @@ class StadiumController extends Controller
     }
 
 
+
+    public function cancelBooking(Request $request)
+    {
+        $refundType=$request['refund_type'];
+        $booking = StadiumBooking::find($request['booking_id']);
+        $booking->status = 'Cancelled';
+        $booking->save();
+
+        $cr = CancelReason::find($request['reason_id']);
+        $cb = new CancelBookingReason();
+        $cb->reason = $cr->title;
+        $cb->remarks = $request['remarks'];
+
+        $cb->booking_id = $booking->id;
+        $cb->save();
+        $bookingDate = Carbon::create($booking->date);
+
+        $refundAmount = $booking->advance;
+    
+        if($refundType="yes"){
+
+        }else{
+
+        }
+        
+        return ['success' => true];
+    }
+
     
 }

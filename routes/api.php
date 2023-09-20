@@ -107,6 +107,7 @@ Route::post('/complete-booking',[StadiumController::class,'completeBooking']);
 Route::post('/send-payment-link',[StadiumController::class,'sendPaymentLink']);
 
 
+Route::post('/cancel-vm-booking',[StadiumController::class,'cancelBooking']);
 
 
 
