@@ -270,6 +270,28 @@ class StadiumBookingController extends Controller
         if ($bookingDate->diffInHours(Carbon::now()) < 24) {
             $refundAmount = 0;
         }
+
+        $phone='';
+        $username='';
+        if($sb->user_id!=null){
+            $user=User::find($sb->user_id);
+            $phone=$user->phone;
+            $name=$user->name;
+
+        }
+
+
+        $url="http://api.nsite.in/api/v2/SendSMS?SenderId=FCMARI&Is_Unicode=false&Is_Flash=false&Message=Booking%20Cancelled%20!%5Cn%20".$name."%20has%20cancelled%20his%20FC%20Marina%20booking%20%5CnVenue%20:%20Var%20%5CnDate%20:%20Var%20%5CnTime%20:%20Var%20%5CnCourt%20:%20Var%20%5CnAdvance%20paid%20has%20been%20Refunded%20%5CnBooking%20ID:%20Var&MobileNumbers=".$phone."&ApiKey=mLdRdY8ey1ZTzMY0OifcDjaTO7rJ7gMTgsogL8ragGs=&ClientId=7a0c1703-92c1-4a91-918b-4ac7d9b8d1b3";
+        $curl = curl_init($url);
+        curl_setopt($curl, CURLOPT_URL, $url);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+
+//for debug only!
+        curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+
+        $resp = curl_exec($curl);
+        curl_close($curl);
         return ['success' => true, 'data' => CancelReason::all(), 'refund_amount' => $refundAmount];
     }
 
