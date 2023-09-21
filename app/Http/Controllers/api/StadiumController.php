@@ -170,7 +170,7 @@ class StadiumController extends Controller
 
             $username = $user == null ? $sb->name : $user->name;
 
-            $color='#60e3f7';
+            $color='#60e3f730';
 
 
             if($sb->stadium_type=='5s'){
