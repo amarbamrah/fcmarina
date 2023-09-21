@@ -315,7 +315,7 @@ class StadiumBookingController extends Controller
         $username='';
         if($booking->user_id!=null){
             $user=User::find($booking->user_id);
-            $phone=$user->phone;
+            $phone=$user->phonenumber;
             $name=$user->name;
 
         }
