@@ -151,6 +151,7 @@ class StadiumController extends Controller
             $sb->f_to = Carbon::create($sb->to)->format('h:i');
             $sb->user = User::find($sb->user_id);
             $sb->stadium = Stadium::find($sb->stadium_id);
+            $sb->color='#216fdf';
         }
 
         return ['success' => true, 'data' => $sbs];
