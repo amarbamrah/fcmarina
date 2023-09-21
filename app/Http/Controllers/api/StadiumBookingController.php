@@ -323,14 +323,16 @@ class StadiumBookingController extends Controller
         $stadium=Stadium::find($booking->stadium_id);
         $sname=str_replace(' ', '%20', $stadium->name);
 
-        $bdate=Carbon::create($booking->created_at)->format('d-M-Y');
-        $btime=Carbon::create($booking->created_at)->format('h:i a');
-        $btime=str_replace(' ', '%20', $btime);
+        $bdate=Carbon::create($booking->date)->format('d-M-Y');
+        $from=Carbon::create($booking->from)->format('h:i a');
+        $to=Carbon::create($booking->to)->format('h:i a');
+
+        $btime=str_replace(' ', '%20', $from.'-'.$to);
 
 
 
 
-        $url="http://api.nsite.in/api/v2/SendSMS?SenderId=FCMARI&Is_Unicode=false&Is_Flash=false&Message=Booking%20Cancelled%20!%5Cn%20".$name."%20has%20cancelled%20his%20FC%20Marina%20booking%20%5CnVenue%20:%20".$sname."%20%5CnDate%20:%20".$bdate."%20%5CnTime%20:%20".$btime."%20%5CnCourt%20:%20".$booking->stadium_type."%20%5CnAdvance%20paid%20has%20been%20Refunded%20%5CnBooking%20ID:%20Var&MobileNumbers=".$phone."&ApiKey=mLdRdY8ey1ZTzMY0OifcDjaTO7rJ7gMTgsogL8ragGs=&ClientId=7a0c1703-92c1-4a91-918b-4ac7d9b8d1b3";
+        $url="http://api.nsite.in/api/v2/SendSMS?SenderId=FCMARI&Is_Unicode=false&Is_Flash=false&Message=Booking%20Cancelled%20!%5Cn%20".$name."%20has%20cancelled%20his%20FC%20Marina%20booking%20%5CnVenue%20:%20".$sname."%20%5CnDate%20:%20".$bdate."%20%5CnTime%20:%20".$btime."%20%5CnCourt%20:%20".$booking->stadium_type."%20%5CnAdvance%20paid%20has%20been%20Refunded%20%5CnBooking%20ID:%20".$booking->booking_id."&MobileNumbers=".$phone."&ApiKey=mLdRdY8ey1ZTzMY0OifcDjaTO7rJ7gMTgsogL8ragGs=&ClientId=7a0c1703-92c1-4a91-918b-4ac7d9b8d1b3";
         $curl = curl_init($url);
         curl_setopt($curl, CURLOPT_URL, $url);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
