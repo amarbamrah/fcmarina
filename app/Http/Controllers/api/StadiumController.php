@@ -151,7 +151,6 @@ class StadiumController extends Controller
             $sb->f_to = Carbon::create($sb->to)->format('h:i');
             $sb->user = User::find($sb->user_id);
             $sb->stadium = Stadium::find($sb->stadium_id);
-            $sb->color='#216fdf';
         }
 
         return ['success' => true, 'data' => $sbs];
@@ -182,7 +181,7 @@ class StadiumController extends Controller
                 'name' => $username,
                 'start' => Carbon::createFromFormat('Y-m-d H:i:s', $sb->date . ' ' . $sb->from, 'Asia/Kolkata'),
                 'end' => Carbon::createFromFormat('Y-m-d H:i:s', $sb->date . ' ' . $sb->to),
-                'color' => 'transparent',
+                'color' => '#216fdf',
             ];
             array_push($bookings, $booking);
         }
