@@ -307,7 +307,12 @@ class StadiumController extends Controller
 
         $datee = Carbon::create($booking->date)->format('d-m-Y');
 
-        $time = $booking->from . "-" . $booking->to;
+      
+
+        $from=Carbon::create($booking->from)->format('h:i a');
+        $to=Carbon::create($booking->to)->format('h:i a');
+
+        $time=str_replace(' ', '%20', $from.'-'.$to);
 
         $user=User::find($booking->user_id);
 
