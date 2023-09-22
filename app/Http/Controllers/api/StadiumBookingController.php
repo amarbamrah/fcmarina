@@ -85,6 +85,11 @@ class StadiumBookingController extends Controller
         $sb->payable_amount = $request['total_amount'] - $request['discount'];
 
 
+        $sb->order_id=$request['order_id'];
+        $sb->payment_id=$request['payment_id'];
+        $sb->signature=$request['signature'];
+
+
         $advance = 10 / 100;
         $advance = $advance *  $sb->payable_amount;
 

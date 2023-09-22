@@ -279,9 +279,19 @@ class StadiumController extends Controller
 
 
     public function recPayLinkStatus(Request $request){
+
+    
         $plink_id=$request['razorpay_payment_link_id'];
 
+        // "https://fcm.imerge.in/rec-paylink-status?razorpay_payment_id=pay_MfFj1Ue87CBiYR&razorpay_payment_link_id=plink_MfFiWiPun23f6T&razorpay_payment_link_reference_id=&razorpay_payment_link_status=paid&razorpay_signature=68e498004bd5f6103c4174549f80c4be1a7f799a93bf5f6bb95ca605f53b08f3"
+
+        
+
         $booking=StadiumBooking::where('paylink_id',$plink_id)->first();
+
+        $booking->order_id=$request['order_id'];
+        $booking->payment_id=$request['razorpay_payment_id'];
+        $booking->signature=$request['razorpay_signature'];
 
         $booking->status='Confirmed';
 
