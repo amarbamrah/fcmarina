@@ -3,22 +3,17 @@
 namespace App\Http\Controllers\api;
 
 use App\Http\Controllers\Controller;
-use App\Models\BookingPayment;
-use App\Models\Location;
-use App\Models\Stadium;
-use App\Models\StadiumBooking;
-
-use App\Models\HappyHour;
-
-use App\Models\StadiumImage;
-use App\Models\User;
-
-use App\Models\StadiumAmenity;
 use App\Models\Amenity;
-
+use App\Models\BookingPayment;
 use App\Models\CancelBookingReason;
 use App\Models\CancelReason;
-
+use App\Models\HappyHour;
+use App\Models\Location;
+use App\Models\Stadium;
+use App\Models\StadiumAmenity;
+use App\Models\StadiumBooking;
+use App\Models\StadiumImage;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -38,15 +33,15 @@ class StadiumController extends Controller
             $loc = Location::find($stadium->location_id);
             $stadium->location_name = $loc->name;
 
-            $stadium->mon5s = $stadium->mon5s*2;
-            $stadium->mon7s = $stadium->mon7s*2;
+            $stadium->mon5s = $stadium->mon5s * 2;
+            $stadium->mon7s = $stadium->mon7s * 2;
 
             $slotsLeft = 2;
             $stadium->slots_left = $slotsLeft;
 
-            $happyHours=HappyHour::where('stadium_id',$stadium->id)->first();
-            if($happyHours){
-                $stadium->happy_hour_msg=$happyHours->discount.'% off from '.Carbon::create($happyHours->from)->format('h:i a'). ' to '.Carbon::create($happyHours->to)->format('h:i a');
+            $happyHours = HappyHour::where('stadium_id', $stadium->id)->first();
+            if ($happyHours) {
+                $stadium->happy_hour_msg = $happyHours->discount . '% off from ' . Carbon::create($happyHours->from)->format('h:i a') . ' to ' . Carbon::create($happyHours->to)->format('h:i a');
 
             }
 
@@ -82,26 +77,23 @@ class StadiumController extends Controller
         $slotsLeft = 2;
         $stadium->slots_left = $slotsLeft;
 
+        $stadium->mon5s = $stadium->mon5s * 2;
+        $stadium->mon7s = $stadium->mon7s * 2;
 
-        $stadium->mon5s = $stadium->mon5s*2;
-        $stadium->mon7s = $stadium->mon7s*2;
+        $ams = [];
+        $sas = StadiumAmenity::where('stadium_id', $stadium->id)->get();
 
-
-
-        $ams=[];
-        $sas=StadiumAmenity::where('stadium_id',$stadium->id)->get();
-
-        foreach($sas as $sa){
-            $am=Amenity::find($sa->amenity_id);
-            array_push($ams,[
-                'title'=>$am->title,
+        foreach ($sas as $sa) {
+            $am = Amenity::find($sa->amenity_id);
+            array_push($ams, [
+                'title' => $am->title,
             ]);
         }
-        $stadium->amenities= $ams;
-      
-        $happyHours=HappyHour::where('stadium_id',$stadium->id)->first();
-        if($happyHours){
-            $stadium->happy_hour_msg=$happyHours->discount.'% off from '.Carbon::create($happyHours->from)->format('h:i a'). ' to '.Carbon::create($happyHours->to)->format('h:i a');
+        $stadium->amenities = $ams;
+
+        $happyHours = HappyHour::where('stadium_id', $stadium->id)->first();
+        if ($happyHours) {
+            $stadium->happy_hour_msg = $happyHours->discount . '% off from ' . Carbon::create($happyHours->from)->format('h:i a') . ' to ' . Carbon::create($happyHours->to)->format('h:i a');
 
         }
         return ['data' => $stadium, 'success' => true];
@@ -161,7 +153,7 @@ class StadiumController extends Controller
     {
 
         $stadium = Stadium::find($request['stadium_id']);
-        $sbs = StadiumBooking::where('stadium_id', $stadium->id)->where('status','!=','Cancelled')->where('status','!=','Processing')->whereDate('date', Carbon::Create($request['date']))->get();
+        $sbs = StadiumBooking::where('stadium_id', $stadium->id)->where('status', '!=', 'Cancelled')->where('status', '!=', 'Processing')->whereDate('date', Carbon::Create($request['date']))->get();
 
         $bookings = [];
         foreach ($sbs as $sb) {
@@ -170,11 +162,10 @@ class StadiumController extends Controller
 
             $username = $user == null ? $sb->name : $user->name;
 
-            $color='#60e3f740';
+            $color = '#60e3f740';
 
-
-            if($sb->stadium_type=='5s'){
-            $color='#FFF2E7';
+            if ($sb->stadium_type == '5s') {
+                $color = '#FFF2E7';
 
             }
 
@@ -237,15 +228,14 @@ class StadiumController extends Controller
             $sb->advance = 0;
             $sb->status = 'Completed';
 
-
         } else {
 
             $sb->total_amount = $request['total_amount'];
 
-            $sb->payable_amount = $request['total_amount']-$request['discount'];
+            $sb->payable_amount = $request['total_amount'] - $request['discount'];
 
-            $advance=$sb->payable_amount*10;
-            $advance=$advance/100;
+            $advance = $sb->payable_amount * 10;
+            $advance = $advance / 100;
             $sb->discount = $request['discount'];
             $sb->rem_amount = $sb->payable_amount;
             $sb->advance = 0;
@@ -282,12 +272,12 @@ class StadiumController extends Controller
             // $key = "rzp_live_vjwBasZlFwdr36";
             // $secret = "24HHwxlXpmXmARFoXvK1syzH";
 
-                  $key = "rzp_test_Bn6XzeDx8pXFK4";
-       $secret = "gVNSxo5kYjNYfooTPWRu9PCS";
+            $key = "rzp_test_Bn6XzeDx8pXFK4";
+            $secret = "gVNSxo5kYjNYfooTPWRu9PCS";
 
             $api = new Api($key, $secret);
 
-            $amount = $advance*100;
+            $amount = $advance * 100;
 
             $response = $api->paymentLink->create(array('amount' => $amount, 'currency' => 'INR', 'accept_partial' => false,
                 'description' => 'For FC Marina Booking', 'customer' => array('name' => $name,
@@ -297,9 +287,7 @@ class StadiumController extends Controller
 
             $link = $response->short_url;
 
-
-            
-            $paylinkId=$response->id;
+            $paylinkId = $response->id;
 
             $sb->paylink_id = $paylinkId;
             $sb->save();
@@ -362,13 +350,12 @@ class StadiumController extends Controller
 
     public function confirmBookingFromRpay(Request $request)
     {
-        $booking=Booking::where('plink_id',$request['razorpay_payment_link_id'])->first();
-        if($booking){
-            $booking->status='Confirmed';
+        $booking = Booking::where('plink_id', $request['razorpay_payment_link_id'])->first();
+        if ($booking) {
+            $booking->status = 'Confirmed';
             $booking->save();
         }
     }
-
 
     public function completeBooking(Request $request)
     {
@@ -448,14 +435,12 @@ class StadiumController extends Controller
 
     }
 
-
-
     public function cancelBooking(Request $request)
     {
-        $refundType=$request['refund_type'];
+        $refundType = $request['refund_type'];
         $booking = StadiumBooking::find($request['booking_id']);
         $booking->status = 'Cancelled';
-        $booking->cancelled_by=30;
+        $booking->cancelled_by = 30;
         $booking->save();
 
         $cr = CancelReason::find($request['reason_id']);
@@ -465,18 +450,31 @@ class StadiumController extends Controller
 
         $cb->booking_id = $booking->id;
         $cb->save();
+
         $bookingDate = Carbon::create($booking->date);
 
         $refundAmount = $booking->advance;
-    
-        if($refundType="yes"){
 
-        }else{
+        if ($refundType = "yes") {
+            $key = "rzp_test_Bn6XzeDx8pXFK4";
+            $secret = "gVNSxo5kYjNYfooTPWRu9PCS";
+
+            // $key = "rzp_live_vjwBasZlFwdr36";
+            // $secret = "24HHwxlXpmXmARFoXvK1syzH";
+            $api = new Api($key, $secret);
+
+            $resp = $api->payment->fetch($paymentId)->refund(array(
+                "amount" =>$refundAmount,
+                "speed" => "normal",
+                "notes" => array("notes_key_1" => "Refund for cancellation"),
+                "receipt" => "Receipt No. 31"));
+            $cb->refund_id = $resp->id;
+            $cb->refund_amount = $refundAmount;
+        } else {
 
         }
 
         return ['success' => true];
     }
 
-    
 }

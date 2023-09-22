@@ -281,6 +281,16 @@ class StadiumBookingController extends Controller
         $booking->status = 'Cancelled';
         $booking->save();
 
+
+        $bookingDate = Carbon::create($booking->date);
+
+        $refundAmount = $booking->advance;
+        if ($bookingDate->diffInHours(Carbon::now()) < 24) {
+            $refundAmount = 0;
+        }
+
+        
+
         $cr = CancelReason::find($request['reason_id']);
         $cb = new CancelBookingReason();
         $cb->reason = $cr->title;
@@ -288,12 +298,7 @@ class StadiumBookingController extends Controller
 
         $cb->booking_id = $booking->id;
         $cb->save();
-        $bookingDate = Carbon::create($booking->date);
-
-        $refundAmount = $booking->advance;
-        if ($bookingDate->diffInHours(Carbon::now()) < 24) {
-            $refundAmount = 0;
-        }
+    
 
         if ($refundAmount > 0) {
             $pt = new WalletTransaction();
@@ -307,6 +312,9 @@ class StadiumBookingController extends Controller
             $user = User::find($booking->user_id);
             $user->wallet_amount = $user->wallet_amount + $refundAmount;
             $user->save();
+
+
+
 
         }
 
@@ -337,7 +345,6 @@ class StadiumBookingController extends Controller
         curl_setopt($curl, CURLOPT_URL, $url);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
 
-//for debug only!
         curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
         curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
 
