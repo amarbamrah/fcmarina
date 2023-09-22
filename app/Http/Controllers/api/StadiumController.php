@@ -466,7 +466,7 @@ class StadiumController extends Controller
             $api = new Api($key, $secret);
 
             $resp = $api->payment->fetch($booking->payment_id)->refund(array(
-                "amount" =>$refundAmount,
+                "amount" =>$refundAmount*100,
                 "speed" => "normal",
                 "notes" => array("notes_key_1" => "Refund for cancellation"),
                 "receipt" => "Receipt No. 31"));
