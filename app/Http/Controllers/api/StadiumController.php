@@ -455,6 +455,8 @@ class StadiumController extends Controller
 
         $refundAmount = $booking->advance;
 
+        $msg='Booking Cancelled Succewssfully';
+
         if ($refundType = "yes") {
             $key = "rzp_test_Bn6XzeDx8pXFK4";
             $secret = "gVNSxo5kYjNYfooTPWRu9PCS";
@@ -470,11 +472,14 @@ class StadiumController extends Controller
                 "receipt" => "Receipt No. 31"));
             $cb->refund_id = $resp->id;
             $cb->refund_amount = $refundAmount;
+            $cb->save();
+        $msg='Booking Cancelled Succewssfully and amount refund initiate';
+
         } else {
 
         }
 
-        return ['success' => true];
+        return ['success' => true,'msg'=>$msg];
     }
 
 }
