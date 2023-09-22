@@ -457,23 +457,23 @@ class StadiumController extends Controller
 
         $msg='Booking Cancelled Succewssfully';
 
-        if ($refundType = "yes") {
-        //     $key = "rzp_test_Bn6XzeDx8pXFK4";
-        //     $secret = "gVNSxo5kYjNYfooTPWRu9PCS";
+        if ($refundType = "yes" && $booking->payment_id !=null) {
+            $key = "rzp_test_Bn6XzeDx8pXFK4";
+            $secret = "gVNSxo5kYjNYfooTPWRu9PCS";
 
-        //     // $key = "rzp_live_vjwBasZlFwdr36";
-        //     // $secret = "24HHwxlXpmXmARFoXvK1syzH";
-        //     $api = new Api($key, $secret);
+            // $key = "rzp_live_vjwBasZlFwdr36";
+            // $secret = "24HHwxlXpmXmARFoXvK1syzH";
+            $api = new Api($key, $secret);
 
-        //     $resp = $api->payment->fetch($paymentId)->refund(array(
-        //         "amount" =>$refundAmount,
-        //         "speed" => "normal",
-        //         "notes" => array("notes_key_1" => "Refund for cancellation"),
-        //         "receipt" => "Receipt No. 31"));
-        //     $cb->refund_id = $resp->id;
-        //     $cb->refund_amount = $refundAmount;
-        //     $cb->save();
-        // $msg='Booking Cancelled Succewssfully and amount refund initiate';
+            $resp = $api->payment->fetch($booking->payment_id)->refund(array(
+                "amount" =>$refundAmount,
+                "speed" => "normal",
+                "notes" => array("notes_key_1" => "Refund for cancellation"),
+                "receipt" => "Receipt No. 31"));
+            $cb->refund_id = $resp->id;
+            $cb->refund_amount = $refundAmount;
+            $cb->save();
+        $msg='Booking Cancelled Succewssfully and amount refund initiate';
 
         } else {
 
