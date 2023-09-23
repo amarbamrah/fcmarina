@@ -33,8 +33,7 @@ class StadiumController extends Controller
             $loc = Location::find($stadium->location_id);
             $stadium->location_name = $loc->name;
 
-            $stadium->mon5s = $stadium->mon5s * 2;
-            $stadium->mon7s = $stadium->mon7s * 2;
+            
 
             $slotsLeft = 2;
             $stadium->slots_left = $slotsLeft;
@@ -44,6 +43,25 @@ class StadiumController extends Controller
                 $stadium->happy_hour_msg = $happyHours->discount . '% off from ' . Carbon::create($happyHours->from)->format('h:i a') . ' to ' . Carbon::create($happyHours->to)->format('h:i a');
 
             }
+
+            $fprice=0;
+            $sprice=0;
+
+            
+
+            switch(Carbon::now()->format('D')){
+                case 'Mon': $fprice=stadium->mon5s;$sprice=$stadium->mon7s;break;
+                case 'Tue': $fprice=stadium->tue5s;$sprice=$stadium->tue7s;break;
+                case 'Wed': $fprice=stadium->wed5s;$sprice=$stadium->wed7s;break;
+                case 'Thu': $fprice=stadium->thu5s;$sprice=$stadium->thu7s;break;
+                case 'Fri': $fprice=stadium->fri5s;$sprice=$stadium->fri7s;break;
+                case 'Sat': $fprice=stadium->sat5s;$sprice=$stadium->sat7s;break;
+                case 'Sun': $fprice=stadium->sun5s;$sprice=$stadium->sun7s;break;
+            }
+
+
+            $stadium->mon5s = $fprice * 2;
+            $stadium->mon7s = $sprice * 2;
 
         }
         return ['data' => $stadiums, 'success' => true];
