@@ -180,6 +180,7 @@ class StadiumController extends Controller
                 'f_to' => Carbon::create($sb->to)->format('h:i'),
                 'name' => $username,
                 'status' => $sb->status,
+                'booked_by'=>$sb->faculity_id==null?'User':'VM',
                 'start' => Carbon::createFromFormat('Y-m-d H:i:s', $sb->date . ' ' . $sb->from, 'Asia/Kolkata'),
                 'end' => Carbon::createFromFormat('Y-m-d H:i:s', $sb->date . ' ' . $sb->to),
                 'color' => 'transparent',
