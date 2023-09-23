@@ -139,8 +139,8 @@ class StadiumController extends Controller
             }
         }
 
-        $stadium->mon5s = $stadium->mon5s * 2;
-        $stadium->mon7s = $stadium->mon7s * 2;
+        $stadium->mon5s = $fprice * 2;
+        $stadium->mon7s = $sprice * 2;
 
         $ams = [];
         $sas = StadiumAmenity::where('stadium_id', $stadium->id)->get();
