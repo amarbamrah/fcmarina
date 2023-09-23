@@ -89,7 +89,14 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     // Route::get('/edit-stadiums/{id}', [StadiumController::class, 'edit']);
     // Route::post('/update-stadiums/{id}', [StadiumController::class, 'update']);
 
+
+    Route::get('/stadiums/phno',[StadiumController::class,'stadiumPhones']);
+
+    Route::post('/stadiums/phno',[StadiumController::class,'storeStadiumPhones']);
+    
     Route::resource('/stadiums', StadiumController::class);
+
+
 
 
     Route::resource('/locations', LocationController::class);

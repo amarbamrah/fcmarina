@@ -36,8 +36,13 @@
                         <td>{{$std->address}}</td>
                         <td>{{$std->contactno}}</td>
                         <td>
-                          <a href="/admin/stadiums/{{$std->id}}/edit">
-                            <i class="fas fa-edit"></i> Edit
+                          <a href="/admin/stadiums/{{$std->id}}/edit" class="me-3" style="font-size:17px;">
+                            <i data-feather="edit"></i> 
+                          </a>
+
+                          <a href="/admin/stadiums/phno?stadium_id={{$std->id}}">
+                          <i data-feather="phone-incoming"></i> 
+
                           </a>
                         </td>
                       </tr>
