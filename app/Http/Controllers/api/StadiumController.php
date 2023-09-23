@@ -108,6 +108,37 @@ class StadiumController extends Controller
         $slotsLeft = 2;
         $stadium->slots_left = $slotsLeft;
 
+       
+
+
+        $fprice=0;
+        $sprice=0;
+
+        
+        if($stadium->type=='5s' || $stadium->type=='both'){
+        switch(Carbon::now()->format('D')){
+            case 'Mon': $fprice=$stadium->mon5s;break;
+            case 'Tue': $fprice=$stadium->tue5s;break;
+            case 'Wed': $fprice=$stadium->wed5s;break;
+            case 'Thu': $fprice=$stadium->thu5s;break;
+            case 'Fri': $fprice=$stadium->fri5s;break;
+            case 'Sat': $fprice=$stadium->sat5s;break;
+            case 'Sun': $fprice=$stadium->sun5s;break;
+        }
+    }
+
+        if($stadium->type=='7s' || $stadium->type=='both'){
+            switch(Carbon::now()->format('D')){
+                case 'Mon': $sprice=$stadium->mon7s;break;
+                case 'Tue': $sprice=$stadium->tue7s;break;
+                case 'Wed': $sprice=$stadium->wed7s;break;
+                case 'Thu': $sprice=$stadium->thu7s;break;
+                case 'Fri': $sprice=$stadium->fri7s;break;
+                case 'Sat': $sprice=$stadium->sat7s;break;
+                case 'Sun': $sprice=$stadium->sun7s;break;
+            }
+        }
+
         $stadium->mon5s = $stadium->mon5s * 2;
         $stadium->mon7s = $stadium->mon7s * 2;
 
