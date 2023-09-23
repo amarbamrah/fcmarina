@@ -22,7 +22,12 @@ class StadiumBookingController extends Controller
      */
     public function index(Request $request)
     {
-        $sbs = StadiumBooking::where('user_id', $request['user_id'])->get();
+        if($request['type']=='Upcoming'){
+            $sbs = StadiumBooking::where('user_id', $request['user_id'])->where('date','>=',Carbon::now())->get();
+        }else{
+            $sbs = StadiumBooking::where('user_id', $request['user_id'])->where('date','<=',Carbon::now())->get();
+
+        }
         foreach ($sbs as $sb) {
             $sb->day = Carbon::create($sb->date)->format('D');
 
