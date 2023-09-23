@@ -184,7 +184,7 @@ class StadiumController extends Controller
                 'start' => Carbon::createFromFormat('Y-m-d H:i:s', $sb->date . ' ' . $sb->from, 'Asia/Kolkata'),
                 'end' => Carbon::createFromFormat('Y-m-d H:i:s', $sb->date . ' ' . $sb->to),
                 'color' => 'transparent',
-                'fcolor' => $sb->faculity_id==null?'#FFF2E7':'#7ABD7E90'
+                'fcolor' => $sb->faculity_id==null?'#FF6961':'#7ABD7E'
 
             ];
             array_push($bookings, $booking);
