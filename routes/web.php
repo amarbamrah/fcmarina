@@ -96,6 +96,25 @@ Route::prefix('admin')->middleware('auth')->group(function () {
 
     Route::post('/stadiums/delete-phno',[StadiumController::class,'deleteStadiumPhones']);
 
+    Route::get('/stadiums/manage-users',[StadiumController::class,'manageUsers']);
+
+    Route::post('/stadiums/manage-users',[StadiumController::class,'storeUser']);
+
+    Route::post('/stadiums/change-user-status',[StadiumController::class,'changeUserStatus']);
+
+
+    Route::get('/stadiums/blocked-slots',[StadiumController::class,'blockedSlots']);
+
+    Route::post('/stadiums/blocked-slots',[StadiumController::class,'storeBlockedSlots']);
+
+
+    Route::post('/stadiums/delete-blocked-slots',[StadiumController::class,'deleteBlockedSlots']);
+
+
+
+
+
+
 
 
 

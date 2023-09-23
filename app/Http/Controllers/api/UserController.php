@@ -161,4 +161,16 @@ class UserController extends Controller
 
         return ['success' => true, 'data' => $data];
     }
+
+
+
+    public function getUserDetailsFromPhone(Request $request){
+        if(User::where('phonenumber',$request['phone'])->exist()){
+            $user=User::where('phonenumber',$request['phone'])->first();
+            return ['success'=>true,'data'=>$user];
+        }else{
+            return ['success'=>false];
+
+        }
+    }
 }

@@ -116,6 +116,8 @@
                                 <ul class="submenu-item">
                                     <li class="nav-item"><a class="nav-link" href="{{url('/admin/stadiums')}}">All Stadiums</a></li>
                                     <li class="nav-item"><a class="nav-link" href="{{url('/admin/stadiums/create')}}">Create New Stadium</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="{{url('/admin/stadiums/blocked-slots')}}">Block Slots</a></li>
+
                                 </ul>
                             </div>
                         </li>

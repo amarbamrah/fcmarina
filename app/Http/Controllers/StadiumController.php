@@ -12,6 +12,9 @@ use App\Models\StadiumImage;
 use App\Models\User;
 use App\Models\StadiumPhone;
 
+use App\Models\BlockedSlot;
+
+
 use Carbon\Carbon;
 use Carbon\CarbonPeriod;
 use Illuminate\Http\Request;
@@ -272,6 +275,80 @@ class StadiumController extends Controller
        
         $sp->delete();
         return redirect()->back();
+    }
+
+
+    
+
+    public function manageUsers(Request $request)
+    {
+        $stadium = Stadium::find($request['stadium_id']);
+
+       $users=User::where('stadium_id',$stadium->id)->get();
+       
+        return view('admin.stadiums.users',compact('users','stadium'));
+    }
+
+
+    public function storeUser(Request $request)
+    {
+        $stadium = Stadium::find($request['stadium_id']);
+
+        $user=new User();
+        $user->name=$request['name'];
+        $user-> email=$request['email'];
+        $user->password=$request['password'];
+        $user->stadium_id=$request['stadium_id'];
+
+        $user->status = 1;
+        $user->role = 'VC';
+
+        $user->password = Hash::make('fcmarina@123');
+        $user->save();
+        return redirect()->back();
+
+
+
+    }
+
+    public function changeUserStatus(Request $request){
+        $user=User::find($request['user_id']);
+        $user->status=$request['status'];
+        $user->save();
+        return redirect()->back();
+
+    }
+
+
+    public function blockedSlots(Request $request){
+        $bs=BlockedSlot::all();
+        $stadiums=Stadium::all();
+        return view('admin.stadiums.blockedslots',compact('bs','stadiums'));
+    }
+
+
+    public function storeBlockedSlots(Request $request){
+        $bs=new BlockedSlot();
+        $bs->stadium_id=$request['stadium_id'];
+        $bs->from=$request['from'];
+        $bs->to=$request['to'];
+        $bs->timing_from=$request['timing_from'];
+
+        $bs->timing_to=$request['timing_to'];
+
+        $bs->save();
+         return redirect()->back();
+    }
+
+
+
+
+    public function deleteBlockedSlots(Request $request){
+        $bs=BlockedSlot::find($request['id']);
+        
+
+        $bs->delete();
+         return redirect()->back();
     }
 
     public function recPayLinkStatus(Request $request)
