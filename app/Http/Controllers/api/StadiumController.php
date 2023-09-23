@@ -175,8 +175,7 @@ class StadiumController extends Controller
                 'date' => $sb->from,
                 'booking_id' => $sb->booking_id,
                 'stadium_type' => $sb->stadium_type,
-
-
+                'price' => $sb->payable_amount,
                 'f_from' => Carbon::create($sb->from)->format('h:i'),
                 'f_to' => Carbon::create($sb->to)->format('h:i'),
                 'name' => $username,
