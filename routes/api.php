@@ -110,7 +110,7 @@ Route::post('/send-payment-link',[StadiumController::class,'sendPaymentLink']);
 Route::post('/cancel-vm-booking',[StadiumController::class,'cancelBooking']);
 
 
-Route::post('get-user-details-from-phone',[UserController::class,'getUserDetailsFromPhone']);
+Route::post('/get-user-details-from-phone',[UserController::class,'getUserDetailsFromPhone']);
 
 
 

@@ -170,7 +170,6 @@ class UserController extends Controller
             return ['success'=>true,'data'=>$user];
         }else{
             return ['success'=>false];
-
         }
     }
 }
