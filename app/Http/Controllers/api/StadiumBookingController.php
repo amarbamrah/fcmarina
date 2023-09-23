@@ -26,8 +26,8 @@ class StadiumBookingController extends Controller
             $sbs = StadiumBooking::where('user_id', $request['user_id'])->where('date','>=',Carbon::now())->get();
         }else{
             $sbs = StadiumBooking::where('user_id', $request['user_id'])->where('date','<=',Carbon::now())->get();
-
         }
+        
         foreach ($sbs as $sb) {
             $sb->day = Carbon::create($sb->date)->format('D');
 
