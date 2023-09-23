@@ -16,8 +16,10 @@
         <div class="col-md-6 grid-margin stretch-card">
             <div class="card">
                 <div class="card-body">
-                    <form action="/admin/locations" method="post">
+                    <form action="/admin/stadiums/phno" method="post">
                         @csrf
+
+                        <input type="hidden" name="stadium_id" value="{{$stadium->id}}">
                         <div class="form-group mb-3">
                             <label for="">
                                 Phone No
@@ -26,7 +28,7 @@
                             <input type="text" name="phone" class="form-control">
                         </div>
 
-                        <button type="submit" class="btn btn-primary">ADD LOCATION</button>
+                        <button type="submit" class="btn btn-primary">ADD PHONE NO</button>
                     </form>
                 </div>
             </div>
@@ -43,13 +45,23 @@
                                 <tr>
                                     <th>#</th>
                                     <th>Title</th>
+                                    <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach($locations as $i=>$loc)
+                                @foreach($sp as $i=>$s)
                                 <tr>
                                     <td>{{$i+1}}</td>
-                                    <td>{{$loc->name}}</td>
+                                    <td>{{$s->phone}}</td>
+                                    <td>
+                                        <form action="/admin/stadiums/delete-phno" method="POST">
+                                            @csrf
+                                            <input type="hidden" name="phno" value="{{$s->id}}">
+                                            <button type="submit" class="btn p-0">
+                                                <i data-feather="x" class="text-danger"></i>
+                                            </button>
+                                        </form>
+                                    </td>
                                 </tr>
                                 @endforeach
                             </tbody>

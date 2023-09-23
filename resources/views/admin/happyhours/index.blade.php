@@ -35,7 +35,7 @@
                         <td>{{\Carbon\Carbon::create($hr->from)->format('h:i a')}} - {{\Carbon\Carbon::create($hr->to)->format('h:i a')}}</td>
                         <td>{{$hr->hours}}hrs</td>
 
-                        <td>{{$hr->discount}} %</td>
+                        <td>Rs {{$hr->discount}}</td>
                         <td>{{$hr->user_id!=null?'Specific':'All User'}}</td>
                         <td>
                             <a href="/admin/happy-hours/{{$hr->id}}/edit"><i data-feather="edit"></i> Edit</a>

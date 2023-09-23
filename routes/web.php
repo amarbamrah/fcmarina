@@ -93,7 +93,12 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     Route::get('/stadiums/phno',[StadiumController::class,'stadiumPhones']);
 
     Route::post('/stadiums/phno',[StadiumController::class,'storeStadiumPhones']);
-    
+
+    Route::post('/stadiums/delete-phno',[StadiumController::class,'deleteStadiumPhones']);
+
+
+
+
     Route::resource('/stadiums', StadiumController::class);
 
 

@@ -249,7 +249,7 @@ class StadiumController extends Controller
 
         $sp = StadiumPhone::where('stadium_id',$request['stadium_id'])->get();
        
-        return view('admin.stadiums.phones',compact('sp'));
+        return view('admin.stadiums.phones',compact('sp','stadium'));
     }
 
     public function storeStadiumPhones(Request $request)
@@ -261,6 +261,16 @@ class StadiumController extends Controller
         $sp->stadium_id = $request['stadium_id'];
 
         $sp->save();
+        return redirect()->back();
+    }
+
+
+    public function deleteStadiumPhones(Request $request)
+    {
+
+        $sp = StadiumPhone::find($request['phno']);
+       
+        $sp->delete();
         return redirect()->back();
     }
 
