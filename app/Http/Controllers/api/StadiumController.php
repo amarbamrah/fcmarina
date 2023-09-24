@@ -240,12 +240,12 @@ class StadiumController extends Controller
 
 
             if ($sb->faculity_id != null && $sb->booked_for!=null) {
-                $color = '#364652';
+                $color = '#7D8491';
 
             }
 
             if ($sb->faculity_id != null && $sb->booked_for==null) {
-                $color = '#7D8491';
+                $color = '#C9E3AC';
 
             }
 
