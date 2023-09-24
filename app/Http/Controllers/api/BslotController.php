@@ -32,7 +32,7 @@ class BslotController extends Controller
 
         $date = $request->has('date') ? Carbon::create($request['date']) : Carbon::now();
 
-        $sbs = StadiumBooking::where('stadium_id', $request['stadium_id'])->whereDate('date', $date)->get();
+        $sbs = StadiumBooking::where('stadium_id', $request['stadium_id'])->whereDate('date', $date)->where('status','!=','Cancelled')->where('status','!=','Processing')->get();
 
 
         $stadium=Stadium::find($request['stadium_id']);
