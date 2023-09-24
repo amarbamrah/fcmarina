@@ -231,12 +231,25 @@ class StadiumController extends Controller
 
             $username = $user == null ? $sb->name : $user->name;
 
-            $color = '#60e3f740';
+            $color = '#FFF2E7';
 
-            if ($sb->stadium_type == '5s') {
+            if ($sb->faculity_id == null) {
                 $color = '#FFF2E7';
 
             }
+
+
+            if ($sb->faculity_id != null && $sb->booked_for!=null) {
+                $color = '#333';
+
+            }
+
+            if ($sb->faculity_id != null && $sb->booked_for==null) {
+                $color = '#7ABD7E90';
+
+            }
+
+            
 
             $booking = [
                 'id' => $sb->id,
@@ -255,7 +268,7 @@ class StadiumController extends Controller
                 'startDate' => Carbon::createFromFormat('Y-m-d H:i:s', $sb->date . ' ' . $sb->from, 'Asia/Kolkata'),
                 'endDate' => Carbon::createFromFormat('Y-m-d H:i:s', $sb->date . ' ' . $sb->to),
                 'color' => 'transparent',
-                'fcolor' => $sb->faculity_id==null?'#FFF2E7':'#7ABD7E90'
+                'fcolor' => $color
 
             ];
             array_push($bookings, $booking);
