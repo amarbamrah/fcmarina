@@ -52,7 +52,8 @@ class StadiumBookingController extends Controller
             $sb->stadium = Stadium::find($sb->stadium_id);
 
             if($sb->status=='Cancelled'){
-                $sb->cancel_msg='Cancelled By ';
+                $name='';
+                $sb->cancel_msg='Cancelled By '.$name;
             }
         }
         return ['success' => true, 'data' => $sbs];
