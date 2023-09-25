@@ -300,7 +300,11 @@ class StadiumBookingController extends Controller
 
     public function cancelBooking(Request $request)
     {
+    
         $booking = StadiumBooking::find($request['booking_id']);
+        if($booking->status=='Cancelled'){
+            return ['success'=>false];
+        }
         $booking->status = 'Cancelled';
         $booking->save();
 
