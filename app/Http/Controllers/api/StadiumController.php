@@ -289,8 +289,8 @@ class StadiumController extends Controller
 
             $sb->f_date = Carbon::create($sb->date)->format('d');
 
-            $sb->f_from = Carbon::create($sb->from)->format('h:i');
-            $sb->f_to = Carbon::create($sb->to)->format('h:i');
+            $sb->f_from = Carbon::create($sb->from)->format('h:i A');
+            $sb->f_to = Carbon::create($sb->to)->format('h:i A');
             $sb->user = User::find($sb->user_id);
             $sb->stadium = Stadium::find($sb->stadium_id);
         }
