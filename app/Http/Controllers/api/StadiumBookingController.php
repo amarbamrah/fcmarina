@@ -53,6 +53,12 @@ class StadiumBookingController extends Controller
 
             if($sb->status=='Cancelled'){
                 $name='';
+                if($sb->cancelled_by==$sb->user_id){
+                    $name='You';
+                }
+                else{
+$name='FC MARINA';
+                }
                 $sb->cancel_msg='Cancelled By '.$name;
             }
         }
