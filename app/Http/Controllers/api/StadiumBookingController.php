@@ -50,6 +50,10 @@ class StadiumBookingController extends Controller
             $sb->f_to = Carbon::create($sb->to)->format('h:i A');
             $sb->user = User::find($sb->user_id);
             $sb->stadium = Stadium::find($sb->stadium_id);
+
+            if($sb->status=='Cancelled'){
+                $sb->cancel_msg='Cancelled By ';
+            }
         }
         return ['success' => true, 'data' => $sbs];
     }
