@@ -23,9 +23,9 @@ class StadiumBookingController extends Controller
     public function index(Request $request)
     {
         if($request['type']=='Upcoming'){
-            $sbs = StadiumBooking::where('user_id', $request['user_id'])->where('date','>=',Carbon::now())->get();
+            $sbs = StadiumBooking::where('user_id', $request['user_id'])->whereDate('date','>',Carbon::now())->whereTime('from','>',Carbon::now()->format('H:i:s'))->get();
         }else{
-            $sbs = StadiumBooking::where('user_id', $request['user_id'])->where('date','<=',Carbon::now())->get();
+            $sbs = StadiumBooking::where('user_id', $request['user_id'])->whereDate('date','<=',Carbon::now())->whereTime('from','<=',Carbon::now()->format('H:i:s'))->get();
         }
         
         foreach ($sbs as $sb) {
