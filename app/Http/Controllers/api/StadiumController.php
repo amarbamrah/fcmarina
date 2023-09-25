@@ -551,7 +551,7 @@ class StadiumController extends Controller
 
         $msg='Booking Cancelled Succewssfully';
 
-        if ($refundType = "yes" && $booking->payment_id !=null) {
+        if ($refundType == "yes" && $booking->payment_id !=null) {
             $key = "rzp_test_Bn6XzeDx8pXFK4";
             $secret = "gVNSxo5kYjNYfooTPWRu9PCS";
 
@@ -599,7 +599,15 @@ class StadiumController extends Controller
 
         $btime = str_replace(' ', '%20', $from . '-' . $to);
 
-        $url='http://api.nsite.in/api/v2/SendSMS?SenderId=FCMARI&Is_Unicode=false&Is_Flash=false&Message=Booking%20Declined!%20\n'.$uname.'%20FC%20Marina%20has%20declined%20a%20FC%20Marina%20booking.%20\nVenue%20:%20'.$sname.'%20\nDate%20:'.$bdate.'%20\nTime%20:'.$btime.'%20\nCourt%20:'.$booking->stadium_type.'%20\nCancellation%20Penalty%20of%20Var%20has%20been%20charged.%20\nBooking%20ID:%20'.$booking->booking_id.'&MobileNumbers='.$phone.'&ApiKey=mLdRdY8ey1ZTzMY0OifcDjaTO7rJ7gMTgsogL8ragGs=&ClientId=7a0c1703-92c1-4a91-918b-4ac7d9b8d1b3';
+        $ca=0;
+
+        if($refundType== "yes"){
+            $ca=0;
+        }else{
+            $ca=$refundAmount;
+        }
+
+        $url='http://api.nsite.in/api/v2/SendSMS?SenderId=FCMARI&Is_Unicode=false&Is_Flash=false&Message=Booking%20Declined!%20\n'.$uname.'%20FC%20Marina%20has%20declined%20a%20FC%20Marina%20booking.%20\nVenue%20:%20'.$sname.'%20\nDate%20:'.$bdate.'%20\nTime%20:'.$btime.'%20\nCourt%20:'.$booking->stadium_type.'%20\nCancellation%20Penalty%20of%20'.$ca.'%20has%20been%20charged.%20\nBooking%20ID:%20'.$booking->booking_id.'&MobileNumbers='.$phone.'&ApiKey=mLdRdY8ey1ZTzMY0OifcDjaTO7rJ7gMTgsogL8ragGs=&ClientId=7a0c1703-92c1-4a91-918b-4ac7d9b8d1b3';
 
         $curl = curl_init($url);
         curl_setopt($curl, CURLOPT_URL, $url);
