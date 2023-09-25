@@ -533,6 +533,11 @@ class StadiumController extends Controller
     {
         $refundType = $request['refund_type'];
         $booking = StadiumBooking::find($request['booking_id']);
+
+        if($booking->status=='Cancelled'){
+            return ['success'=>false,'msg'=>'This booking has already been cancelled!'];
+        }
+        
         $booking->status = 'Cancelled';
         $booking->cancelled_by = 30;
         $booking->save();
