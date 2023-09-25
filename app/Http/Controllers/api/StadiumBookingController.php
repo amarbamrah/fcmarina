@@ -31,7 +31,13 @@ class StadiumBookingController extends Controller
                 })
                 ->get();
         } else {
-            $sbs = StadiumBooking::where('user_id', $request['user_id'])->whereDate('date', '<=', Carbon::now())->whereTime('from', '<=', Carbon::now()->format('H:i:s'))->get();
+            $sbs = StadiumBooking::where('user_id', $request['user_id'])
+            ->whereDate('date', '>', Carbon::today())
+            ->orWhere(function ($query) {
+                $query->whereDate('date', '=', Carbon::today())
+                    ->whereTime('from', '<=', Carbon::now()->format('H:i:s'));
+            })
+            ->get();
         }
 
         foreach ($sbs as $sb) {
