@@ -537,9 +537,9 @@ class StadiumController extends Controller
         if($booking->status=='Cancelled'){
             return ['success'=>false,'msg'=>'This booking has already been cancelled!'];
         }
-        
+
         $booking->status = 'Cancelled';
-        $booking->cancelled_by = 30;
+        $booking->cancelled_by = auth()->user()->id;
         $booking->save();
 
         $cr = CancelReason::find($request['reason_id']);
