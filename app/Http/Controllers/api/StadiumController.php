@@ -581,6 +581,7 @@ class StadiumController extends Controller
 
         }
 
+        $stadium=Stadium::find($booking->stadium_id);
         $uname = str_replace(' ', '%20', $uname);
 
         $sname = str_replace(' ', '%20', $stadium->name);
