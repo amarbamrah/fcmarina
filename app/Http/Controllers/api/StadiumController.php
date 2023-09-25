@@ -574,10 +574,16 @@ class StadiumController extends Controller
         }
 
         $uname='';
+        $phone='';
         if($booking->user_id==null){
             $uname=$booking->name;
+            $phone=$booking->phone;
+
         }else{
             $uname=User::find($booking->user_id)->name;
+            $phone=User::find($booking->user_id)->phonenumber;
+
+
 
         }
 
@@ -593,7 +599,7 @@ class StadiumController extends Controller
 
         $btime = str_replace(' ', '%20', $from . '-' . $to);
 
-        $url='http://api.nsite.in/api/v2/SendSMS?SenderId=FCMARI&Is_Unicode=false&Is_Flash=false&Message=Booking%20Declined!%20\n'.$uname.'%20FC%20Marina%20has%20declined%20a%20FC%20Marina%20booking.%20\nVenue%20:%20'.$sname.'%20\nDate%20:'.$bdate.'%20\nTime%20:'.$btime.'%20\nCourt%20:'.$booking->stadium_type.'%20\nCancellation%20Penalty%20of%20Var%20has%20been%20charged.%20\nBooking%20ID:%20'.$booking->booking_id.'&MobileNumbers=9311911065&ApiKey=mLdRdY8ey1ZTzMY0OifcDjaTO7rJ7gMTgsogL8ragGs=&ClientId=7a0c1703-92c1-4a91-918b-4ac7d9b8d1b3';
+        $url='http://api.nsite.in/api/v2/SendSMS?SenderId=FCMARI&Is_Unicode=false&Is_Flash=false&Message=Booking%20Declined!%20\n'.$uname.'%20FC%20Marina%20has%20declined%20a%20FC%20Marina%20booking.%20\nVenue%20:%20'.$sname.'%20\nDate%20:'.$bdate.'%20\nTime%20:'.$btime.'%20\nCourt%20:'.$booking->stadium_type.'%20\nCancellation%20Penalty%20of%20Var%20has%20been%20charged.%20\nBooking%20ID:%20'.$booking->booking_id.'&MobileNumbers='.$phone.'&ApiKey=mLdRdY8ey1ZTzMY0OifcDjaTO7rJ7gMTgsogL8ragGs=&ClientId=7a0c1703-92c1-4a91-918b-4ac7d9b8d1b3';
 
         $curl = curl_init($url);
         curl_setopt($curl, CURLOPT_URL, $url);
