@@ -306,6 +306,8 @@ class StadiumBookingController extends Controller
             return ['success'=>false,'msg'=>'This booking has already been cancelled!'];
         }
         $booking->status = 'Cancelled';
+        $booking->cancelled_by = $booking->user_id;
+
         $booking->save();
 
         $bookingDate = Carbon::create($booking->date);
