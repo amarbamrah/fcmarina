@@ -563,11 +563,11 @@ class StadiumController extends Controller
                 "amount" =>$refundAmount*100,
                 "speed" => "normal",
                 "notes" => array("notes_key_1" => "Refund for cancellation"),
-                "receipt" => "Receipt No. 31"));
+                "receipt" => "Receipt No.".$booking->id));
             $cb->refund_id = $resp->id;
             $cb->refund_amount = $refundAmount;
             $cb->save();
-        $msg='Booking Cancelled Succewssfully and amount refund initiate';
+            $msg='Booking Cancelled Succewssfully and amount refund initiate';
 
         } else {
 
