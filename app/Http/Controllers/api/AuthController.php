@@ -18,14 +18,14 @@ class AuthController extends Controller
     {
         if (Auth::attempt(['email' => $request['username'], 'password' => $request['password']])) {
             $user = Auth::user();
-            //   $token = $user()->createToken($request['username']);
+            $token = $request->user()->createToken($request['username']);
             if ($user->role == 'Admin') {
                 $stadium = Stadium::first();
             } else {
                 $stadium = Stadium::find($user->stadium_id);
             }
 
-            return ['success' => true, 'user' => $user, 'token' => 'abc','stadium_id'=>$stadium->id];
+            return ['success' => true, 'user' => $user, 'token' => $token->plainTextToken,'stadium_id'=>$stadium->id];
         } else {
             return ['success' => false];
         }
