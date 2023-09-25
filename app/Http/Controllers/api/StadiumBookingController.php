@@ -22,12 +22,18 @@ class StadiumBookingController extends Controller
      */
     public function index(Request $request)
     {
-        if($request['type']=='Upcoming'){
-            $sbs = StadiumBooking::where('user_id', $request['user_id'])->whereDate('date','>',Carbon::now())->whereTime('from','>',Carbon::now()->format('H:i:s'))->get();
-        }else{
-            $sbs = StadiumBooking::where('user_id', $request['user_id'])->whereDate('date','<=',Carbon::now())->whereTime('from','<=',Carbon::now()->format('H:i:s'))->get();
+        if ($request['type'] == 'Upcoming') {
+            $sbs = StadiumBooking::where('user_id', $request['user_id'])
+                ->whereDate('booking_date', '<', Carbon::today())
+                ->orWhere(function ($query) {
+                    $query->whereDate('booking_date', '=', Carbon::today())
+                        ->whereTime('from', '<', Carbon::now()->format('H:i:s'));
+                })
+                ->get();
+        } else {
+            $sbs = StadiumBooking::where('user_id', $request['user_id'])->whereDate('date', '<=', Carbon::now())->whereTime('from', '<=', Carbon::now()->format('H:i:s'))->get();
         }
-        
+
         foreach ($sbs as $sb) {
             $sb->day = Carbon::create($sb->date)->format('D');
 
@@ -52,8 +58,8 @@ class StadiumBookingController extends Controller
     public function generateOrder(Request $request)
     {
 
-            $key = "rzp_test_Bn6XzeDx8pXFK4";
-           $secret = "gVNSxo5kYjNYfooTPWRu9PCS";
+        $key = "rzp_test_Bn6XzeDx8pXFK4";
+        $secret = "gVNSxo5kYjNYfooTPWRu9PCS";
 
         // $key = "rzp_live_vjwBasZlFwdr36";
         // $secret = "24HHwxlXpmXmARFoXvK1syzH";
@@ -89,14 +95,12 @@ class StadiumBookingController extends Controller
 
         $sb->payable_amount = $request['total_amount'] - $request['discount'];
 
-
-        $sb->order_id=$request['order_id'];
-        $sb->payment_id=$request['payment_id'];
-        $sb->signature=$request['signature'];
-
+        $sb->order_id = $request['order_id'];
+        $sb->payment_id = $request['payment_id'];
+        $sb->signature = $request['signature'];
 
         $advance = 10 / 100;
-        $advance = $advance *  $sb->payable_amount;
+        $advance = $advance * $sb->payable_amount;
 
         $sb->discount = $request['discount'];
 
@@ -104,7 +108,7 @@ class StadiumBookingController extends Controller
 
         $sb->status = 'Confirmed';
 
-        $sb->rem_amount =  $sb->payable_amount - $advance;
+        $sb->rem_amount = $sb->payable_amount - $advance;
 
         $sb->stadium_type = $request['stadium_type'];
         $sb->from = $request['from'];
@@ -181,12 +185,11 @@ class StadiumBookingController extends Controller
         $stadiumBooking->day = Carbon::create($stadiumBooking->date)->format('D');
 
         $stadiumBooking->f_date = Carbon::create($stadiumBooking->date)->format('d');
-        
 
         $stadiumBooking->f_from = Carbon::create($stadiumBooking->from)->format('h:i a');
         $stadiumBooking->f_to = Carbon::create($stadiumBooking->to)->format('h:i a');
 
-        $stadiumBooking->booked_by = $stadiumBooking->faculity_id==null?'User':'Venue';
+        $stadiumBooking->booked_by = $stadiumBooking->faculity_id == null ? 'User' : 'Venue';
 
         $day_division = '';
         if (Carbon::create($stadiumBooking->from) < Carbon::createFromFormat('H:i a', '06:00 AM')) {
@@ -282,7 +285,6 @@ class StadiumBookingController extends Controller
             $refundAmount = 0;
         }
 
-       
         return ['success' => true, 'data' => CancelReason::all(), 'refund_amount' => $refundAmount];
     }
 
@@ -292,15 +294,12 @@ class StadiumBookingController extends Controller
         $booking->status = 'Cancelled';
         $booking->save();
 
-
         $bookingDate = Carbon::create($booking->date);
 
         $refundAmount = $booking->advance;
         if ($bookingDate->diffInHours(Carbon::now()) < 24) {
             $refundAmount = 0;
         }
-
-        
 
         $cr = CancelReason::find($request['reason_id']);
         $cb = new CancelBookingReason();
@@ -309,7 +308,6 @@ class StadiumBookingController extends Controller
 
         $cb->booking_id = $booking->id;
         $cb->save();
-    
 
         if ($refundAmount > 0) {
             $pt = new WalletTransaction();
@@ -324,34 +322,27 @@ class StadiumBookingController extends Controller
             $user->wallet_amount = $user->wallet_amount + $refundAmount;
             $user->save();
 
+        }
 
-
+        $phone = '';
+        $username = '';
+        if ($booking->user_id != null) {
+            $user = User::find($booking->user_id);
+            $phone = $user->phonenumber;
+            $name = str_replace(' ', '%20', $user->name);
 
         }
 
+        $stadium = Stadium::find($booking->stadium_id);
+        $sname = str_replace(' ', '%20', $stadium->name);
 
-        $phone='';
-        $username='';
-        if($booking->user_id!=null){
-            $user=User::find($booking->user_id);
-            $phone=$user->phonenumber;
-            $name=str_replace(' ', '%20', $user->name);
+        $bdate = Carbon::create($booking->date)->format('d-M-Y');
+        $from = Carbon::create($booking->from)->format('h:i a');
+        $to = Carbon::create($booking->to)->format('h:i a');
 
-        }
+        $btime = str_replace(' ', '%20', $from . '-' . $to);
 
-        $stadium=Stadium::find($booking->stadium_id);
-        $sname=str_replace(' ', '%20', $stadium->name);
-
-        $bdate=Carbon::create($booking->date)->format('d-M-Y');
-        $from=Carbon::create($booking->from)->format('h:i a');
-        $to=Carbon::create($booking->to)->format('h:i a');
-
-        $btime=str_replace(' ', '%20', $from.'-'.$to);
-
-
-
-
-        $url="http://api.nsite.in/api/v2/SendSMS?SenderId=FCMARI&Is_Unicode=false&Is_Flash=false&Message=Booking%20Cancelled%20!%5Cn%20".$name."%20has%20cancelled%20his%20FC%20Marina%20booking%20%5CnVenue%20:%20".$sname."%20%5CnDate%20:%20".$bdate."%20%5CnTime%20:%20".$btime."%20%5CnCourt%20:%20".$booking->stadium_type."%20%5CnAdvance%20paid%20has%20been%20Refunded%20%5CnBooking%20ID:%20".$booking->booking_id."&MobileNumbers=".$phone."&ApiKey=mLdRdY8ey1ZTzMY0OifcDjaTO7rJ7gMTgsogL8ragGs=&ClientId=7a0c1703-92c1-4a91-918b-4ac7d9b8d1b3";
+        $url = "http://api.nsite.in/api/v2/SendSMS?SenderId=FCMARI&Is_Unicode=false&Is_Flash=false&Message=Booking%20Cancelled%20!%5Cn%20" . $name . "%20has%20cancelled%20his%20FC%20Marina%20booking%20%5CnVenue%20:%20" . $sname . "%20%5CnDate%20:%20" . $bdate . "%20%5CnTime%20:%20" . $btime . "%20%5CnCourt%20:%20" . $booking->stadium_type . "%20%5CnAdvance%20paid%20has%20been%20Refunded%20%5CnBooking%20ID:%20" . $booking->booking_id . "&MobileNumbers=" . $phone . "&ApiKey=mLdRdY8ey1ZTzMY0OifcDjaTO7rJ7gMTgsogL8ragGs=&ClientId=7a0c1703-92c1-4a91-918b-4ac7d9b8d1b3";
         $curl = curl_init($url);
         curl_setopt($curl, CURLOPT_URL, $url);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
@@ -375,7 +366,7 @@ class StadiumBookingController extends Controller
 
         $discountMsg = '';
 
-        if ($discount== 0) {
+        if ($discount == 0) {
             if ($bCount <= 2) {
                 $discountPer = 10;
                 $discount = $discountPer * $total_amount;
