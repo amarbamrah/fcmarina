@@ -8,6 +8,7 @@ use App\Models\CancelReason;
 use App\Models\PointTransaction;
 use App\Models\Stadium;
 use App\Models\StadiumBooking;
+use App\Models\StadiumPhone;
 use App\Models\User;
 use App\Models\WalletTransaction;
 use Carbon\Carbon;
@@ -32,12 +33,12 @@ class StadiumBookingController extends Controller
                 ->get();
         } else {
             $sbs = StadiumBooking::where('user_id', $request['user_id'])
-            ->whereDate('date', '>', Carbon::today())
-            ->orWhere(function ($query) {
-                $query->whereDate('date', '=', Carbon::today())
-                    ->whereTime('from', '<=', Carbon::now()->format('H:i:s'));
-            })
-            ->get();
+                ->whereDate('date', '>', Carbon::today())
+                ->orWhere(function ($query) {
+                    $query->whereDate('date', '=', Carbon::today())
+                        ->whereTime('from', '<=', Carbon::now()->format('H:i:s'));
+                })
+                ->get();
         }
 
         foreach ($sbs as $sb) {
@@ -162,11 +163,10 @@ class StadiumBookingController extends Controller
 
         $datee = Carbon::create($sb->date)->format('d-m-Y');
 
+        $from = Carbon::create($sb->from)->format('h:i a');
+        $to = Carbon::create($sb->to)->format('h:i a');
 
-        $from=Carbon::create($sb->from)->format('h:i a');
-            $to=Carbon::create($sb->to)->format('h:i a');
-    
-            $time=str_replace(' ', '%20', $from.'-'.$to);
+        $time = str_replace(' ', '%20', $from . '-' . $to);
 
         $url = "http://api.nsite.in/api/v2/SendSMS?SenderId=FCMARI&Is_Unicode=false&Is_Flash=false&Message=Slot%20Booked%20!%20%5CnHi%20" . str_replace(' ', '%20', $user->name) . ",%20you%20have%20booked%20a%20slot%20with%20FC%20MARINA%20BOOK%20APP.%20%5CnVenue%20:%20" . str_replace(' ', '%20', $stadium->name) . "%20%5CnDate%20:%20" . $datee . "%20%5CnTime%20:%20" . $time . "%20%5CnCourt%20:%20" . $sb->stadium_type . "%20%5CnAdvance%20Paid:%20" . $sb->advance . "%20%5CnBalance%20to%20pay:%20" . $sb->rem_amount . "%20%5CnBooking%20ID:%20" . $sb->booking_id . "&MobileNumbers=" . $user->phonenumber . "&ApiKey=mLdRdY8ey1ZTzMY0OifcDjaTO7rJ7gMTgsogL8ragGs=&ClientId=7a0c1703-92c1-4a91-918b-4ac7d9b8d1b3";
         $curl = curl_init($url);
@@ -362,6 +362,20 @@ class StadiumBookingController extends Controller
 
         $resp = curl_exec($curl);
         curl_close($curl);
+
+        $phones = StadiumPhone::where('stadium_id', $booking->stadium_id)->get();
+        foreach ($phones as $sphone) {
+            $url = "http://api.nsite.in/api/v2/SendSMS?SenderId=FCMARI&Is_Unicode=false&Is_Flash=false&Message=Booking%20Cancelled%20!%5Cn%20" . $name . "%20has%20cancelled%20his%20FC%20Marina%20booking%20%5CnVenue%20:%20" . $sname . "%20%5CnDate%20:%20" . $bdate . "%20%5CnTime%20:%20" . $btime . "%20%5CnCourt%20:%20" . $booking->stadium_type . "%20%5CnAdvance%20paid%20has%20been%20Refunded%20%5CnBooking%20ID:%20" . $booking->booking_id . "&MobileNumbers=" . $sphone . "&ApiKey=mLdRdY8ey1ZTzMY0OifcDjaTO7rJ7gMTgsogL8ragGs=&ClientId=7a0c1703-92c1-4a91-918b-4ac7d9b8d1b3";
+            $curl = curl_init($url);
+            curl_setopt($curl, CURLOPT_URL, $url);
+            curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+
+            curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
+            curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+
+            $resp = curl_exec($curl);
+            curl_close($curl);
+        }
 
         return ['success' => true];
     }
