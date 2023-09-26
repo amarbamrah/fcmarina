@@ -357,11 +357,11 @@ class StadiumController extends Controller
 
             $name = $request['name'];
 
-            // $key = "rzp_live_vjwBasZlFwdr36";
-            // $secret = "24HHwxlXpmXmARFoXvK1syzH";
+            $key = "rzp_live_vjwBasZlFwdr36";
+            $secret = "24HHwxlXpmXmARFoXvK1syzH";
 
-            $key = "rzp_test_Bn6XzeDx8pXFK4";
-            $secret = "gVNSxo5kYjNYfooTPWRu9PCS";
+            // $key = "rzp_test_Bn6XzeDx8pXFK4";
+            // $secret = "gVNSxo5kYjNYfooTPWRu9PCS";
 
             $api = new Api($key, $secret);
 
@@ -557,11 +557,11 @@ class StadiumController extends Controller
         $msg='Booking Cancelled Succewssfully';
 
         if ($refundType == "yes" && $booking->payment_id !=null) {
-            $key = "rzp_test_Bn6XzeDx8pXFK4";
-            $secret = "gVNSxo5kYjNYfooTPWRu9PCS";
+            // $key = "rzp_test_Bn6XzeDx8pXFK4";
+            // $secret = "gVNSxo5kYjNYfooTPWRu9PCS";
 
-            // $key = "rzp_live_vjwBasZlFwdr36";
-            // $secret = "24HHwxlXpmXmARFoXvK1syzH";
+            $key = "rzp_live_vjwBasZlFwdr36";
+            $secret = "24HHwxlXpmXmARFoXvK1syzH";
             $api = new Api($key, $secret);
 
             $resp = $api->payment->fetch($booking->payment_id)->refund(array(

@@ -76,11 +76,11 @@ class StadiumBookingController extends Controller
     public function generateOrder(Request $request)
     {
 
-        $key = "rzp_test_Bn6XzeDx8pXFK4";
-        $secret = "gVNSxo5kYjNYfooTPWRu9PCS";
+        // $key = "rzp_test_Bn6XzeDx8pXFK4";
+        // $secret = "gVNSxo5kYjNYfooTPWRu9PCS";
 
-        // $key = "rzp_live_vjwBasZlFwdr36";
-        // $secret = "24HHwxlXpmXmARFoXvK1syzH";
+        $key = "rzp_live_vjwBasZlFwdr36";
+        $secret = "24HHwxlXpmXmARFoXvK1syzH";
 
         $api = new Api($key, $secret);
 
