@@ -57,7 +57,7 @@ class StadiumBookingController extends Controller
                     $name='You';
                 }
                 else{
-$name='FC MARINA';
+                $name='FC MARINA';
                 }
                 $sb->cancel_msg='Cancelled By '.$name;
             }
@@ -105,6 +105,23 @@ $name='FC MARINA';
 
         $booking_id = Str::random(6);
         $sb = new StadiumBooking();
+
+
+        $bCount = StadiumBooking::where('user_id', $request['user_id'])->count();
+        $discount = $request['discount'];
+
+        $discountMsg = '';
+
+        if ($discount == 0) {
+            if ($bCount <= 2) {
+                $discountPer = 10;
+                $ndiscount = $discountPer * $total_amount;
+                $discount+= $ndiscount / 100;
+                $discountMsg = '10% off as a Welcome Discount ';
+            }
+        }
+
+
         $sb->stadium_id = $request['stadium_id'];
         $sb->user_id = $request['user_id'];
         $sb->sport_type = $request['game'];
