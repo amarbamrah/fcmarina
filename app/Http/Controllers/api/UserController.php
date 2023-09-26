@@ -42,12 +42,22 @@ class UserController extends Controller
 
     public function userRegister(Request $request){
         //return $request;
-        $login_user = User::where('phonenumber',$request['phonenumber'])->first();
+        $login_user = User::where('phonenumber',$request['phonenumber'])->exists();
+
+        $email_user = User::where('email',$request['email'])->exists();
+
         //return $login_user;
         if($login_user)
         {
             return ['success'=>false, 'message'=>'Already Registered'];            
         }
+
+
+        if($email_user)
+        {
+            return ['success'=>false, 'message'=>'Email Already Exists'];            
+        }
+        
         else
         {
             $user = new User();
