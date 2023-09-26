@@ -55,7 +55,7 @@ class UserController extends Controller
 
         if($email_user)
         {
-            return ['success'=>false, 'message'=>'Email Already Exists'];            
+            return ['success'=>false, 'message'=>'Email already exists'];            
         }
         
         else
