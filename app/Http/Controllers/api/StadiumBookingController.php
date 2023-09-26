@@ -128,7 +128,7 @@ class StadiumBookingController extends Controller
 
         $sb->total_amount = $request['total_amount'];
 
-        $sb->payable_amount = $request['total_amount'] - $request['discount'];
+        $sb->payable_amount = $request['total_amount'] - $discount;
 
         $sb->order_id = $request['order_id'];
         $sb->payment_id = $request['payment_id'];
@@ -137,7 +137,7 @@ class StadiumBookingController extends Controller
         $advance = 10 / 100;
         $advance = $advance * $sb->payable_amount;
 
-        $sb->discount = $request['discount'];
+        $sb->discount = $discount;
 
         $sb->advance = $advance;
 
