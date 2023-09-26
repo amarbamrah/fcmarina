@@ -427,8 +427,8 @@ class StadiumBookingController extends Controller
         if ($discount == 0) {
             if ($bCount <= 2) {
                 $discountPer = 10;
-                $discount = $discountPer * $total_amount;
-                $discount = $discount / 100;
+                $ndiscount = $discountPer * $total_amount;
+                $discount+= $ndiscount / 100;
 
                 $discountMsg = '10% off as a Welcome Discount ';
 
