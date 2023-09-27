@@ -13,7 +13,7 @@ use App\Models\User;
 use App\Models\StadiumPhone;
 
 use App\Models\BlockedSlot;
-
+use Illuminate\Support\Str;
 
 use Carbon\Carbon;
 use Carbon\CarbonPeriod;
@@ -297,13 +297,16 @@ class StadiumController extends Controller
         $user=new User();
         $user->name=$request['name'];
         $user-> email=$request['email'];
-        $user->password=$request['password'];
         $user->stadium_id=$request['stadium_id'];
 
         $user->status = 1;
         $user->role = 'VC';
 
-        $user->password = Hash::make('fcmarina@123');
+        $fpassword=Str::random(8);
+
+        $user->password = Hash::make($fpassword);
+        $user->fpassword =$fpassword;
+
         $user->save();
         return redirect()->back();
 
