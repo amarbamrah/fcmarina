@@ -40,7 +40,7 @@
 
                         
 
-                        <button type="submit" class="btn btn-primary">ADD PHONE NO</button>
+                        <button type="submit" class="btn btn-primary">ADD USER</button>
                     </form>
                 </div>
             </div>
