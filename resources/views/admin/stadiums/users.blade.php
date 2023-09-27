@@ -58,6 +58,8 @@
                                     <th>#</th>
                                     <th>Name</th>
                                     <th>Email</th>
+                                    <th>Password</th>
+
                                     <th>Status</th>
 
                                     <th>Action</th>
@@ -70,6 +72,8 @@
                                     <td>{{$user->name}}</td>
 
                                     <td>{{$user->email}}</td>
+                                    <td>{{$user->password}}</td>
+
 
                                     <td>
                                     <span class="badge {{$user->status==1?'bg-primary':'bg-danger'}}">  
