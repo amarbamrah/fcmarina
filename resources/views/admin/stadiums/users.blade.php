@@ -6,7 +6,7 @@
     <nav class="page-breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="#">Stadiums</a></li>
-            <li class="breadcrumb-item"><a href="#">Manage Users</a></li>
+            <li class="breadcrumb-item"><a href="#">Manage Users For {{$stadium->name}}</a></li>
 
         </ol>
     </nav>
