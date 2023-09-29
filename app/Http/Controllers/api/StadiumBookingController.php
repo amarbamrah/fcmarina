@@ -412,6 +412,10 @@ class StadiumBookingController extends Controller
     public function getSummary(Request $request)
     {
         $redeem = $request['redeem'];
+        $from = Carbon::create($from);
+        $to = Carbon::create($to);
+
+        $hours=$from->diffInHours($to);
         $user = User::find($request['user_id']);
         $total_amount = $request['total_amount'];
 
@@ -438,6 +442,7 @@ class StadiumBookingController extends Controller
 
         $pointMsg = '';
 
+        $freeHours=0;
         if ($points > 1000) {
             $ptsToRedeem = floor($points / 1000) * 1000;
             $freeHours=$ptsToRedeem/1000;
@@ -452,6 +457,6 @@ class StadiumBookingController extends Controller
             $pointErrMsg = 'Min Points should be 1000';
         }
 
-        return ['success' => true, 'amount' => $total_amount, 'total_amount' => $amount, 'discount' => $discount, 'discountMsg' => $discountMsg, 'payable_amount' => $payable_amount, 'points' => $points, 'pointMsg' => $pointMsg];
+        return ['success' => true, 'amount' => $total_amount, 'total_amount' => $amount, 'discount' => $discount, 'discountMsg' => $discountMsg, 'payable_amount' => $payable_amount, 'points' => $points, 'pointMsg' => $pointMsg,'hours'=>$hours];
     }
 }
