@@ -118,6 +118,12 @@ class StadiumBookingController extends Controller
 
         $redeemDiscount=0;
 
+        $welcomeDiscount=0;
+
+        $discount = $request['discount'];
+
+
+
         $freeHours=0;
         if ($points > 1000) {
             $ptsToRedeem = floor($points / 1000) * 1000;
@@ -131,22 +137,25 @@ class StadiumBookingController extends Controller
             $perHourPrice=$total_amount/$hours;
             $redeemDiscount=$freeHours*$perHourPrice;
             $total_amount=$total_amount-$redeemDiscount;
+            $discount+=$redeemDiscount;
             
         } else {
             $pointErrMsg = 'Min Points should be 1000';
         }
 
         $bCount = StadiumBooking::where('user_id', $request['user_id'])->count();
-        $discount = $request['discount'];
 
         $discountMsg = '';
 
         if ($bCount <= 2) {
             $discountPer = 10;
             $ndiscount = $discountPer * $total_amount;
-            $discount += $ndiscount / 100;
+            $welcomeDiscount=$ndiscount/100;
+            $discount += $welcomeDiscount;
             $discountMsg = '10% off as a Welcome Discount ';
         }
+
+
 
         $sb->stadium_id = $request['stadium_id'];
         $sb->user_id = $request['user_id'];
@@ -164,6 +173,11 @@ class StadiumBookingController extends Controller
         $advance = $advance * $total_amount;
 
         $sb->discount = $discount;
+
+        $sb->redeem_discount = $redeemDiscount;
+        $sb->welcome_discount = $welcomeDiscount;
+
+
 
         $sb->advance = $advance;
 
