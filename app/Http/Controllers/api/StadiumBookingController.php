@@ -426,6 +426,9 @@ class StadiumBookingController extends Controller
 
         $hours=$from->floatDiffInHours($to);
         $user = User::find($request['user_id']);
+
+        $booking_amount = $request['total_amount'];
+
         $total_amount = $request['total_amount'];
 
         $bCount = StadiumBooking::where('user_id', $request['user_id'])->count();
@@ -475,6 +478,6 @@ class StadiumBookingController extends Controller
         $payable_amount = $payable_amount / 100;
 
         
-        return ['success' => true, 'amount' => $total_amount, 'total_amount' => $amount, 'discount' => $discount, 'discountMsg' => $discountMsg, 'payable_amount' => $payable_amount, 'points' => $points, 'pointMsg' => $pointMsg,'hours'=>$hours,'redeem'=>$redeem,'redeemDisc'=>$redeemDiscount];
+        return ['success' => true, 'amount' => $booking_amount, 'total_amount' => $amount, 'discount' => $discount, 'discountMsg' => $discountMsg, 'payable_amount' => $payable_amount, 'points' => $points, 'pointMsg' => $pointMsg,'hours'=>$hours,'redeem'=>$redeem,'redeemDisc'=>$redeemDiscount];
     }
 }
