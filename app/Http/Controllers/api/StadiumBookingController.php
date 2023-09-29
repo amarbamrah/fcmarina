@@ -101,7 +101,6 @@ class StadiumBookingController extends Controller
      */
     public function store(Request $request)
     {
-
         $user = User::find($request['user_id']);
 
         $booking_id = Str::random(6);
@@ -134,7 +133,7 @@ class StadiumBookingController extends Controller
         $pointErrMsg = '';
 
         if ($redeem == 1 && $points > 1000) {
-            $perHourPrice=$total_amount/$hours;
+            $perHourPrice=$payableAmount/$hours;
             $redeemDiscount=$freeHours*$perHourPrice;
             $discount+=$redeemDiscount;
             
@@ -148,7 +147,7 @@ class StadiumBookingController extends Controller
 
         if ($bCount <= 2) {
             $discountPer = 10;
-            $ndiscount = $discountPer * $total_amount;
+            $ndiscount = $discountPer * $payableAmount;
             $welcomeDiscount=$ndiscount/100;
             $discount += $welcomeDiscount;
             $discountMsg = '10% off as a Welcome Discount ';
