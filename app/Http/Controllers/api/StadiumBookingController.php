@@ -436,6 +436,10 @@ class StadiumBookingController extends Controller
         $payable_amount = $amount * 10;
         $payable_amount = $payable_amount / 100;
 
-        return ['success' => true, 'amount' => $total_amount, 'total_amount' => $amount, 'discount' => $discount, 'discountMsg' => $discountMsg, 'payable_amount' => $payable_amount];
+        $points=$user->points;
+
+        $pointMsg='Redeeem 1000 pts to get 1 hour free';
+
+        return ['success' => true, 'amount' => $total_amount, 'total_amount' => $amount, 'discount' => $discount, 'discountMsg' => $discountMsg, 'payable_amount' => $payable_amount,'points'=>$points,'pointMsg'=>$pointMsg];
     }
 }
