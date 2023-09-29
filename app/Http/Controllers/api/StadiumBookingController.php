@@ -110,7 +110,7 @@ class StadiumBookingController extends Controller
         $from = Carbon::create($request['from']);
         $to = Carbon::create($request['to']);
         $hours=$from->floatDiffInHours($to);
-        $total_amount = $request['total_amount'];
+        $payableAmount = $request['total_amount'];
         $booking_amount = $request['total_amount'];
         $points = $user->points;
 
@@ -136,7 +136,6 @@ class StadiumBookingController extends Controller
         if ($redeem == 1 && $points > 1000) {
             $perHourPrice=$total_amount/$hours;
             $redeemDiscount=$freeHours*$perHourPrice;
-            $total_amount=$total_amount-$redeemDiscount;
             $discount+=$redeemDiscount;
             
         } else {
@@ -156,6 +155,8 @@ class StadiumBookingController extends Controller
         }
 
 
+        $payableAmount=$booking_amount-$discount;
+
 
         $sb->stadium_id = $request['stadium_id'];
         $sb->user_id = $request['user_id'];
@@ -163,7 +164,7 @@ class StadiumBookingController extends Controller
 
         $sb->total_amount = $booking_amount;
 
-        $sb->payable_amount = $total_amount - $discount;
+        $sb->payable_amount = $payableAmount;
 
         $sb->order_id = $request['order_id'];
         $sb->payment_id = $request['payment_id'];
