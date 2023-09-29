@@ -420,6 +420,31 @@ class StadiumBookingController extends Controller
         $total_amount = $request['total_amount'];
 
         $bCount = StadiumBooking::where('user_id', $request['user_id'])->count();
+
+
+        $points = $user->points;
+
+        $pointMsg = '';
+
+        $freeHours=0;
+        if ($points > 1000) {
+            $ptsToRedeem = floor($points / 1000) * 1000;
+            $freeHours=$ptsToRedeem/1000;
+            $pointMsg = 'Redeem '.$ptsToRedeem.' points to get '.$freeHours.'hr game free';
+        }
+
+        $pointErrMsg = '';
+
+        if ($redeem == 1 && $points > 1000) {
+            $perHourPrice=$total_amount/$hours;
+            $redeemDiscount=$freeHours*$perHourPrice;
+            $total_amount=$total_amount-$redeemDiscount;
+            
+        } else {
+            $pointErrMsg = 'Min Points should be 1000';
+        }
+
+
         $discount = $request['discount'];
 
         $discountMsg = '';
@@ -438,25 +463,7 @@ class StadiumBookingController extends Controller
         $payable_amount = $amount * 10;
         $payable_amount = $payable_amount / 100;
 
-        $points = $user->points;
-
-        $pointMsg = '';
-
-        $freeHours=0;
-        if ($points > 1000) {
-            $ptsToRedeem = floor($points / 1000) * 1000;
-            $freeHours=$ptsToRedeem/1000;
-            $pointMsg = 'Redeem '.$ptsToRedeem.' points to get '.$freeHours.'hr game free';
-        }
-
-        $pointErrMsg = '';
-
-        if ($redeem == 1 && $points > 1000) {
-            $ptsToRedeem = floor($points / 1000) * 1000;
-        } else {
-            $pointErrMsg = 'Min Points should be 1000';
-        }
-
-        return ['success' => true, 'amount' => $total_amount, 'total_amount' => $amount, 'discount' => $discount, 'discountMsg' => $discountMsg, 'payable_amount' => $payable_amount, 'points' => $points, 'pointMsg' => $pointMsg,'hours'=>$hours];
+        
+        return ['success' => true, 'amount' => $total_amount, 'total_amount' => $amount, 'discount' => $discount, 'discountMsg' => $discountMsg, 'payable_amount' => $payable_amount, 'points' => $points, 'pointMsg' => $pointMsg,'hours'=>$hours,'redeem'=>$redeem];
     }
 }
