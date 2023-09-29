@@ -77,7 +77,7 @@ class UserController extends Controller
             $user_id = $user->id;
 
             $pt=new PointTransaction();
-            $pt->points=500;
+            $pt->points=250;
             $pt->type='cr';
             $pt->user_id=$user->id;
 
