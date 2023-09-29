@@ -415,7 +415,7 @@ class StadiumBookingController extends Controller
         $from = Carbon::create($request['from']);
         $to = Carbon::create($request['to']);
 
-        $hours=$from->diffInHours($to);
+        $hours=$from->floatDiffInHours($to);
         $user = User::find($request['user_id']);
         $total_amount = $request['total_amount'];
 
