@@ -412,8 +412,8 @@ class StadiumBookingController extends Controller
     public function getSummary(Request $request)
     {
         $redeem = $request['redeem'];
-        $from = Carbon::create($from);
-        $to = Carbon::create($to);
+        $from = Carbon::create($request['from']);
+        $to = Carbon::create($request['to']);
 
         $hours=$from->diffInHours($to);
         $user = User::find($request['user_id']);
