@@ -101,6 +101,9 @@ class StadiumBookingController extends Controller
      */
     public function store(Request $request)
     {
+
+        $user = User::find($request['user_id']);
+
         $booking_id = Str::random(6);
         $sb = new StadiumBooking();
         $redeem = $request['redeem'];
