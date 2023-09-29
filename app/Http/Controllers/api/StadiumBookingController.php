@@ -105,6 +105,15 @@ class StadiumBookingController extends Controller
         $booking_id = Str::random(6);
         $sb = new StadiumBooking();
 
+        $redeem = $request['redeem'];
+        $from = Carbon::create($request['from']);
+        $to = Carbon::create($request['to']);
+
+        $hours=$from->floatDiffInHours($to);
+
+        $total_amount = $request['total_amount'];
+
+
         $bCount = StadiumBooking::where('user_id', $request['user_id'])->count();
         $discount = $request['discount'];
 
@@ -112,7 +121,7 @@ class StadiumBookingController extends Controller
 
         if ($bCount <= 2) {
             $discountPer = 10;
-            $ndiscount = $discountPer * $request['total_amount'];
+            $ndiscount = $discountPer * $total_amount;
             $discount += $ndiscount / 100;
             $discountMsg = '10% off as a Welcome Discount ';
         }
@@ -464,6 +473,6 @@ class StadiumBookingController extends Controller
         $payable_amount = $payable_amount / 100;
 
         
-        return ['success' => true, 'amount' => $total_amount, 'total_amount' => $amount, 'discount' => $discount, 'discountMsg' => $discountMsg, 'payable_amount' => $payable_amount, 'points' => $points, 'pointMsg' => $pointMsg,'hours'=>$hours,'redeem'=>$redeem];
+        return ['success' => true, 'amount' => $total_amount, 'total_amount' => $amount, 'discount' => $discount, 'discountMsg' => $discountMsg, 'payable_amount' => $payable_amount, 'points' => $points, 'pointMsg' => $pointMsg,'hours'=>$hours,'redeem'=>$redeem,'redeemDisc'=>$redeemDiscount];
     }
 }
