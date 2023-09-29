@@ -101,18 +101,37 @@ class StadiumBookingController extends Controller
      */
     public function store(Request $request)
     {
-
         $booking_id = Str::random(6);
         $sb = new StadiumBooking();
-
         $redeem = $request['redeem'];
         $from = Carbon::create($request['from']);
         $to = Carbon::create($request['to']);
-
         $hours=$from->floatDiffInHours($to);
-
         $total_amount = $request['total_amount'];
+        $booking_amount = $request['total_amount'];
+        $points = $user->points;
 
+        $pointMsg = '';
+
+        $redeemDiscount=0;
+
+        $freeHours=0;
+        if ($points > 1000) {
+            $ptsToRedeem = floor($points / 1000) * 1000;
+            $freeHours=$ptsToRedeem/1000;
+            $pointMsg = 'Redeem '.$ptsToRedeem.' points to get '.$freeHours.'hr game free';
+        }
+
+        $pointErrMsg = '';
+
+        if ($redeem == 1 && $points > 1000) {
+            $perHourPrice=$total_amount/$hours;
+            $redeemDiscount=$freeHours*$perHourPrice;
+            $total_amount=$total_amount-$redeemDiscount;
+            
+        } else {
+            $pointErrMsg = 'Min Points should be 1000';
+        }
 
         $bCount = StadiumBooking::where('user_id', $request['user_id'])->count();
         $discount = $request['discount'];
@@ -130,16 +149,16 @@ class StadiumBookingController extends Controller
         $sb->user_id = $request['user_id'];
         $sb->sport_type = $request['game'];
 
-        $sb->total_amount = $request['total_amount'];
+        $sb->total_amount = $booking_amount;
 
-        $sb->payable_amount = $request['total_amount'] - $discount;
+        $sb->payable_amount = $total_amount - $discount;
 
         $sb->order_id = $request['order_id'];
         $sb->payment_id = $request['payment_id'];
         $sb->signature = $request['signature'];
 
         $advance = 10 / 100;
-        $advance = $advance * $sb->payable_amount;
+        $advance = $advance * $total_amount;
 
         $sb->discount = $discount;
 
