@@ -80,7 +80,6 @@ class UserController extends Controller
             $pt->points=250;
             $pt->type='cr';
             $pt->user_id=$user->id;
-
             $pt->remarks='Welcome Points';
             $pt->save();
 
