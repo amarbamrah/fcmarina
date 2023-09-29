@@ -27,7 +27,6 @@ class StadiumBookingController extends Controller
             $sbs = StadiumBooking::where('user_id', $request['user_id'])
                 ->where('status', '!=','Processing');
 
-
             $sbs=$sbs->whereDate('date', '>', Carbon::today())
                 ->orWhere(function ($query) {
                     $query->whereDate('date', '=', Carbon::today())
