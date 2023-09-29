@@ -51,15 +51,14 @@ class StadiumBookingController extends Controller
             $sb->user = User::find($sb->user_id);
             $sb->stadium = Stadium::find($sb->stadium_id);
 
-            if($sb->status=='Cancelled'){
-                $name='';
-                if($sb->cancelled_by==$sb->user_id){
-                    $name='You';
+            if ($sb->status == 'Cancelled') {
+                $name = '';
+                if ($sb->cancelled_by == $sb->user_id) {
+                    $name = 'You';
+                } else {
+                    $name = 'FC MARINA';
                 }
-                else{
-                $name='FC MARINA';
-                }
-                $sb->cancel_msg='Cancelled By '.$name;
+                $sb->cancel_msg = 'Cancelled By ' . $name;
             }
         }
         return ['success' => true, 'data' => $sbs];
@@ -106,19 +105,17 @@ class StadiumBookingController extends Controller
         $booking_id = Str::random(6);
         $sb = new StadiumBooking();
 
-
         $bCount = StadiumBooking::where('user_id', $request['user_id'])->count();
         $discount = $request['discount'];
 
         $discountMsg = '';
 
-            if ($bCount <= 2) {
-                $discountPer = 10;
-                $ndiscount = $discountPer * $request['total_amount'];
-                $discount+= $ndiscount / 100;
-                $discountMsg = '10% off as a Welcome Discount ';
-            }
-
+        if ($bCount <= 2) {
+            $discountPer = 10;
+            $ndiscount = $discountPer * $request['total_amount'];
+            $discount += $ndiscount / 100;
+            $discountMsg = '10% off as a Welcome Discount ';
+        }
 
         $sb->stadium_id = $request['stadium_id'];
         $sb->user_id = $request['user_id'];
@@ -326,10 +323,10 @@ class StadiumBookingController extends Controller
 
     public function cancelBooking(Request $request)
     {
-    
+
         $booking = StadiumBooking::find($request['booking_id']);
-        if($booking->status=='Cancelled'){
-            return ['success'=>false,'msg'=>'This booking has already been cancelled!'];
+        if ($booking->status == 'Cancelled') {
+            return ['success' => false, 'msg' => 'This booking has already been cancelled!'];
         }
         $booking->status = 'Cancelled';
         $booking->cancelled_by = $booking->user_id;
@@ -414,6 +411,7 @@ class StadiumBookingController extends Controller
 
     public function getSummary(Request $request)
     {
+        $redeem = $request['redeem'];
         $user = User::find($request['user_id']);
         $total_amount = $request['total_amount'];
 
@@ -422,24 +420,38 @@ class StadiumBookingController extends Controller
 
         $discountMsg = '';
 
-            if ($bCount <= 2) {
-                $discountPer = 10;
-                $ndiscount = $discountPer * $total_amount;
-                $discount+= $ndiscount / 100;
+        if ($bCount <= 2) {
+            $discountPer = 10;
+            $ndiscount = $discountPer * $total_amount;
+            $discount += $ndiscount / 100;
 
-                $discountMsg = '10% off as a Welcome Discount ';
+            $discountMsg = '10% off as a Welcome Discount ';
 
-            }
+        }
 
         $amount = $total_amount - $discount;
 
         $payable_amount = $amount * 10;
         $payable_amount = $payable_amount / 100;
 
-        $points=$user->points;
+        $points = $user->points;
 
-        $pointMsg='Redeeem 1000 pts to get 1 hour free';
+        $pointMsg = '';
 
-        return ['success' => true, 'amount' => $total_amount, 'total_amount' => $amount, 'discount' => $discount, 'discountMsg' => $discountMsg, 'payable_amount' => $payable_amount,'points'=>$points,'pointMsg'=>$pointMsg];
+        if ($points > 1000) {
+            $ptsToRedeem = floor($points / 1000) * 1000;
+            $freeHours=$ptsToRedeem/1000;
+            $pointMsg = 'Redeem '.$ptsToRedeem.' to get '.$freeHours.'hr game free';
+        }
+
+        $pointErrMsg = '';
+
+        if ($redeem == 1 && $points > 1000) {
+            $ptsToRedeem = floor($points / 1000) * 1000;
+        } else {
+            $pointErrMsg = 'Min Points should be 1000';
+        }
+
+        return ['success' => true, 'amount' => $total_amount, 'total_amount' => $amount, 'discount' => $discount, 'discountMsg' => $discountMsg, 'payable_amount' => $payable_amount, 'points' => $points, 'pointMsg' => $pointMsg];
     }
 }
