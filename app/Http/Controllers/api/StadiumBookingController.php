@@ -541,6 +541,6 @@ class StadiumBookingController extends Controller
         $advanceAmount = $advanceAmount / 100;
 
         
-        return ['success' => true, 'amount' => $bookingAmount, 'total_amount' => $payableAmount,'discount' => $discount, 'discountMsg' => $discountMsg, 'payable_amount' => $advanceAmount, 'points' => $points, 'pointMsg' => $pointMsg,'hours'=>$hours,'redeem'=>$redeem,'redeemDisc'=>$redeemDiscount,'hdiscount'=>$hdiscount];
+        return ['success' => true, 'amount' => $bookingAmount, 'total_amount' => $payableAmount,'discount' => $discount, 'discountMsg' => $discountMsg, 'payable_amount' => $advanceAmount, 'points' => $points, 'pointMsg' => $pointMsg,'hours'=>$hours,'redeem'=>$redeem,'redeemDisc'=>$redeemDiscount,'hdiscount'=>$hdiscount,'wdiscount'=>$wdiscount];
     }
 }
