@@ -141,13 +141,15 @@ class StadiumBookingController extends Controller
             $pointErrMsg = 'Min Points should be 1000';
         }
 
+        
+
         $bCount = StadiumBooking::where('user_id', $request['user_id'])->count();
 
         $discountMsg = '';
 
         if ($bCount <= 2) {
             $discountPer = 10;
-            $ndiscount = $discountPer * $payableAmount;
+            $ndiscount = $discountPer * ($payableAmount-$discount);
             $welcomeDiscount=$ndiscount/100;
             $discount += $welcomeDiscount;
             $discountMsg = '10% off as a Welcome Discount ';
