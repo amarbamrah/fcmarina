@@ -109,8 +109,11 @@ class StadiumBookingController extends Controller
         $from = Carbon::create($request['from']);
         $to = Carbon::create($request['to']);
         $hours=$from->floatDiffInHours($to);
+
+        
         $payableAmount = $request['total_amount'];
-        $booking_amount = $request['total_amount'];
+        $bookingAmount = $request['total_amount'];
+
         $points = $user->points;
 
         $pointMsg = '';
@@ -119,11 +122,17 @@ class StadiumBookingController extends Controller
 
         $welcomeDiscount=0;
 
-        $discount = $request['discount'];
+        $hdiscount = $request['hdiscount'];
 
+        $discount=0;
 
+        $discount=$hdiscount;
+
+        $payableAmount=$payableAmount-$hdiscount;
 
         $freeHours=0;
+
+
         if ($points > 1000) {
             $ptsToRedeem = floor($points / 1000) * 1000;
             $freeHours=$ptsToRedeem/1000;
@@ -141,6 +150,8 @@ class StadiumBookingController extends Controller
             $pointErrMsg = 'Min Points should be 1000';
         }
 
+        $payableAmount=$payableAmount-$redeemDiscount;
+
         
 
         $bCount = StadiumBooking::where('user_id', $request['user_id'])->count();
@@ -156,14 +167,14 @@ class StadiumBookingController extends Controller
         }
 
 
-        $payableAmount=$booking_amount-$discount;
+        $payableAmount=$payableAmount-$welcomeDiscount;
 
 
         $sb->stadium_id = $request['stadium_id'];
         $sb->user_id = $request['user_id'];
         $sb->sport_type = $request['game'];
 
-        $sb->total_amount = $booking_amount;
+        $sb->total_amount = $bookingAmount;
 
         $sb->payable_amount = $payableAmount;
 
@@ -178,6 +189,9 @@ class StadiumBookingController extends Controller
 
         $sb->redeem_discount = $redeemDiscount;
         $sb->welcome_discount = $welcomeDiscount;
+
+        $sb->happyhours_discount = $hdiscount;
+
 
 
 
