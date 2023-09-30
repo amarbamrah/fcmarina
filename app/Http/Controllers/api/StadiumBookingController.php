@@ -522,7 +522,7 @@ class StadiumBookingController extends Controller
         }
 
         $discount+=$wdiscount;
-        $advanceAmount = $amount * 10;
+        $advanceAmount = $payableAmount * 10;
         $advanceAmount = $advanceAmount / 100;
 
         
