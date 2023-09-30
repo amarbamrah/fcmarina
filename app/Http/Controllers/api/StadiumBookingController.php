@@ -479,7 +479,8 @@ class StadiumBookingController extends Controller
         $redeemDiscount=0;
 
         // happy hours discount
-        $hdiscount=$request['discount'];
+        $hdiscount=$request['hdiscount'];
+      
 
         $payableAmount=$payableAmount-$hdiscount;
 
