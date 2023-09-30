@@ -481,6 +481,8 @@ class StadiumBookingController extends Controller
         // happy hours discount
         $hdiscount=$request['discount'];
 
+        $payableAmount=$payableAmount-$hdiscount;
+
 
         $discount = $hdiscount;
 
@@ -494,9 +496,9 @@ class StadiumBookingController extends Controller
         $pointErrMsg = '';
 
         if ($redeem == 1 && $points > 1000) {
-            $perHourPrice=$total_amount/$hours;
+            $perHourPrice=$payableAmount/$hours;
             $redeemDiscount=$freeHours*$perHourPrice;
-            $total_amount=$total_amount-$redeemDiscount;
+            $payableAmount=$payableAmount-$redeemDiscount;
             
         } else {
             $pointErrMsg = 'Min Points should be 1000';
@@ -515,12 +517,11 @@ class StadiumBookingController extends Controller
 
             $discountMsg = '10% off as a Welcome Discount ';
 
+            $payableAmount=$payableAmount-$wdiscount;
+
         }
 
         $discount+=$wdiscount;
-
-        $payableAmount = $bookingAmount - $discount;
-
         $advanceAmount = $amount * 10;
         $advanceAmount = $advanceAmount / 100;
 
