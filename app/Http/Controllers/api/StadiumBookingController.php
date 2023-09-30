@@ -465,9 +465,9 @@ class StadiumBookingController extends Controller
         $hours=$from->floatDiffInHours($to);
         $user = User::find($request['user_id']);
 
-        $booking_amount = $request['total_amount'];
+        $bookingAmount = $request['total_amount'];
 
-        $total_amount = $request['total_amount'];
+        $payableAmount = $request['total_amount'];
 
         $bCount = StadiumBooking::where('user_id', $request['user_id'])->count();
 
@@ -477,6 +477,12 @@ class StadiumBookingController extends Controller
         $pointMsg = '';
 
         $redeemDiscount=0;
+
+        // happy hours discount
+        $hdiscount=$request['discount'];
+
+
+        $discount = $hdiscount;
 
         $freeHours=0;
         if ($points > 1000) {
@@ -496,26 +502,29 @@ class StadiumBookingController extends Controller
             $pointErrMsg = 'Min Points should be 1000';
         }
 
+        $discount+=$redeemDiscount;
 
-        $discount = $request['discount'];
 
+        $wdiscount=0;
         $discountMsg = '';
 
         if ($bCount <= 2) {
             $discountPer = 10;
             $ndiscount = $discountPer * $total_amount;
-            $discount += $ndiscount / 100;
+            $wdiscount = $ndiscount / 100;
 
             $discountMsg = '10% off as a Welcome Discount ';
 
         }
 
-        $amount = $total_amount - $discount;
+        $discount+=$wdiscount;
 
-        $payable_amount = $amount * 10;
-        $payable_amount = $payable_amount / 100;
+        $payableAmount = $bookingAmount - $discount;
+
+        $advanceAmount = $amount * 10;
+        $advanceAmount = $advanceAmount / 100;
 
         
-        return ['success' => true, 'amount' => $booking_amount, 'total_amount' => $amount, 'discount' => $discount, 'discountMsg' => $discountMsg, 'payable_amount' => $payable_amount, 'points' => $points, 'pointMsg' => $pointMsg,'hours'=>$hours,'redeem'=>$redeem,'redeemDisc'=>$redeemDiscount];
+        return ['success' => true, 'amount' => $bookingAmount, 'total_amount' => $payableAmount,'discount' => $discount, 'discountMsg' => $discountMsg, 'payable_amount' => $advanceAmount, 'points' => $points, 'pointMsg' => $pointMsg,'hours'=>$hours,'redeem'=>$redeem,'redeemDisc'=>$redeemDiscount,'hdiscount'=>$hdiscount];
     }
 }
