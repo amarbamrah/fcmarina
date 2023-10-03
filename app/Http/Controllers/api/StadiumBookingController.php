@@ -513,6 +513,9 @@ class StadiumBookingController extends Controller
         if ($redeem == 1 && $points > 1000) {
             $perHourPrice=$payableAmount/$hours;
             $redeemDiscount=$freeHours*$perHourPrice;
+            if($redeemDiscount>$payableAmount){
+                $redeemDiscount=$payableAmount;
+            }
             $payableAmount=$payableAmount-$redeemDiscount;
             
         } else {
