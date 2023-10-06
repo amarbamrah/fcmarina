@@ -445,6 +445,26 @@ class StadiumBookingController extends Controller
 
         }
 
+
+        // points
+        if(PointTransaction::where('booking_id',$booking->id)->exists()){
+            $pt=PointTransaction::where('booking_id',$booking->id)->first();
+            $user->points=$user->points-$pt->points;
+            $user->total_points=$user->total_points-$pt->points;
+            $user->save();
+
+
+            $pt = new PointTransaction();
+            $pt->points = $pt->points;
+            $pt->type = 'db';
+            $pt->user_id = $request['user_id'];
+            $pt->booking_id=$booking->id;
+    
+            $pt->remarks = 'Booking Cancellation Booking ID:' . $booking->booking_id;;
+            $pt->save();
+
+        }
+
         $stadium = Stadium::find($booking->stadium_id);
         $sname = str_replace(' ', '%20', $stadium->name);
 
