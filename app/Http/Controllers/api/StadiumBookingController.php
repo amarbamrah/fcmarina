@@ -448,6 +448,9 @@ class StadiumBookingController extends Controller
 
         // points
         if(PointTransaction::where('booking_id',$booking->id)->exists()){
+
+            $user = User::find($booking->user_id);
+
             $pt=PointTransaction::where('booking_id',$booking->id)->first();
             $user->points=$user->points-$pt->points;
             $user->total_points=$user->total_points-$pt->points;
