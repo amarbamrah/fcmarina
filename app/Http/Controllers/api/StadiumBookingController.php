@@ -460,7 +460,7 @@ class StadiumBookingController extends Controller
             $pt = new PointTransaction();
             $pt->points = $pt->points;
             $pt->type = 'db';
-            $pt->user_id = $request['user_id'];
+            $pt->user_id = $user->id;
             $pt->booking_id=$booking->id;
     
             $pt->remarks = 'Booking Cancellation Booking ID:' . $booking->booking_id;;
