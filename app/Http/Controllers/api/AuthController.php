@@ -36,9 +36,12 @@ class AuthController extends Controller
        
             $stadium = Stadium::find($request['stadium_id']);
         
-        $stadium->images = StadiumImage::where('stadium_id', $stadium->id)->get();
+            $stadium->images = StadiumImage::where('stadium_id', $stadium->id)->get();
 
-        return ['success' => true, 'data' => $stadium];
+
+
+
+            return ['success' => true, 'data' => $stadium];
     }
 
     /**
