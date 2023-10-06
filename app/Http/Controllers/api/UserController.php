@@ -66,8 +66,8 @@ class UserController extends Controller
             $user->email = $request->email;
             $user->gender = $request->gender;
             $user->age = $request->age;
-            $user->points = 500;
-            $user->total_points = 500;
+            $user->points = 250;
+            $user->total_points = 250;
 
 
             $user->status = 1;
