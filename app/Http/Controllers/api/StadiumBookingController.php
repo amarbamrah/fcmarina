@@ -451,14 +451,17 @@ class StadiumBookingController extends Controller
 
             $user = User::find($booking->user_id);
 
+
             $pt=PointTransaction::where('booking_id',$booking->id)->first();
+            $points=$pt->points;
+
             $user->points=$user->points-$pt->points;
             $user->total_points=$user->total_points-$pt->points;
             $user->save();
 
 
             $pt = new PointTransaction();
-            $pt->points = $pt->points;
+            $pt->points = $points;
             $pt->type = 'db';
             $pt->user_id = $user->id;
             $pt->booking_id=$booking->id;
