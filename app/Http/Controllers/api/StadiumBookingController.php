@@ -163,11 +163,18 @@ class StadiumBookingController extends Controller
         $discountMsg = '';
 
         if ($bCount <= 2) {
-            $discountPer = 10;
-            $ndiscount = $discountPer * $payableAmount;
-            $welcomeDiscount=$ndiscount/100;
+            $welcomeDiscount=$hours*200;
             $discount += $welcomeDiscount;
-            $discountMsg = '10% off as a Welcome Discount ';
+            $discountMsg = '200 off as a Welcome Discount';
+
+            if($user->max_woffer<$welcomeDiscount){
+                $welcomeDiscount=$user->max_woffer;
+            }
+
+            $user->max_woffer=$user->max_woffer-$welcomeDiscount;
+            $user->save();
+
+
         }
 
 
@@ -541,9 +548,9 @@ class StadiumBookingController extends Controller
                 $wdiscount=$user->max_woffer;
             }
 
-            $user->max_woffer=$user->max_woffer-$wdiscount;
+          
 
-            $discountMsg = '10% off as a Welcome Discount ';
+            $discountMsg = '200 off for an hour as a Welcome Discount ';
 
             $payableAmount=$payableAmount-$wdiscount;
 
