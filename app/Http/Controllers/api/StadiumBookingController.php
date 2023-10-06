@@ -226,6 +226,7 @@ class StadiumBookingController extends Controller
             $pt->amount = $advance;
             $pt->type = 'db';
             $pt->user_id = $sb->user_id;
+            $pt->booking_id=$sb->id;
 
             $pt->remarks = 'Booking ID:' . $sb->booking_id;
             $pt->save();
