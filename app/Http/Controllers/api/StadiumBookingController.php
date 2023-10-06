@@ -226,7 +226,6 @@ class StadiumBookingController extends Controller
             $pt->amount = $advance;
             $pt->type = 'db';
             $pt->user_id = $sb->user_id;
-            $pt->booking_id=$sb->id;
 
             $pt->remarks = 'Booking ID:' . $sb->booking_id;
             $pt->save();
@@ -245,8 +244,9 @@ class StadiumBookingController extends Controller
         $pt->points = $pts * 10;
         $pt->type = 'cr';
         $pt->user_id = $request['user_id'];
+        $pt->booking_id=$sb->id;
 
-        $pt->remarks = 'Earned From Booking ID:' . $booking_id;
+        $pt->remarks = 'Earned From Booking ID:' . $sb->booking_id;;
         $pt->save();
 
         $user = User::find($request['user_id']);
