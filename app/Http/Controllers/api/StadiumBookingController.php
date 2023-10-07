@@ -296,6 +296,13 @@ class StadiumBookingController extends Controller
         $stadiumBooking->f_to = Carbon::create($stadiumBooking->to)->format('h:i a');
 
         $stadiumBooking->created_on = Carbon::create($stadiumBooking->created_at)->format('d M Y h:i a');
+        $stadiumBooking->cancelled_on = '';
+        if($stadiumBooking->status=='Cancelled'){
+            $cbr=CancelBookingReason::where('booking_id',$stadiumBooking->id)->first();
+            $stadiumBooking->cancelled_on = Carbon::create($cbr->created_at)->format('d M Y h:i a');
+
+        }
+
 
 
         $stadiumBooking->booked_by = $stadiumBooking->faculity_id == null ? 'User' : 'Venue';
