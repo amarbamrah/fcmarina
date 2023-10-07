@@ -295,6 +295,9 @@ class StadiumBookingController extends Controller
         $stadiumBooking->f_from = Carbon::create($stadiumBooking->from)->format('h:i a');
         $stadiumBooking->f_to = Carbon::create($stadiumBooking->to)->format('h:i a');
 
+        $stadiumBooking->created_on = Carbon::create($stadiumBooking->created_at)->format('d M Y h:i a');
+
+
         $stadiumBooking->booked_by = $stadiumBooking->faculity_id == null ? 'User' : 'Venue';
 
         $day_division = '';
