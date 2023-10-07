@@ -75,8 +75,6 @@ class BslotController extends Controller
 
             $fully = 0;
 
-
-
             if ($i % 2 == 0) {
                 $slot->start = Carbon::create($slot->from)->format('h a');
                 $slot->end = null;
@@ -134,6 +132,9 @@ class BslotController extends Controller
                             $slot->isFilled = true;
                             $fully = 2;
 
+                        } else if($sb->booked_for != null){
+                            $slot->isFilled = true;
+                            $fully = 2;
                         } else {
                             if ($fully == 0) {
                                 $fully++;
@@ -219,7 +220,10 @@ class BslotController extends Controller
                             $slot->isFilled = true;
                             $fully = 2;
 
-                        } else {
+                        }else if($sb->booked_for != null){
+                            $slot->isFilled = true;
+                            $fully = 2;
+                        }  else {
                             if ($fully == 0) {
                                 $fully++;
                                 if($selGameType=='7s'){
@@ -300,7 +304,10 @@ class BslotController extends Controller
                             $slot->isFilled = true;
                             $fully = 2;
 
-                        } else {
+                        }else if($sb->booked_for != null){
+                            $slot->isFilled = true;
+                            $fully = 2;
+                        }  else {
                             if ($fully == 0) {
                                 $fully++;
                                 if($selGameType=='7s'){
@@ -381,7 +388,10 @@ class BslotController extends Controller
                             $slot->isFilled = true;
                             $fully = 2;
 
-                        } else {
+                        }else if($sb->booked_for != null){
+                            $slot->isFilled = true;
+                            $fully = 2;
+                        }  else {
                             if ($fully == 0) {
                                 $fully++;
                                 if($selGameType=='7s'){
