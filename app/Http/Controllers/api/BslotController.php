@@ -388,6 +388,9 @@ class BslotController extends Controller
                             $slot->isFilled = true;
                             $fully = 2;
 
+                        }else if($stadium->type=='5s' && $sb->stadium_type=='5s'){
+                            $slot->isFilled = true;
+                            $fully = 2;
                         }else if($sb->booked_for != null){
                             $slot->isFilled = true;
                             $fully = 2;
