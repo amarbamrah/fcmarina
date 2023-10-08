@@ -140,7 +140,7 @@ class StadiumBookingController extends Controller
         $freeHours = 0;
 
         if ($points > 1000) {
-            $ptsToRedeem = floor($points / 1000) * 1000;
+            $ptsToRedeem = 1000;
             $freeHours = $ptsToRedeem / 1000;
             $pointMsg = 'Redeem ' . $ptsToRedeem . ' points to get ' . $freeHours . 'hr game free';
         }
@@ -155,6 +155,10 @@ class StadiumBookingController extends Controller
                 $redeemDiscount = $payableAmount;
             }
             $discount += $redeemDiscount;
+
+
+
+         
 
         } else {
             $pointErrMsg = 'Min Points should be 1000';
@@ -218,6 +222,21 @@ class StadiumBookingController extends Controller
         $sb->booking_id = 'FC-' . substr(str_shuffle("ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789"), 1, 6);
 
         $sb->save();
+
+        if( $redeemDiscount >0){
+            $pt = new PointTransaction();
+            $pt->points = 1000;
+            $pt->type = 'db';
+            $pt->user_id = $user->id;
+            $pt->$sb->id;
+    
+            $pt->remarks = 'Redeemed For Booking ID:' . $sb->booking_id;
+            $pt->save();
+    
+    
+            $user->points = $user->points - 1000;
+            $user->save();
+        }
 
         if ($request['is_wallet']) {
             $pt = new WalletTransaction();
