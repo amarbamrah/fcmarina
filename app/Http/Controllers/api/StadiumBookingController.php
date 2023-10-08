@@ -24,19 +24,27 @@ class StadiumBookingController extends Controller
     public function index(Request $request)
     {
         if ($request['type'] == 'Upcoming') {
+
+            $now = Carbon::now();
+
             $sbs = StadiumBooking::where('user_id', $request['user_id'])
-                ->whereDate('date', '>', Carbon::today())
-                ->orWhere(function ($query) {
-                    $query->whereDate('date', '=', Carbon::today())
-                        ->whereTime('from', '>', Carbon::now()->format('H:i:s'));
-                })
-                ->get();
+            ->where(function ($query) use ($now) {
+                $query->whereDate('date', '>', $now->toDateString())
+                    ->orWhere(function ($query) use ($now) {
+                        $query->whereDate('date', '=', $now->toDateString())
+                            ->whereTime('from', '>', $now->toTimeString());
+                    });
+            })
+            ->get();
         } else {
+            $now = Carbon::now();
             $sbs = StadiumBooking::where('user_id', $request['user_id'])
-                ->whereDate('date', '>', Carbon::today())
-                ->orWhere(function ($query) {
-                    $query->whereDate('date', '=', Carbon::today())
-                        ->whereTime('from', '<=', Carbon::now()->format('H:i:s'));
+                ->where(function ($query) use ($now) {
+                    $query->whereDate('date', '<', $now->toDateString())
+                        ->orWhere(function ($query) use ($now) {
+                            $query->whereDate('date', '=', $now->toDateString())
+                                ->whereTime('from', '<', $now->toTimeString());
+                        });
                 })
                 ->get();
         }
@@ -108,9 +116,8 @@ class StadiumBookingController extends Controller
         $redeem = $request['redeem'];
         $from = Carbon::create($request['from']);
         $to = Carbon::create($request['to']);
-        $hours=$from->floatDiffInHours($to);
+        $hours = $from->floatDiffInHours($to);
 
-        
         $payableAmount = $request['total_amount'];
         $bookingAmount = $request['total_amount'];
 
@@ -118,68 +125,62 @@ class StadiumBookingController extends Controller
 
         $pointMsg = '';
 
-        $redeemDiscount=0;
+        $redeemDiscount = 0;
 
-        $welcomeDiscount=0;
+        $welcomeDiscount = 0;
 
         $hdiscount = $request['hdiscount'];
 
-        $discount=0;
+        $discount = 0;
 
-        $discount=$hdiscount;
+        $discount = $hdiscount;
 
-        $payableAmount=$payableAmount-$hdiscount;
+        $payableAmount = $payableAmount - $hdiscount;
 
-        $freeHours=0;
-
+        $freeHours = 0;
 
         if ($points > 1000) {
             $ptsToRedeem = floor($points / 1000) * 1000;
-            $freeHours=$ptsToRedeem/1000;
-            $pointMsg = 'Redeem '.$ptsToRedeem.' points to get '.$freeHours.'hr game free';
+            $freeHours = $ptsToRedeem / 1000;
+            $pointMsg = 'Redeem ' . $ptsToRedeem . ' points to get ' . $freeHours . 'hr game free';
         }
 
         $pointErrMsg = '';
 
         if ($redeem == 1 && $points > 1000) {
-            $perHourPrice=$payableAmount/$hours;
-            $redeemDiscount=$freeHours*$perHourPrice;
+            $perHourPrice = $payableAmount / $hours;
+            $redeemDiscount = $freeHours * $perHourPrice;
 
-            if($redeemDiscount>$payableAmount){
-                $redeemDiscount=$payableAmount;
+            if ($redeemDiscount > $payableAmount) {
+                $redeemDiscount = $payableAmount;
             }
-            $discount+=$redeemDiscount;
-            
+            $discount += $redeemDiscount;
+
         } else {
             $pointErrMsg = 'Min Points should be 1000';
         }
 
-        $payableAmount=$payableAmount-$redeemDiscount;
-
-        
+        $payableAmount = $payableAmount - $redeemDiscount;
 
         $bCount = StadiumBooking::where('user_id', $request['user_id'])->count();
 
         $discountMsg = '';
 
         if ($bCount <= 2) {
-            $welcomeDiscount=$hours*200;
+            $welcomeDiscount = $hours * 200;
             $discount += $welcomeDiscount;
             $discountMsg = '200 off as a Welcome Discount';
 
-            if($user->max_woffer<$welcomeDiscount){
-                $welcomeDiscount=$user->max_woffer;
+            if ($user->max_woffer < $welcomeDiscount) {
+                $welcomeDiscount = $user->max_woffer;
             }
 
-            $user->max_woffer=$user->max_woffer-$welcomeDiscount;
+            $user->max_woffer = $user->max_woffer - $welcomeDiscount;
             $user->save();
-
 
         }
 
-
-        $payableAmount=$payableAmount-$welcomeDiscount;
-
+        $payableAmount = $payableAmount - $welcomeDiscount;
 
         $sb->stadium_id = $request['stadium_id'];
         $sb->user_id = $request['user_id'];
@@ -202,9 +203,6 @@ class StadiumBookingController extends Controller
         $sb->welcome_discount = $welcomeDiscount;
 
         $sb->happyhours_discount = $hdiscount;
-
-
-
 
         $sb->advance = $advance;
 
@@ -244,9 +242,9 @@ class StadiumBookingController extends Controller
         $pt->points = $pts * 10;
         $pt->type = 'cr';
         $pt->user_id = $request['user_id'];
-        $pt->booking_id=$sb->id;
+        $pt->booking_id = $sb->id;
 
-        $pt->remarks = 'Earned From Booking ID:' . $sb->booking_id;;
+        $pt->remarks = 'Earned From Booking ID:' . $sb->booking_id;
         $pt->save();
 
         $user = User::find($request['user_id']);
@@ -297,13 +295,11 @@ class StadiumBookingController extends Controller
 
         $stadiumBooking->created_on = Carbon::create($stadiumBooking->created_at)->format('d M Y h:i a');
         $stadiumBooking->cancelled_on = '';
-        if($stadiumBooking->status=='Cancelled'){
-            $cbr=CancelBookingReason::where('booking_id',$stadiumBooking->id)->first();
+        if ($stadiumBooking->status == 'Cancelled') {
+            $cbr = CancelBookingReason::where('booking_id', $stadiumBooking->id)->first();
             $stadiumBooking->cancelled_on = Carbon::create($cbr->created_at)->format('d M Y h:i a');
 
         }
-
-
 
         $stadiumBooking->booked_by = $stadiumBooking->faculity_id == null ? 'User' : 'Venue';
 
@@ -455,28 +451,25 @@ class StadiumBookingController extends Controller
 
         }
 
-
         // points
-        if(PointTransaction::where('booking_id',$booking->id)->exists()){
+        if (PointTransaction::where('booking_id', $booking->id)->exists()) {
 
             $user = User::find($booking->user_id);
 
+            $pt = PointTransaction::where('booking_id', $booking->id)->first();
+            $points = $pt->points;
 
-            $pt=PointTransaction::where('booking_id',$booking->id)->first();
-            $points=$pt->points;
-
-            $user->points=$user->points-$pt->points;
-            $user->total_points=$user->total_points-$pt->points;
+            $user->points = $user->points - $pt->points;
+            $user->total_points = $user->total_points - $pt->points;
             $user->save();
-
 
             $pt = new PointTransaction();
             $pt->points = $points;
             $pt->type = 'db';
             $pt->user_id = $user->id;
-            $pt->booking_id=$booking->id;
-    
-            $pt->remarks = 'Booking Cancellation Booking ID:' . $booking->booking_id;;
+            $pt->booking_id = $booking->id;
+
+            $pt->remarks = 'Booking Cancellation Booking ID:' . $booking->booking_id;
             $pt->save();
 
         }
@@ -524,7 +517,7 @@ class StadiumBookingController extends Controller
         $from = Carbon::create($request['from']);
         $to = Carbon::create($request['to']);
 
-        $hours=$from->floatDiffInHours($to);
+        $hours = $from->floatDiffInHours($to);
         $user = User::find($request['user_id']);
 
         $bookingAmount = $request['total_amount'];
@@ -533,71 +526,63 @@ class StadiumBookingController extends Controller
 
         $bCount = StadiumBooking::where('user_id', $request['user_id'])->count();
 
-
         $points = $user->points;
 
         $pointMsg = '';
 
-        $redeemDiscount=0;
+        $redeemDiscount = 0;
 
         // happy hours discount
-        $hdiscount=$request['hdiscount'];
-      
+        $hdiscount = $request['hdiscount'];
 
-        $payableAmount=$payableAmount-$hdiscount;
-
+        $payableAmount = $payableAmount - $hdiscount;
 
         $discount = $hdiscount;
 
-        $freeHours=0;
+        $freeHours = 0;
         if ($points > 1000) {
             $ptsToRedeem = floor($points / 1000) * 1000;
-            $freeHours=$ptsToRedeem/1000;
-            $pointMsg = 'Redeem '.$ptsToRedeem.' points to get '.$freeHours.'hr game free';
+            $freeHours = $ptsToRedeem / 1000;
+            $pointMsg = 'Redeem ' . $ptsToRedeem . ' points to get ' . $freeHours . 'hr game free';
         }
 
         $pointErrMsg = '';
 
         if ($redeem == 1 && $points > 1000) {
-            $perHourPrice=$payableAmount/$hours;
-            $redeemDiscount=$freeHours*$perHourPrice;
-            if($redeemDiscount>$payableAmount){
-                $redeemDiscount=$payableAmount;
+            $perHourPrice = $payableAmount / $hours;
+            $redeemDiscount = $freeHours * $perHourPrice;
+            if ($redeemDiscount > $payableAmount) {
+                $redeemDiscount = $payableAmount;
             }
-            $payableAmount=$payableAmount-$redeemDiscount;
-            
+            $payableAmount = $payableAmount - $redeemDiscount;
+
         } else {
             $pointErrMsg = 'Min Points should be 1000';
         }
 
-        $discount+=$redeemDiscount;
+        $discount += $redeemDiscount;
 
-
-        $wdiscount=0;
+        $wdiscount = 0;
         $discountMsg = '';
 
         if ($bCount <= 2) {
-          
 
             $wdiscount = $hours * 200;
 
-            if($user->max_woffer<$wdiscount){
-                $wdiscount=$user->max_woffer;
+            if ($user->max_woffer < $wdiscount) {
+                $wdiscount = $user->max_woffer;
             }
-
-          
 
             $discountMsg = '200 off for an hour as a Welcome Discount ';
 
-            $payableAmount=$payableAmount-$wdiscount;
+            $payableAmount = $payableAmount - $wdiscount;
 
         }
 
-        $discount+=$wdiscount;
+        $discount += $wdiscount;
         $advanceAmount = $payableAmount * 10;
         $advanceAmount = $advanceAmount / 100;
 
-        
-        return ['success' => true, 'amount' => $bookingAmount, 'total_amount' => $payableAmount,'discount' => $discount, 'discountMsg' => $discountMsg, 'payable_amount' => $advanceAmount, 'points' => $points, 'pointMsg' => $pointMsg,'hours'=>$hours,'redeem'=>$redeem,'redeemDisc'=>$redeemDiscount,'hdiscount'=>$hdiscount,'wdiscount'=>$wdiscount];
+        return ['success' => true, 'amount' => $bookingAmount, 'total_amount' => $payableAmount, 'discount' => $discount, 'discountMsg' => $discountMsg, 'payable_amount' => $advanceAmount, 'points' => $points, 'pointMsg' => $pointMsg, 'hours' => $hours, 'redeem' => $redeem, 'redeemDisc' => $redeemDiscount, 'hdiscount' => $hdiscount, 'wdiscount' => $wdiscount];
     }
 }
