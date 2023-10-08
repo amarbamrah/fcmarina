@@ -228,7 +228,7 @@ class StadiumBookingController extends Controller
             $pt->points = 1000;
             $pt->type = 'db';
             $pt->user_id = $user->id;
-            $pt->$sb->id;
+            $pt->booking_id=$sb->id;
     
             $pt->remarks = 'Redeemed For Booking ID:' . $sb->booking_id;
             $pt->save();
