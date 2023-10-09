@@ -25,7 +25,7 @@
                                 Phone No
                             </label>
 
-                            <input type="text" name="phone" class="form-control">
+                            <input type="number" required name="phone" class="form-control">
                         </div>
 
                         <button type="submit" class="btn btn-primary">ADD PHONE NO</button>
