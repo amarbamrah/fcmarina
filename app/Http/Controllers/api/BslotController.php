@@ -447,9 +447,6 @@ class BslotController extends Controller
         ];
 
 
-        $stadium5sPrice=0;
-        $stadium7sPrice=0;
-
        
         return ['success' => true,'stadium5sPrice'=>$stadium5sPrice,'stadium7sPrice'=>$stadium7sPrice, 'data' => $data,'price'=>$price,'stadium_types'=>$stadium->type,'sel_game_type'=>$selGameType,'offers'=>$offers];
     }
