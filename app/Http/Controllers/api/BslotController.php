@@ -56,6 +56,9 @@ class BslotController extends Controller
 
         $price=$stadium->mon5s;
 
+        $stadium5sPrice=0;
+        $stadium7sPrice=0;
+
 
         switch($date->format('D')){
             case 'Mon': $price=$selGameType=='5s'?$stadium->mon5s:$stadium->mon7s;break;
@@ -65,6 +68,16 @@ class BslotController extends Controller
             case 'Fri': $price=$selGameType=='5s'?$stadium->fri5s:$stadium->fri7s;break;
             case 'Sat': $price=$selGameType=='5s'?$stadium->sat5s:$stadium->sat7s;break;
             case 'Sun': $price=$selGameType=='5s'?$stadium->sun5s:$stadium->sun7s;break;
+        }
+
+        switch($date->format('D')){
+            case 'Mon': $stadium5sPrice=$stadium->mon5s;$stadium7sPrice=$stadium->mon7s;break;
+            case 'Tue': $stadium5sPrice=$stadium->tue5s;$stadium7sPrice=$stadium->tue7s;break;
+            case 'Wed': $stadium5sPrice=$stadium->wed5s;$stadium7sPrice=$stadium->wed7s;break;
+            case 'Thu': $stadium5sPrice=$stadium->thu5s;$stadium7sPrice=$stadium->thu7s;break;
+            case 'Fri': $stadium5sPrice=$stadium->fri5s;$stadium7sPrice=$stadium->fri7s;break;
+            case 'Sat': $stadium5sPrice=$stadium->sat5s;$stadium7sPrice=$stadium->sat7s;break;
+            case 'Sun': $stadium5sPrice=$stadium->sun5s;$stadium7sPrice=$stadium->sun7s;break;
         }
 
 
@@ -434,10 +447,11 @@ class BslotController extends Controller
         ];
 
 
-        
+        $stadium5sPrice=0;
+        $stadium7sPrice=0;
 
        
-        return ['success' => true, 'data' => $data,'price'=>$price,'stadium_types'=>$stadium->type,'sel_game_type'=>$selGameType,'offers'=>$offers];
+        return ['success' => true,'stadium5sPrice'=>$stadium5sPrice,'stadium7sPrice'=>$stadium7sPrice, 'data' => $data,'price'=>$price,'stadium_types'=>$stadium->type,'sel_game_type'=>$selGameType,'offers'=>$offers];
     }
 
     /**
