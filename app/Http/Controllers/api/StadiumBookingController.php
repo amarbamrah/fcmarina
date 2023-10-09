@@ -53,6 +53,7 @@ class StadiumBookingController extends Controller
             $sb->day = Carbon::create($sb->date)->format('D');
 
             $sb->f_date = Carbon::create($sb->date)->format('d');
+            $sb->fdate = Carbon::create($sb->date)->format('d M y');
 
             $sb->f_from = Carbon::create($sb->from)->format('h:i A');
             $sb->f_to = Carbon::create($sb->to)->format('h:i A');
