@@ -28,19 +28,19 @@ class StadiumBookingController extends Controller
             $now = Carbon::now();
 
             $sbs = StadiumBooking::where('user_id', $request['user_id'])
-            ->where('status','!=','Processing')
-            ->where(function ($query) use ($now) {
-                $query->whereDate('date', '>', $now->toDateString())
-                    ->orWhere(function ($query) use ($now) {
-                        $query->whereDate('date', '=', $now->toDateString())
-                            ->whereTime('from', '>', $now->toTimeString());
-                    });
-            })
-            ->get();
+                ->where('status', '!=', 'Processing')
+                ->where(function ($query) use ($now) {
+                    $query->whereDate('date', '>', $now->toDateString())
+                        ->orWhere(function ($query) use ($now) {
+                            $query->whereDate('date', '=', $now->toDateString())
+                                ->whereTime('from', '>', $now->toTimeString());
+                        });
+                })
+                ->get();
         } else {
             $now = Carbon::now();
             $sbs = StadiumBooking::where('user_id', $request['user_id'])
-            ->where('status','!=','Processing')
+                ->where('status', '!=', 'Processing')
                 ->where(function ($query) use ($now) {
                     $query->whereDate('date', '<', $now->toDateString())
                         ->orWhere(function ($query) use ($now) {
@@ -159,10 +159,6 @@ class StadiumBookingController extends Controller
             }
             $discount += $redeemDiscount;
 
-
-
-         
-
         } else {
             $pointErrMsg = 'Min Points should be 1000';
         }
@@ -226,17 +222,16 @@ class StadiumBookingController extends Controller
 
         $sb->save();
 
-        if( $redeemDiscount >0){
+        if ($redeemDiscount > 0) {
             $pt = new PointTransaction();
             $pt->points = 1000;
             $pt->type = 'db';
             $pt->user_id = $user->id;
-            $pt->booking_id=$sb->id;
-    
+            $pt->booking_id = $sb->id;
+
             $pt->remarks = 'Redeemed For Booking ID:' . $sb->booking_id;
             $pt->save();
-    
-    
+
             $user->points = $user->points - 1000;
             $user->save();
         }
@@ -259,21 +254,22 @@ class StadiumBookingController extends Controller
 
         $pts = $request['total_amount'] / 100;
         $pts = round($pts);
-
-        $pt = new PointTransaction();
-        $pt->points = $pts * 10;
-        $pt->type = 'cr';
-        $pt->user_id = $request['user_id'];
-        $pt->booking_id = $sb->id;
-
-        $pt->remarks = 'Earned From Booking ID:' . $sb->booking_id;
-        $pt->save();
-
         $user = User::find($request['user_id']);
 
-        $user->points = $user->points + $pt->points;
-        $user->total_points = $user->total_points + $pt->points;
-        $user->save();
+        if ($redeemDiscount== 0) {
+            $pt = new PointTransaction();
+            $pt->points = $pts * 10;
+            $pt->type = 'cr';
+            $pt->user_id = $request['user_id'];
+            $pt->booking_id = $sb->id;
+
+            $pt->remarks = 'Earned From Booking ID:' . $sb->booking_id;
+            $pt->save();
+
+            $user->points = $user->points + $pt->points;
+            $user->total_points = $user->total_points + $pt->points;
+            $user->save();
+        }
 
         $stadium = Stadium::find($request['stadium_id']);
 
@@ -296,18 +292,17 @@ class StadiumBookingController extends Controller
         $resp = curl_exec($curl);
         curl_close($curl);
 
-
         $phones = StadiumPhone::where('stadium_id', $stadium->id)->get();
         foreach ($phones as $sphone) {
             $url = "http://api.nsite.in/api/v2/SendSMS?SenderId=FCMARI&Is_Unicode=false&Is_Flash=false&Message=Slot%20Booked%20!%20%5CnHi%20" . str_replace(' ', '%20', $user->name) . ",%20you%20have%20booked%20a%20slot%20with%20FC%20MARINA%20BOOK%20APP.%20%5CnVenue%20:%20" . str_replace(' ', '%20', $stadium->name) . "%20%5CnDate%20:%20" . $datee . "%20%5CnTime%20:%20" . $time . "%20%5CnCourt%20:%20" . $sb->stadium_type . "%20%5CnAdvance%20Paid:%20" . $sb->advance . "%20%5CnBalance%20to%20pay:%20" . $sb->rem_amount . "%20%5CnBooking%20ID:%20" . $sb->booking_id . "&MobileNumbers=" . $sphone->phone . "&ApiKey=mLdRdY8ey1ZTzMY0OifcDjaTO7rJ7gMTgsogL8ragGs=&ClientId=7a0c1703-92c1-4a91-918b-4ac7d9b8d1b3";
             $curl = curl_init($url);
             curl_setopt($curl, CURLOPT_URL, $url);
             curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-    
-    //for debug only!
+
+            //for debug only!
             curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
             curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
-    
+
             $resp = curl_exec($curl);
             curl_close($curl);
         }
@@ -329,7 +324,6 @@ class StadiumBookingController extends Controller
         $stadiumBooking->f_date = Carbon::create($stadiumBooking->date)->format('d');
 
         $stadiumBooking->fdate = Carbon::create($stadiumBooking->date)->format('d M Y');
-
 
         $stadiumBooking->f_from = Carbon::create($stadiumBooking->from)->format('h:i a');
         $stadiumBooking->f_to = Carbon::create($stadiumBooking->to)->format('h:i a');
@@ -497,7 +491,7 @@ class StadiumBookingController extends Controller
 
             $user = User::find($booking->user_id);
 
-            $pt = PointTransaction::where('booking_id', $booking->id)->where('type','cr')->first();
+            $pt = PointTransaction::where('booking_id', $booking->id)->where('type', 'cr')->first();
             $points = $pt->points;
 
             $user->points = $user->points - $pt->points;
