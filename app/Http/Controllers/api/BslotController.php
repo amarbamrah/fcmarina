@@ -148,10 +148,7 @@ class BslotController extends Controller
                         }else if($stadium->type=='5s' && $sb->stadium_type=='5s'){
                             $slot->isFilled = true;
                             $fully = 2;
-                        } else if($sb->booked_for != null){
-                            $slot->isFilled = true;
-                            $fully = 2;
-                        } else {
+                        }  else {
                             if ($fully == 0) {
                                 $fully++;
                                 if($selGameType=='7s'){
@@ -239,9 +236,6 @@ class BslotController extends Controller
                         }else if($stadium->type=='5s' && $sb->stadium_type=='5s'){
                             $slot->isFilled = true;
                             $fully = 2;
-                        }else if($sb->booked_for != null){
-                            $slot->isFilled = true;
-                            $fully = 2;
                         }  else {
                             if ($fully == 0) {
                                 $fully++;
@@ -326,9 +320,6 @@ class BslotController extends Controller
                         }else if($stadium->type=='5s' && $sb->stadium_type=='5s'){
                             $slot->isFilled = true;
                             $fully = 2;
-                        }else if($sb->booked_for != null){
-                            $slot->isFilled = true;
-                            $fully = 2;
                         }  else {
                             if ($fully == 0) {
                                 $fully++;
@@ -411,9 +402,6 @@ class BslotController extends Controller
                             $fully = 2;
 
                         }else if($stadium->type=='5s' && $sb->stadium_type=='5s'){
-                            $slot->isFilled = true;
-                            $fully = 2;
-                        }else if($sb->booked_for != null){
                             $slot->isFilled = true;
                             $fully = 2;
                         }  else {
