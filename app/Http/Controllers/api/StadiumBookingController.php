@@ -256,7 +256,7 @@ class StadiumBookingController extends Controller
         $pts = round($pts);
         $user = User::find($request['user_id']);
 
-        if ($redeemDiscount== 0) {
+        if ($redeemDiscount == 0) {
             $pt = new PointTransaction();
             $pt->points = $pts * 10;
             $pt->type = 'cr';
@@ -492,20 +492,22 @@ class StadiumBookingController extends Controller
             $user = User::find($booking->user_id);
 
             $pt = PointTransaction::where('booking_id', $booking->id)->where('type', 'cr')->first();
-            $points = $pt->points;
+            if ($pt) {
+                $points = $pt->points;
 
-            $user->points = $user->points - $pt->points;
-            $user->total_points = $user->total_points - $pt->points;
-            $user->save();
+                $user->points = $user->points - $pt->points;
+                $user->total_points = $user->total_points - $pt->points;
+                $user->save();
 
-            $pt = new PointTransaction();
-            $pt->points = $points;
-            $pt->type = 'db';
-            $pt->user_id = $user->id;
-            $pt->booking_id = $booking->id;
+                $pt = new PointTransaction();
+                $pt->points = $points;
+                $pt->type = 'db';
+                $pt->user_id = $user->id;
+                $pt->booking_id = $booking->id;
 
-            $pt->remarks = 'Booking Cancellation Booking ID:' . $booking->booking_id;
-            $pt->save();
+                $pt->remarks = 'Booking Cancellation Booking ID:' . $booking->booking_id;
+                $pt->save();
+            }
 
         }
 
