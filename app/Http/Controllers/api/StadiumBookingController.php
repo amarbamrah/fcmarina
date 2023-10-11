@@ -326,6 +326,9 @@ class StadiumBookingController extends Controller
 
         $stadiumBooking->f_date = Carbon::create($stadiumBooking->date)->format('d');
 
+        $stadiumBooking->fdate = Carbon::create($stadiumBooking->date)->format('d M Y');
+
+
         $stadiumBooking->f_from = Carbon::create($stadiumBooking->from)->format('h:i a');
         $stadiumBooking->f_to = Carbon::create($stadiumBooking->to)->format('h:i a');
 
