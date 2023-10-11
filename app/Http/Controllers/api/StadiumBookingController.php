@@ -28,6 +28,7 @@ class StadiumBookingController extends Controller
             $now = Carbon::now();
 
             $sbs = StadiumBooking::where('user_id', $request['user_id'])
+            ->where('status','!=','Processing')
             ->where(function ($query) use ($now) {
                 $query->whereDate('date', '>', $now->toDateString())
                     ->orWhere(function ($query) use ($now) {
@@ -39,6 +40,7 @@ class StadiumBookingController extends Controller
         } else {
             $now = Carbon::now();
             $sbs = StadiumBooking::where('user_id', $request['user_id'])
+            ->where('status','!=','Processing')
                 ->where(function ($query) use ($now) {
                     $query->whereDate('date', '<', $now->toDateString())
                         ->orWhere(function ($query) use ($now) {
