@@ -4,13 +4,9 @@ namespace App\Http\Controllers\api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Bslot;
-
 use App\Models\HappyHour;
-
-use App\Models\StadiumBooking;
-
 use App\Models\Stadium;
-
+use App\Models\StadiumBooking;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -32,58 +28,75 @@ class BslotController extends Controller
 
         $date = $request->has('date') ? Carbon::create($request['date']) : Carbon::now();
 
-        $sbs = StadiumBooking::where('stadium_id', $request['stadium_id'])->whereDate('date', $date)->where('status','!=','Cancelled')->where('status','!=','Processing')->get();
+        $sbs = StadiumBooking::where('stadium_id', $request['stadium_id'])->whereDate('date', $date)->where('status', '!=', 'Cancelled')->where('status', '!=', 'Processing')->get();
 
+        $stadium = Stadium::find($request['stadium_id']);
 
-        $stadium=Stadium::find($request['stadium_id']);
+        $offers = HappyHour::where('stadium_id', $stadium->id)->where('days', 'LIKE', '%' . $date->format('D') . '%')->get();
 
-        $offers=HappyHour::where('stadium_id',$stadium->id)->where('days','LIKE','%'.$date->format('D').'%')->get();
-
-        foreach($offers as $offer){
-            $offer->f_timing='From '.Carbon::create($offer->from)->format('h:i a').' - '.Carbon::create($offer->to)->format('h:i a');
+        foreach ($offers as $offer) {
+            $offer->f_timing = 'From ' . Carbon::create($offer->from)->format('h:i a') . ' - ' . Carbon::create($offer->to)->format('h:i a');
         }
 
-        if($request->has('stadium_type')){
-           $selGameType=$request['stadium_type'];
-        }else{
-            if($stadium->type=='both'){
-             $selGameType='5s';
-                
-            }else{
-             $selGameType=$stadium->type;
+        if ($request->has('stadium_type')) {
+            $selGameType = $request['stadium_type'];
+        } else {
+            if ($stadium->type == 'both') {
+                $selGameType = '5s';
+
+            } else {
+                $selGameType = $stadium->type;
             }
         }
 
-        $price=$stadium->mon5s;
+        $price = $stadium->mon5s;
 
-        $stadium5sPrice=0;
-        $stadium7sPrice=0;
+        $stadium5sPrice = 0;
+        $stadium7sPrice = 0;
 
-
-        switch($date->format('D')){
-            case 'Mon': $price=$selGameType=='5s'?$stadium->mon5s:$stadium->mon7s;break;
-            case 'Tue': $price=$selGameType=='5s'?$stadium->tue5s:$stadium->tue7s;break;
-            case 'Wed': $price=$selGameType=='5s'?$stadium->wed5s:$stadium->wed7s;break;
-            case 'Thu': $price=$selGameType=='5s'?$stadium->thu5s:$stadium->thu7s;break;
-            case 'Fri': $price=$selGameType=='5s'?$stadium->fri5s:$stadium->fri7s;break;
-            case 'Sat': $price=$selGameType=='5s'?$stadium->sat5s:$stadium->sat7s;break;
-            case 'Sun': $price=$selGameType=='5s'?$stadium->sun5s:$stadium->sun7s;break;
+        switch ($date->format('D')) {
+            case 'Mon':$price = $selGameType == '5s' ? $stadium->mon5s : $stadium->mon7s;
+                break;
+            case 'Tue':$price = $selGameType == '5s' ? $stadium->tue5s : $stadium->tue7s;
+                break;
+            case 'Wed':$price = $selGameType == '5s' ? $stadium->wed5s : $stadium->wed7s;
+                break;
+            case 'Thu':$price = $selGameType == '5s' ? $stadium->thu5s : $stadium->thu7s;
+                break;
+            case 'Fri':$price = $selGameType == '5s' ? $stadium->fri5s : $stadium->fri7s;
+                break;
+            case 'Sat':$price = $selGameType == '5s' ? $stadium->sat5s : $stadium->sat7s;
+                break;
+            case 'Sun':$price = $selGameType == '5s' ? $stadium->sun5s : $stadium->sun7s;
+                break;
         }
 
-        switch($date->format('D')){
-            case 'Mon': $stadium5sPrice=$stadium->mon5s;$stadium7sPrice=$stadium->mon7s;break;
-            case 'Tue': $stadium5sPrice=$stadium->tue5s;$stadium7sPrice=$stadium->tue7s;break;
-            case 'Wed': $stadium5sPrice=$stadium->wed5s;$stadium7sPrice=$stadium->wed7s;break;
-            case 'Thu': $stadium5sPrice=$stadium->thu5s;$stadium7sPrice=$stadium->thu7s;break;
-            case 'Fri': $stadium5sPrice=$stadium->fri5s;$stadium7sPrice=$stadium->fri7s;break;
-            case 'Sat': $stadium5sPrice=$stadium->sat5s;$stadium7sPrice=$stadium->sat7s;break;
-            case 'Sun': $stadium5sPrice=$stadium->sun5s;$stadium7sPrice=$stadium->sun7s;break;
+        switch ($date->format('D')) {
+            case 'Mon':$stadium5sPrice = $stadium->mon5s;
+                $stadium7sPrice = $stadium->mon7s;
+                break;
+            case 'Tue':$stadium5sPrice = $stadium->tue5s;
+                $stadium7sPrice = $stadium->tue7s;
+                break;
+            case 'Wed':$stadium5sPrice = $stadium->wed5s;
+                $stadium7sPrice = $stadium->wed7s;
+                break;
+            case 'Thu':$stadium5sPrice = $stadium->thu5s;
+                $stadium7sPrice = $stadium->thu7s;
+                break;
+            case 'Fri':$stadium5sPrice = $stadium->fri5s;
+                $stadium7sPrice = $stadium->fri7s;
+                break;
+            case 'Sat':$stadium5sPrice = $stadium->sat5s;
+                $stadium7sPrice = $stadium->sat7s;
+                break;
+            case 'Sun':$stadium5sPrice = $stadium->sun5s;
+                $stadium7sPrice = $stadium->sun7s;
+                break;
         }
 
-
-        
-        $dayName=$date->format('D');
-       // return ['day'=>$dayName];
+        $dayName = $date->format('D');
+        // return ['day'=>$dayName];
         foreach ($twilight as $i => $slot) {
 
             $fully = 0;
@@ -104,9 +117,7 @@ class BslotController extends Controller
 
             }
 
-
-
-            $slot->discount=0;
+            $slot->discount = 0;
 
             foreach ($offers as $offer) {
 
@@ -121,9 +132,9 @@ class BslotController extends Controller
 
                 foreach ($periods as $i => $period) {
                     if (($i + 1) < count($periods) && $period == Carbon::create($slot->from)->toTimeString()) {
-                        $slot->discount=$offer->discount;
-                        $slot->hours=$offer->hours;
-                       $slot->offer_id=$offer->id;
+                        $slot->discount = $offer->discount;
+                        $slot->hours = $offer->hours;
+                        $slot->offer_id = $offer->id;
 
                     }
                 }
@@ -145,16 +156,16 @@ class BslotController extends Controller
                             $slot->isFilled = true;
                             $fully = 2;
 
-                        }else if($stadium->type=='5s' && $sb->stadium_type=='5s'){
+                        } else if ($stadium->type == '5s' && $sb->stadium_type == '5s') {
                             $slot->isFilled = true;
                             $fully = 2;
-                        }  else {
+                        } else {
                             if ($fully == 0) {
                                 $fully++;
-                                if($selGameType=='7s'){
+                                if ($selGameType == '7s') {
                                     $slot->isFilled = true;
 
-                                }else{
+                                } else {
                                     $slot->isFilled = false;
 
                                 }
@@ -194,7 +205,7 @@ class BslotController extends Controller
 
             }
 
-            $slot->discount=0;
+            $slot->discount = 0;
 
             foreach ($offers as $offer) {
 
@@ -209,9 +220,9 @@ class BslotController extends Controller
 
                 foreach ($periods as $i => $period) {
                     if (($i + 1) < count($periods) && $period == Carbon::create($slot->from)->toTimeString()) {
-                        $slot->discount=$offer->discount;
-                        $slot->hours=$offer->hours;
-                       $slot->offer_id=$offer->id;
+                        $slot->discount = $offer->discount;
+                        $slot->hours = $offer->hours;
+                        $slot->offer_id = $offer->id;
                     }
                 }
             }
@@ -233,16 +244,16 @@ class BslotController extends Controller
                             $slot->isFilled = true;
                             $fully = 2;
 
-                        }else if($stadium->type=='5s' && $sb->stadium_type=='5s'){
+                        } else if ($stadium->type == '5s' && $sb->stadium_type == '5s') {
                             $slot->isFilled = true;
                             $fully = 2;
-                        }  else {
+                        } else {
                             if ($fully == 0) {
                                 $fully++;
-                                if($selGameType=='7s'){
+                                if ($selGameType == '7s') {
                                     $slot->isFilled = true;
 
-                                }else{
+                                } else {
                                     $slot->isFilled = false;
 
                                 }
@@ -278,7 +289,7 @@ class BslotController extends Controller
 
             }
 
-            $slot->discount=0;
+            $slot->discount = 0;
 
             foreach ($offers as $offer) {
 
@@ -293,9 +304,9 @@ class BslotController extends Controller
 
                 foreach ($periods as $i => $period) {
                     if (($i + 1) < count($periods) && $period == Carbon::create($slot->from)->toTimeString()) {
-                        $slot->discount=$offer->discount;
-                        $slot->hours=$offer->hours;
-                       $slot->offer_id=$offer->id;
+                        $slot->discount = $offer->discount;
+                        $slot->hours = $offer->hours;
+                        $slot->offer_id = $offer->id;
                     }
                 }
             }
@@ -317,16 +328,16 @@ class BslotController extends Controller
                             $slot->isFilled = true;
                             $fully = 2;
 
-                        }else if($stadium->type=='5s' && $sb->stadium_type=='5s'){
+                        } else if ($stadium->type == '5s' && $sb->stadium_type == '5s') {
                             $slot->isFilled = true;
                             $fully = 2;
-                        }  else {
+                        } else {
                             if ($fully == 0) {
                                 $fully++;
-                                if($selGameType=='7s'){
+                                if ($selGameType == '7s') {
                                     $slot->isFilled = true;
 
-                                }else{
+                                } else {
                                     $slot->isFilled = false;
 
                                 }
@@ -362,7 +373,7 @@ class BslotController extends Controller
 
             }
 
-            $slot->discount=0;
+            $slot->discount = 0;
 
             foreach ($offers as $offer) {
 
@@ -377,9 +388,9 @@ class BslotController extends Controller
 
                 foreach ($periods as $i => $period) {
                     if (($i + 1) < count($periods) && $period == Carbon::create($slot->from)->toTimeString()) {
-                        $slot->discount=$offer->discount;
-                        $slot->hours=$offer->hours;
-                       $slot->offer_id=$offer->id;
+                        $slot->discount = $offer->discount;
+                        $slot->hours = $offer->hours;
+                        $slot->offer_id = $offer->id;
                     }
                 }
             }
@@ -401,16 +412,16 @@ class BslotController extends Controller
                             $slot->isFilled = true;
                             $fully = 2;
 
-                        }else if($stadium->type=='5s' && $sb->stadium_type=='5s'){
+                        } else if ($stadium->type == '5s' && $sb->stadium_type == '5s') {
                             $slot->isFilled = true;
                             $fully = 2;
-                        }  else {
+                        } else {
                             if ($fully == 0) {
                                 $fully++;
-                                if($selGameType=='7s'){
+                                if ($selGameType == '7s') {
                                     $slot->isFilled = true;
 
-                                }else{
+                                } else {
                                     $slot->isFilled = false;
 
                                 }
@@ -430,13 +441,34 @@ class BslotController extends Controller
             'morning' => $morning,
             'noon' => $noon,
             'evening' => $evening,
-            
 
         ];
 
+        // calculate curr time
+        $currentTime = Carbon::now();
 
-       
-        return ['success' => true,'stadium5sPrice'=>$stadium5sPrice,'stadium7sPrice'=>$stadium7sPrice, 'data' => $data,'price'=>$price,'stadium_types'=>$stadium->type,'sel_game_type'=>$selGameType,'offers'=>$offers];
+// Define the time boundaries for the sections
+        $twilightStart = Carbon::createFromTime(0, 0); // 12:00 AM
+        $twilightEnd = Carbon::createFromTime(6, 0); // 6:00 AM
+        $morningStart = Carbon::createFromTime(6, 0); // 6:00 AM
+        $morningEnd = Carbon::createFromTime(12, 0); // 12:00 PM
+        $noonStart = Carbon::createFromTime(12, 0); // 12:00 PM
+        $noonEnd = Carbon::createFromTime(18, 0); // 6:00 PM
+        $eveningStart = Carbon::createFromTime(18, 0); // 6:00 PM
+        $eveningEnd = Carbon::createFromTime(0, 0)->addDay(); // 12:00 AM of the next day
+
+// Check which section the current time falls into
+        if ($currentTime >= $twilightStart && $currentTime < $twilightEnd) {
+            $section = "Twilight";
+        } elseif ($currentTime >= $morningStart && $currentTime < $morningEnd) {
+            $section = "Morning";
+        } elseif ($currentTime >= $noonStart && $currentTime < $noonEnd) {
+            $section = "Noon";
+        } else {
+            $section = "Evening";
+        }
+
+        return ['success' => true, 'section'=>$section,'stadium5sPrice' => $stadium5sPrice, 'stadium7sPrice' => $stadium7sPrice, 'data' => $data, 'price' => $price, 'stadium_types' => $stadium->type, 'sel_game_type' => $selGameType, 'offers' => $offers];
     }
 
     /**
