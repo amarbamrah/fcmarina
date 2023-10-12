@@ -473,7 +473,7 @@ class BslotController extends Controller
             $section = "Twilight";
 
         }
-        return ['success' => true, 'section' => $section, 'stadium5sPrice' => $stadium5sPrice, 'stadium7sPrice' => $stadium7sPrice, 'data' => $data, 'price' => $price, 'stadium_types' => $stadium->type, 'sel_game_type' => $selGameType, 'offers' => $offers];
+        return ['success' => true, 'section' => $section, 'stadium5sPrice' => $stadium5sPrice*2, 'stadium7sPrice' => $stadium7sPrice*2, 'data' => $data, 'price' => $price, 'stadium_types' => $stadium->type, 'sel_game_type' => $selGameType, 'offers' => $offers];
     }
 
     /**
