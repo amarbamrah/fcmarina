@@ -446,29 +446,34 @@ class BslotController extends Controller
 
         // calculate curr time
         $currentTime = Carbon::now();
+        if ($date->format('d M Y') != $currentTime->format('d M Y')) {
 
 // Define the time boundaries for the sections
-        $twilightStart = Carbon::createFromTime(0, 0); // 12:00 AM
-        $twilightEnd = Carbon::createFromTime(6, 0); // 6:00 AM
-        $morningStart = Carbon::createFromTime(6, 0); // 6:00 AM
-        $morningEnd = Carbon::createFromTime(12, 0); // 12:00 PM
-        $noonStart = Carbon::createFromTime(12, 0); // 12:00 PM
-        $noonEnd = Carbon::createFromTime(18, 0); // 6:00 PM
-        $eveningStart = Carbon::createFromTime(18, 0); // 6:00 PM
-        $eveningEnd = Carbon::createFromTime(0, 0)->addDay(); // 12:00 AM of the next day
+            $twilightStart = Carbon::createFromTime(0, 0); // 12:00 AM
+            $twilightEnd = Carbon::createFromTime(6, 0); // 6:00 AM
+            $morningStart = Carbon::createFromTime(6, 0); // 6:00 AM
+            $morningEnd = Carbon::createFromTime(12, 0); // 12:00 PM
+            $noonStart = Carbon::createFromTime(12, 0); // 12:00 PM
+            $noonEnd = Carbon::createFromTime(18, 0); // 6:00 PM
+            $eveningStart = Carbon::createFromTime(18, 0); // 6:00 PM
+            $eveningEnd = Carbon::createFromTime(0, 0)->addDay(); // 12:00 AM of the next day
 
 // Check which section the current time falls into
-        if ($currentTime >= $twilightStart && $currentTime < $twilightEnd) {
-            $section = "Twilight";
-        } elseif ($currentTime >= $morningStart && $currentTime < $morningEnd) {
-            $section = "Morning";
-        } elseif ($currentTime >= $noonStart && $currentTime < $noonEnd) {
-            $section = "Noon";
-        } else {
-            $section = "Evening";
-        }
+            if ($currentTime >= $twilightStart && $currentTime < $twilightEnd) {
+                $section = "Twilight";
+            } elseif ($currentTime >= $morningStart && $currentTime < $morningEnd) {
+                $section = "Morning";
+            } elseif ($currentTime >= $noonStart && $currentTime < $noonEnd) {
+                $section = "Noon";
+            } else {
+                $section = "Evening";
+            }
 
-        return ['success' => true, 'section'=>$section,'stadium5sPrice' => $stadium5sPrice, 'stadium7sPrice' => $stadium7sPrice, 'data' => $data, 'price' => $price, 'stadium_types' => $stadium->type, 'sel_game_type' => $selGameType, 'offers' => $offers];
+        }else{
+            $section = "Twilight";
+
+        }
+        return ['success' => true, 'section' => $section, 'stadium5sPrice' => $stadium5sPrice, 'stadium7sPrice' => $stadium7sPrice, 'data' => $data, 'price' => $price, 'stadium_types' => $stadium->type, 'sel_game_type' => $selGameType, 'offers' => $offers];
     }
 
     /**
