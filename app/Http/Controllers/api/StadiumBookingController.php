@@ -338,6 +338,11 @@ class StadiumBookingController extends Controller
 
         $stadiumBooking->booked_by = $stadiumBooking->faculity_id == null ? 'User' : 'Venue';
 
+        if($stadiumBooking->faculity_id!=null){
+            $vm=User::find($stadiumBooking->faculity_id);
+            $stadiumBooking->booked_by = $vm->name.' [VM]';
+        }
+
         $day_division = '';
         if (Carbon::create($stadiumBooking->from) < Carbon::createFromFormat('H:i a', '06:00 AM')) {
             $day_division = 'Twilight';
