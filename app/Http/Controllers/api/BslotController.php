@@ -446,7 +446,7 @@ class BslotController extends Controller
 
         // calculate curr time
         $currentTime = Carbon::now();
-        if ($date->format('d M Y') != $currentTime->format('d M Y')) {
+        if ($date->format('d M Y') == $currentTime->format('d M Y')) {
 
 // Define the time boundaries for the sections
             $twilightStart = Carbon::createFromTime(0, 0); // 12:00 AM
