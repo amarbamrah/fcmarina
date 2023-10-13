@@ -110,12 +110,7 @@ class BslotController extends Controller
                 $slot->start = null;
 
             }
-            if (Carbon::create($slot->from) < $now && $date->toDateString() == Carbon::now()->toDateString()) {
-                $slot->isFilled = true;
-            } else {
-                $slot->isFilled = false;
-
-            }
+           
 
             $slot->discount = 0;
 
@@ -177,6 +172,13 @@ class BslotController extends Controller
 
                     }
                 }
+            }
+
+            if (Carbon::create($slot->from) < $now && $date->toDateString() == Carbon::now()->toDateString()) {
+                $slot->isFilled = true;
+            } else {
+                $slot->isFilled = false;
+
             }
 
             if (Carbon::create($slot->from) < $now && $date->toDateString() == Carbon::now()->toDateString()) {
@@ -284,13 +286,7 @@ class BslotController extends Controller
                 $slot->start = null;
 
             }
-            if (Carbon::create($slot->from) < $now && $date->toDateString() == Carbon::now()->toDateString()) {
-
-                $slot->isFilled = true;
-            } else {
-                $slot->isFilled = false;
-
-            }
+          
 
             $slot->discount = 0;
 
@@ -352,6 +348,14 @@ class BslotController extends Controller
 
                     }
                 }
+            }
+
+            if (Carbon::create($slot->from) < $now && $date->toDateString() == Carbon::now()->toDateString()) {
+
+                $slot->isFilled = true;
+            } else {
+                $slot->isFilled = false;
+
             }
 
         }
@@ -368,13 +372,7 @@ class BslotController extends Controller
                 $slot->start = null;
 
             }
-            if (Carbon::create($slot->from) < $now && $date->toDateString() == Carbon::now()->toDateString()) {
-
-                $slot->isFilled = true;
-            } else {
-                $slot->isFilled = false;
-
-            }
+           
 
             $slot->discount = 0;
 
@@ -436,6 +434,14 @@ class BslotController extends Controller
 
                     }
                 }
+            }
+
+            if (Carbon::create($slot->from) < $now && $date->toDateString() == Carbon::now()->toDateString()) {
+
+                $slot->isFilled = true;
+            } else {
+                $slot->isFilled = false;
+
             }
 
         }
