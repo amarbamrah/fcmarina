@@ -275,7 +275,7 @@ class StadiumController extends Controller
             array_push($bookings, $booking);
         }
 
-        return ['success' => true, 'data' => $bookings];
+        return ['success' => true, 'data' => $bookings,'hours'=>2,'revenue'=>1000];
 
     }
 
