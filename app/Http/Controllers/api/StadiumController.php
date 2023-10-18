@@ -216,6 +216,8 @@ class StadiumController extends Controller
 
         $hours=0;
 
+        $rev=0;
+
         
 
         $stadium = Stadium::find($request['stadium_id']);
@@ -281,7 +283,7 @@ class StadiumController extends Controller
             array_push($bookings, $booking);
         }
 
-        return ['success' => true, 'data' => $bookings,'hours'=>$hours,'revenue'=>1000];
+        return ['success' => true, 'data' => $bookings,'hours'=>$hours,'revenue'=>$rev];
 
     }
 
