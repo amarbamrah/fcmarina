@@ -231,7 +231,7 @@ class StadiumController extends Controller
         $bookings = [];
         foreach ($sbs as $sb) {
 
-            $hours += Carbon::create($sb->to)->diffInHours(Carbon::create($sb->from));
+            $hours += Carbon::create($sb->to)->floatDiffInHours(Carbon::create($sb->from));
 
             $user = User::find($sb->user_id);
 
