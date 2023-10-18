@@ -214,6 +214,10 @@ class StadiumController extends Controller
     public function venueBookings(Request $request)
     {
 
+        $hours=0;
+
+        
+
         $stadium = Stadium::find($request['stadium_id']);
 
         if($request['type']=='Cancelled'){
@@ -226,6 +230,8 @@ class StadiumController extends Controller
 
         $bookings = [];
         foreach ($sbs as $sb) {
+
+            $hours += Carbon::create($sb->to)->diffInHours(Carbon::create($sb->from));
 
             $user = User::find($sb->user_id);
 
