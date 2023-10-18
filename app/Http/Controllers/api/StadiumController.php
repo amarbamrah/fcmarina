@@ -233,6 +233,15 @@ class StadiumController extends Controller
         $bookings = [];
         foreach ($sbs as $sb) {
 
+            if($sb->status=='Confirmed'){
+                $rev+=$sb->advance;
+            }
+
+            if($sb->status=='Completed'){
+                $rev+=$sb->payable_amount;
+            }
+
+
             $hours += Carbon::create($sb->to)->floatDiffInHours(Carbon::create($sb->from));
 
             $user = User::find($sb->user_id);
