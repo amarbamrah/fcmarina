@@ -239,21 +239,21 @@ class StadiumController extends Controller
 
             $username = $user == null ? $sb->name : $user->name;
 
-            $color = '#FFF2E7';
+            $color = '#129890';
 
             if ($sb->faculity_id == null) {
-                $color = '#FFF2E7';
+                $color = '#129890';
 
             }
 
 
             if ($sb->faculity_id != null && $sb->booked_for!=null) {
-                $color = '#A8BFD6';
+                $color = '#1764AB';
 
             }
 
             if ($sb->faculity_id != null && $sb->booked_for==null) {
-                $color = '#C9E3AC';
+                $color = '#2D7813';
 
             }
 
