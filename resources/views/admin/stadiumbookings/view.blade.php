@@ -94,21 +94,24 @@
                         <td><span class="text-danger">Rs {{$booking->rem_amount}}</span></td>
                     </tr>
 
+                    @if($booking->status=='Completed')
                     <tr>
                         <th>Amount Breakdown</th>
                         <td>
                             @if(count($booking->booking_payments)>1)
-                              @foreach($booking->booking_payments as $bp)
-                                {{$bp->payment_mode}} - {{$bp->amount}} <br>
-                              @endforeach
+                            @foreach($booking->booking_payments as $bp)
+                            {{$bp->payment_mode}} - {{$bp->amount}} <br>
+                            @endforeach
                             @else
                             @foreach($booking->booking_payments as $bp)
-                            {{$bp->payment_mode}} - {{$bp->amount==0?$booking->payable_amount-$booking->advance:$bp->amount}} 
+                            {{$bp->payment_mode}} -
+                            {{$bp->amount==0?$booking->payable_amount-$booking->advance:$bp->amount}}
 
-                              @endforeach
+                            @endforeach
                             @endif
                         </td>
                     </tr>
+                    @endif
                 </table>
             </div>
         </div>
