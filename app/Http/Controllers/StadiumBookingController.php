@@ -6,6 +6,9 @@ use App\Models\StadiumBooking;
 
 use App\Models\Stadium;
 
+use App\Models\BookingPayment;
+
+
 use Carbon\Carbon;
 
 use Illuminate\Http\Request;
@@ -63,6 +66,7 @@ class StadiumBookingController extends Controller
     public function show(StadiumBooking $stadiumBooking)
     {
         $booking=$stadiumBooking;
+        $booking->booking_payments=BookingPayment::where('booking_id',$booking->id)->get();
         return view('admin.stadiumbookings.view',compact('booking'));
         
     }

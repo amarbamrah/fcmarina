@@ -91,6 +91,15 @@
                     <th>Remaining Amount to be paid:</th>
                     <td><span class="text-danger">Rs {{$booking->rem_amount}}</span></td>
                    </tr>
+
+                   <tr>
+                    <th>Amount Breakdown</th>
+                    <td>
+                      @foreach($booking->booking_payments as $bp)
+                        {{$bp->payment_mode}}
+                      @endforeach
+                    </td>
+                   </tr>
                   </table>
                 </div>
               </div>
