@@ -73,6 +73,16 @@
                    </tr>
 
                    <tr>
+                    <th>Discount:</th>
+                    <td>Rs {{$booking->discount}}</td>
+                   </tr>
+
+                   <tr>
+                    <th>Payable Amount:</th>
+                    <td>Rs {{$booking->payable_amount}}</td>
+                   </tr>
+
+                   <tr>
                     <th>Advance Paid:</th>
                     <td>Rs {{$booking->advance}}</td>
                    </tr>
