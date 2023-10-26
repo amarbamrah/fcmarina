@@ -74,6 +74,9 @@
                        <th>Booking Date</th>
                        <th>Booking Time</th>
                        <th>Total Amount</th>
+                       <th>Discount</th>
+                       <th>Advance</th>
+                       <th>Rem Amount</th>
                        <th>Status</th>
                        <th>Action</th>
                       </tr>
@@ -90,6 +93,11 @@
                                     <td>{{$stdbook->date}}</td>
                                    <td> {{Carbon\Carbon::create($stdbook->from)->format(  'g:i A')}} -- {{Carbon\Carbon::create($stdbook->to)->format(' g:i A')}}</td>
                                     <td>Rs {{$stdbook->total_amount}}</td>
+                                    <td>Rs {{$stdbook->discount}}</td>
+                                    <td>Rs {{$stdbook->advance}}</td>
+                                    <td>Rs {{$stdbook->rem_amount}}</td>
+
+
                                     <td>
                                     <span class="badge {{$stdbook->status=='Confirmed'?'bg-primary':'bg-danger'}}">  
                                     {{$stdbook->status}}
