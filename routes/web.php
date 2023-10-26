@@ -113,6 +113,7 @@ Route::prefix('admin')->middleware('auth')->group(function () {
 
 
 
+    Route::get('/points',[AppUserController::class,'userPoints']);
 
 
 
