@@ -130,7 +130,7 @@
                 <div id="boxx{{$i}}" class="accordion-collapse collapse" aria-labelledby="headingOne"
                     data-bs-parent="#accordionExample">
                     <div class="accordion-body">
-                        <table class="table">
+                        <table class="table table-responsive">
                             <thead>
                                 <tr>
                                     <th>Booking ID</th>
