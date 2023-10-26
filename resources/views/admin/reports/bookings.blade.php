@@ -156,13 +156,19 @@
                                     <td>{{$stdbook['stadium']['name']}}</td>
                                     <td>{{$stdbook->stadium_type}}</td>
                                     <td>{{$stdbook->date}}</td>
-                                    <td> {{Carbon\Carbon::create($stdbook->from)->format(  'g:i A')}} --
-                                        {{Carbon\Carbon::create($stdbook->to)->format(' g:i A')}}</td>
+                                    <td> {{Carbon\Carbon::create($stdbook->from)->format('g:i A')}} --
+                                        {{Carbon\Carbon::create($stdbook->to)->format('g:i A')}}</td>
                                     <td>Rs {{$stdbook->total_amount}}</td>
                                     <td>
-                                        <span class="badge {{$stdbook->status=='Confirmed'?'bg-primary':'bg-danger'}}">
+                                       @if($stdbook->status=='Confirmed')
+                                       <span class="badge bg-primary">
                                             {{$stdbook->status}}
                                         </span>
+                                       @elseif($stdbook->status=='Completed')
+                                       <span class="badge bg-success">
+                                            {{$stdbook->status}}
+                                        </span>
+                                       @endif
                                     </td>
                                     <td>
                                         <a href="/admin/stadium-bookings/{{$stdbook->id}}">
