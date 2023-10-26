@@ -202,6 +202,9 @@ class StadiumController extends Controller
             $rev = 0;
             $hours = 0;
 
+            $pendRev = 0;
+
+
             if ($request->has('stadium')) {
                 $bookings = StadiumBooking::where('stadium_id', $request['stadium'])->whereDate('date', $date)->get();
 
@@ -214,6 +217,7 @@ class StadiumController extends Controller
             foreach ($bookings as $booking) {
                 if($booking->status=='Confirmed'){
                     $rev+=$booking->advance;
+                    $pendRev+=$booking->rem_amount;
                 }
     
                 if($booking->status=='Completed'){
@@ -227,6 +231,7 @@ class StadiumController extends Controller
                 'date' => $date->format('D d M Y'),
                 'bookings' => $bookings,
                 'rev' => $rev,
+                'pendRev'=>$pendRev,
                 'hours' => $hours,
             ];
 
