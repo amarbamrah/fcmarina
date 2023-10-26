@@ -32,7 +32,9 @@
                                     <td>{{$appuser->phonenumber}}</td>  
                                     <td>{{$appuser->age}}</td>  
                                     <td>{{$appuser->gender}}</td>  
-                                    <td>{{$appuser->points}}</td>  
+                                    <td>
+                                      <a href="/admin/points?user_id={{$appuser->id}}">{{$appuser->points}}</a>
+                                    </td>  
 
                                     <td>{{Carbon\Carbon::create($appuser->created_at)->format('d M Y')}}</td>
 
