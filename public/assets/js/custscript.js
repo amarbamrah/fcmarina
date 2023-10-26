@@ -48,6 +48,9 @@ $(document).ready(function(){
         }
     });
 
+    if($('#periodbox').val()=='custom'){
+        $('#custombox').css('display','');
+    }
 
     $('#periodbox').on('change',function(){
         if($(this).val()=='custom'){
