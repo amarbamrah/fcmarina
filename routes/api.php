@@ -82,6 +82,9 @@ Route::get('/user-venue-bookings', [StadiumController::class,'bookings']);
 
 Route::get('/venue-bookings', [StadiumController::class,'venueBookings']);
 
+Route::middleware('auth:sanctum')->post('/apply-discount', [StadiumController::class,'applyDiscount']);
+
+
 
 Route::post('/generate-order', [StadiumBookingController::class,'generateOrder']);
 

@@ -468,6 +468,11 @@ class StadiumController extends Controller
         }
     }
 
+
+    public function applyDiscount(Request $request){
+        return ['success'=>true];
+    }
+
     public function completeBooking(Request $request)
     {
         $booking = StadiumBooking::find($request['booking_id']);
