@@ -102,7 +102,10 @@
                                 {{$bp->payment_mode}} - {{$bp->amount}} <br>
                               @endforeach
                             @else
+                            @foreach($booking->booking_payments as $bp)
                             {{$bp->payment_mode}} - {{$bp->amount==0?$booking->payable_amount-$booking->advance:$bp->amount}} 
+
+                              @endforeach
                             @endif
                         </td>
                     </tr>
