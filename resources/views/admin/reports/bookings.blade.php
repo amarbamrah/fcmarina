@@ -36,7 +36,7 @@
                         </select>
 
 
-                    <div class="row" id="custombox" style="display:none;">
+                        <div class="row" id="custombox" style="display:none;">
 
                             <div class="form-group  col-md-6 mb-3">
                                 <label class="">From:</label>
@@ -54,7 +54,7 @@
                         </div>
 
                     </div>
-                    
+
 
 
 
@@ -130,89 +130,90 @@
                 <div id="boxx{{$i}}" class="accordion-collapse collapse" aria-labelledby="headingOne"
                     data-bs-parent="#accordionExample">
                     <div class="accordion-body">
-                        <div class="table-responsive"></div>
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th>Booking ID</th>
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Booking ID</th>
 
-                                    <th>User</th>
-                                    <th>User Phone</th>
-                                    <th>Stadium Name</th>
-                                    <th>Stadium Type</th>
-                                    <th>Booking Date</th>
-                                    <th>Booking Time</th>
-                                    <th>Total Amount</th>
-                                    <th>Advance</th>
-                                    <th>Rem Amount</th>
-
-
-                                    <th>Status</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach($day['bookings'] as $i=>$stdbook)
-                                <tr>
-                                    <td>{{$stdbook->booking_id}}</td>
-                                    <td>{{$stdbook['user']==null?$stdbook->name:$stdbook['user']['name']}}</td>
-                                    <td>{{$stdbook['user']==null?$stdbook->Phone:$stdbook['user']['phonenumber']}}</td>
-
-                                    <td>{{$stdbook['stadium']['name']}}</td>
-                                    <td>{{$stdbook->stadium_type}}</td>
-                                    <td>{{$stdbook->date}}</td>
-                                    <td> {{Carbon\Carbon::create($stdbook->from)->format('g:i A')}} --
-                                        {{Carbon\Carbon::create($stdbook->to)->format('g:i A')}}</td>
-                                    <td>Rs {{$stdbook->total_amount}}</td>
-                                    <td>Rs {{$stdbook->advance}}</td>
-
-                                    <td>Rs {{$stdbook->rem_amount}}</td>
+                                        <th>User</th>
+                                        <th>User Phone</th>
+                                        <th>Stadium Name</th>
+                                        <th>Stadium Type</th>
+                                        <th>Booking Date</th>
+                                        <th>Booking Time</th>
+                                        <th>Total Amount</th>
+                                        <th>Advance</th>
+                                        <th>Rem Amount</th>
 
 
-                                    <td>
-                                       @if($stdbook->status=='Confirmed')
-                                       <span class="badge bg-primary">
-                                            {{$stdbook->status}}
-                                        </span>
-                                       @elseif($stdbook->status=='Completed')
-                                       <span class="badge bg-success">
-                                            {{$stdbook->status}}
-                                        </span>
-                                        @elseif($stdbook->status=='Cancelled')
-                                       <span class="badge bg-danger">
-                                            {{$stdbook->status}}
-                                        </span> 
+                                        <th>Status</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach($day['bookings'] as $i=>$stdbook)
+                                    <tr>
+                                        <td>{{$stdbook->booking_id}}</td>
+                                        <td>{{$stdbook['user']==null?$stdbook->name:$stdbook['user']['name']}}</td>
+                                        <td>{{$stdbook['user']==null?$stdbook->Phone:$stdbook['user']['phonenumber']}}
+                                        </td>
 
-                                        @elseif($stdbook->status=='Processing')
-                                       <span class="badge bg-info">
-                                            {{$stdbook->status}}
-                                        </span> 
+                                        <td>{{$stdbook['stadium']['name']}}</td>
+                                        <td>{{$stdbook->stadium_type}}</td>
+                                        <td>{{$stdbook->date}}</td>
+                                        <td> {{Carbon\Carbon::create($stdbook->from)->format('g:i A')}} --
+                                            {{Carbon\Carbon::create($stdbook->to)->format('g:i A')}}</td>
+                                        <td>Rs {{$stdbook->total_amount}}</td>
+                                        <td>Rs {{$stdbook->advance}}</td>
 
-                                        @else
-                                       @endif
-                                    </td>
-                                    <td>
-                                        <a href="/admin/stadium-bookings/{{$stdbook->id}}">
-                                            View <i style="width:17px;" data-feather="arrow-right"></i>
-                                        </a>
-                                    </td>
+                                        <td>Rs {{$stdbook->rem_amount}}</td>
 
 
-                                </tr>
-                                @endforeach
+                                        <td>
+                                            @if($stdbook->status=='Confirmed')
+                                            <span class="badge bg-primary">
+                                                {{$stdbook->status}}
+                                            </span>
+                                            @elseif($stdbook->status=='Completed')
+                                            <span class="badge bg-success">
+                                                {{$stdbook->status}}
+                                            </span>
+                                            @elseif($stdbook->status=='Cancelled')
+                                            <span class="badge bg-danger">
+                                                {{$stdbook->status}}
+                                            </span>
+
+                                            @elseif($stdbook->status=='Processing')
+                                            <span class="badge bg-info">
+                                                {{$stdbook->status}}
+                                            </span>
+
+                                            @else
+                                            @endif
+                                        </td>
+                                        <td>
+                                            <a href="/admin/stadium-bookings/{{$stdbook->id}}">
+                                                View <i style="width:17px;" data-feather="arrow-right"></i>
+                                            </a>
+                                        </td>
+
+
+                                    </tr>
+                                    @endforeach
 
 
 
-                            </tbody>
-                        </table>
+                                </tbody>
+                            </table>
 
-                        @if(count($day['bookings'])==0)
-                        <div class="text-center mt-2">
-                            <small>No Booking found</small>
+                            @if(count($day['bookings'])==0)
+                            <div class="text-center mt-2">
+                                <small>No Booking found</small>
+                            </div>
+                            @endif
+
                         </div>
-                        @endif
-
-                        table-responsive
                     </div>
                 </div>
             </div>
