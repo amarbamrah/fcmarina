@@ -96,7 +96,7 @@
                     <th>Amount Breakdown</th>
                     <td>
                       @foreach($booking->booking_payments as $bp)
-                        {{$bp->payment_mode}}
+                        {{$bp->payment_mode}} - {{$bp->amount}} <br>
                       @endforeach
                     </td>
                    </tr>
