@@ -20,6 +20,7 @@
                         <th>Contact Number</th>
                         <th>Age</th>
                         <th>Gender</th>
+                        <th>Points</th>
                         <th>Joined On</th>
                       </tr>
                     </thead>
@@ -31,6 +32,8 @@
                                     <td>{{$appuser->phonenumber}}</td>  
                                     <td>{{$appuser->age}}</td>  
                                     <td>{{$appuser->gender}}</td>  
+                                    <td>{{$appuser->points}}</td>  
+
                                     <td>{{Carbon\Carbon::create($appuser->created_at)->format('d M Y')}}</td>
 
                                 </tr>
