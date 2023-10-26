@@ -29,8 +29,11 @@
                             <td>{{\Carbon\Carbon::create($tra->created_at)->format('d M Y h:i a')}}</td>
                             <td>{{$tra->remarks}}</td>
                             <td>{{$tra->points}}</td>
-                            <td>{{$tra->type}}</td>
-
+                            <td>
+                                <span class="badge badge-primary">
+                                {{$tra->type}}
+                                </span>
+                            </td>
                         </tr>
                         @endforeach
 
