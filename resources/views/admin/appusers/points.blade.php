@@ -5,7 +5,7 @@
     <div class="card mb-3">
         <div class="card-header pb-0">
             <div class="d-flex justify-content-between">
-                <h4 class="card-title mg-b-2 mt-2">Redeem Points</h4>
+                <h4 class="card-title mg-b-2 mt-2">Redeem Points [{{$user->name}}] &nbsp; &nbsp; | Total Points: {{$user->points}}</h4>
                 <i class="mdi mdi-dots-horizontal text-gray"></i>
             </div>
 
