@@ -143,6 +143,8 @@
                                     <th>Booking Time</th>
                                     <th>Total Amount</th>
                                     <th>Advance</th>
+                                    <th>Rem Amount</th>
+
 
                                     <th>Status</th>
                                     <th>Action</th>
@@ -162,6 +164,9 @@
                                         {{Carbon\Carbon::create($stdbook->to)->format('g:i A')}}</td>
                                     <td>Rs {{$stdbook->total_amount}}</td>
                                     <td>Rs {{$stdbook->advance}}</td>
+
+                                    <td>Rs {{$stdbook->rem_amount}}</td>
+
 
                                     <td>
                                        @if($stdbook->status=='Confirmed')
