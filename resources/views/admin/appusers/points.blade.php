@@ -30,7 +30,7 @@
                             <td>{{$tra->remarks}}</td>
                             <td>{{$tra->points}}</td>
                             <td>
-                                <span class="badge badge-primary">
+                                <span class="badge {{$tra->type=='cr'?'bg-success':'bg-danger'}}">
                                 {{$tra->type}}
                                 </span>
                             </td>
