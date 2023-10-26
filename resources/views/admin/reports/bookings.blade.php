@@ -168,6 +168,17 @@
                                        <span class="badge bg-success">
                                             {{$stdbook->status}}
                                         </span>
+                                        @elseif($stdbook->status=='Cancelled')
+                                       <span class="badge bg-danger">
+                                            {{$stdbook->status}}
+                                        </span> 
+
+                                        @elseif($stdbook->status=='Processing')
+                                       <span class="badge bg-info">
+                                            {{$stdbook->status}}
+                                        </span> 
+
+                                        @else
                                        @endif
                                     </td>
                                     <td>
