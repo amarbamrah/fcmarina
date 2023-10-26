@@ -212,10 +212,16 @@ class StadiumController extends Controller
 
             $total_bookings += count($bookings);
             foreach ($bookings as $booking) {
-                if ($booking->status != 'Cancelled') {
-                    $hours += Carbon::create($booking->from)->floatDiffInHours(Carbon::create($booking->to));
-                    $rev += $booking->total_amount;
+                if($booking->status=='Confirmed'){
+                    $rev+=$booking->advance;
                 }
+    
+                if($booking->status=='Completed'){
+                    $rev+=$booking->payable_amount;
+                }
+    
+    
+                $hours += Carbon::create($booking->to)->floatDiffInHours(Carbon::create($booking->from));
             }
             $day = [
                 'date' => $date->format('D d M Y'),
