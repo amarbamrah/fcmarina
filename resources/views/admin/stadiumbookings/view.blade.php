@@ -97,7 +97,7 @@
                     <tr>
                         <th>Amount Breakdown</th>
                         <td>
-                            @if(count($booking->booking_payments)>0)
+                            @if(count($booking->booking_payments)>1)
                               @foreach($booking->booking_payments as $bp)
                                 {{$bp->payment_mode}} - {{$bp->amount}} <br>
                               @endforeach
