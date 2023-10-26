@@ -5,7 +5,7 @@
     <div class="card mb-3">
         <div class="card-header pb-0">
             <div class="d-flex justify-content-between">
-                <h4 class="card-title mg-b-2 mt-2">Redeem Points [{{$user->name.' - '.$user->phone}}] &nbsp; &nbsp; | Total Points: {{$user->points}}</h4>
+                <h4 class="card-title mg-b-2 mt-2">Redeem Points [{{$user->name.' - '.$user->phonenumber}}] &nbsp; &nbsp; | Total Points: {{$user->points}}</h4>
                 <i class="mdi mdi-dots-horizontal text-gray"></i>
             </div>
 
@@ -27,8 +27,9 @@
                     <tbody>
                         @foreach($trans as $i=>$tra)
                         <tr>
-
-
+                            <td>{{$tra->created_at}}</td>
+                            <td>{{$tra->remarks}}</td>
+                            <td>{{$tra->points}}</td>
                         </tr>
                         @endforeach
 
