@@ -31,8 +31,8 @@
                     <div class="form-group  col-md-6 mb-3">
                         <label class="form-label">Time Period:</label>
                         <select name="period" id="periodbox" class="form-select">
-                            <option value="curr">This Month</option>
-                            <option value="custom">Custom</option>
+                            <option value="curr" {{Request::get('period')=='month'?'selected':''}}>This Month</option>
+                            <option value="custom" {{Request::get('period')=='custom'?'selected':''}}>Custom</option>
                         </select>
 
 
