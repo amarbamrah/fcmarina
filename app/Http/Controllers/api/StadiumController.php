@@ -471,10 +471,7 @@ class StadiumController extends Controller
     public function completeBooking(Request $request)
     {
         $booking = StadiumBooking::find($request['booking_id']);
-        $booking->status = 'Completed';
-        $booking->rem_amount = 0;
-
-        $booking->save();
+    
 
         $paymentMode = $request['payment_mode'];
         if ($paymentMode == 'CashUpi') {
@@ -502,6 +499,11 @@ class StadiumController extends Controller
 
             $pb->save();
         }
+
+        $booking->status = 'Completed';
+        $booking->rem_amount = 0;
+
+        $booking->save();
 
         return ['success' => true, 'message' => 'Booking Completed Successfully'];
     }
