@@ -119,7 +119,7 @@
                         </div>
 
                         <div class="flex-grow-1">
-                            Revenue Rs {{$day['rev']}} &nbsp;&nbsp; |&nbsp;&nbsp; Total Hours: {{$day['hours']}} &nbsp;&nbsp; | &nbsp;&nbsp; Pending Revnue: {{$day['pendRev']}}
+                            Revenue Rs {{$day['rev']}} &nbsp;&nbsp; |&nbsp;&nbsp; Total Hours: {{$day['hours']}}
                         </div>
 
                         <div class="mr-3" style="margin-right:10px;">
