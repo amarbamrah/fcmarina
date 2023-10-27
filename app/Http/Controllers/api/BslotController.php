@@ -333,7 +333,7 @@ class BslotController extends Controller
                         $starttime = $to;
                     }
 
-                    foreach ($periods as $i => $period) {
+                    foreach ($bperiods as $i => $period) {
                         if (($i + 1) < count($periods) && $period == Carbon::create($slot->from)->toTimeString()) {
                             $slot->isFilled = true;
 
