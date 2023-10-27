@@ -6,6 +6,11 @@ use App\Http\Controllers\Controller;
 use App\Models\Bslot;
 use App\Models\HappyHour;
 use App\Models\Stadium;
+
+use App\Models\BlockedSlot;
+
+
+
 use App\Models\StadiumBooking;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -53,6 +58,9 @@ class BslotController extends Controller
 
         $stadium5sPrice = 0;
         $stadium7sPrice = 0;
+
+
+        $bbSlots=BlockedSlot::where('stadium_id',$stadium->id)->get();
 
         switch ($date->format('D')) {
             case 'Mon':$price = $selGameType == '5s' ? $stadium->mon5s : $stadium->mon7s;
@@ -139,6 +147,8 @@ class BslotController extends Controller
                     }
                 }
             }
+
+            
             foreach ($sbs as $sb) {
 
                 $starttime = Carbon::create($sb->from);
@@ -309,6 +319,12 @@ class BslotController extends Controller
                         $slot->offer_id = $offer->id;
                     }
                 }
+            }
+
+            // BULK BLOCK
+            foreach ($sbs as $sb) {
+                $starttime = Carbon::create($sb->from);
+                $endtime = Carbon::create($sb->to);
             }
 
             foreach ($sbs as $sb) {

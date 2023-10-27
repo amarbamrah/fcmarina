@@ -9,6 +9,7 @@ use App\Models\CancelBookingReason;
 use App\Models\CancelReason;
 use App\Models\HappyHour;
 use App\Models\Location;
+use App\Models\PointTransaction;
 use App\Models\Stadium;
 use App\Models\StadiumAmenity;
 use App\Models\StadiumBooking;
@@ -33,8 +34,6 @@ class StadiumController extends Controller
             $loc = Location::find($stadium->location_id);
             $stadium->location_name = $loc->name;
 
-            
-
             $slotsLeft = 2;
             $stadium->slots_left = $slotsLeft;
 
@@ -44,34 +43,46 @@ class StadiumController extends Controller
 
             }
 
-            $fprice=0;
-            $sprice=0;
+            $fprice = 0;
+            $sprice = 0;
 
-            
-            if($stadium->type=='5s' || $stadium->type=='both'){
-            switch(Carbon::now()->format('D')){
-                case 'Mon': $fprice=$stadium->mon5s;break;
-                case 'Tue': $fprice=$stadium->tue5s;break;
-                case 'Wed': $fprice=$stadium->wed5s;break;
-                case 'Thu': $fprice=$stadium->thu5s;break;
-                case 'Fri': $fprice=$stadium->fri5s;break;
-                case 'Sat': $fprice=$stadium->sat5s;break;
-                case 'Sun': $fprice=$stadium->sun5s;break;
-            }
-        }
-
-            if($stadium->type=='7s' || $stadium->type=='both'){
-                switch(Carbon::now()->format('D')){
-                    case 'Mon': $sprice=$stadium->mon7s;break;
-                    case 'Tue': $sprice=$stadium->tue7s;break;
-                    case 'Wed': $sprice=$stadium->wed7s;break;
-                    case 'Thu': $sprice=$stadium->thu7s;break;
-                    case 'Fri': $sprice=$stadium->fri7s;break;
-                    case 'Sat': $sprice=$stadium->sat7s;break;
-                    case 'Sun': $sprice=$stadium->sun7s;break;
+            if ($stadium->type == '5s' || $stadium->type == 'both') {
+                switch (Carbon::now()->format('D')) {
+                    case 'Mon':$fprice = $stadium->mon5s;
+                        break;
+                    case 'Tue':$fprice = $stadium->tue5s;
+                        break;
+                    case 'Wed':$fprice = $stadium->wed5s;
+                        break;
+                    case 'Thu':$fprice = $stadium->thu5s;
+                        break;
+                    case 'Fri':$fprice = $stadium->fri5s;
+                        break;
+                    case 'Sat':$fprice = $stadium->sat5s;
+                        break;
+                    case 'Sun':$fprice = $stadium->sun5s;
+                        break;
                 }
             }
 
+            if ($stadium->type == '7s' || $stadium->type == 'both') {
+                switch (Carbon::now()->format('D')) {
+                    case 'Mon':$sprice = $stadium->mon7s;
+                        break;
+                    case 'Tue':$sprice = $stadium->tue7s;
+                        break;
+                    case 'Wed':$sprice = $stadium->wed7s;
+                        break;
+                    case 'Thu':$sprice = $stadium->thu7s;
+                        break;
+                    case 'Fri':$sprice = $stadium->fri7s;
+                        break;
+                    case 'Sat':$sprice = $stadium->sat7s;
+                        break;
+                    case 'Sun':$sprice = $stadium->sun7s;
+                        break;
+                }
+            }
 
             $stadium->mon5s = $fprice * 2;
             $stadium->mon7s = $sprice * 2;
@@ -108,34 +119,44 @@ class StadiumController extends Controller
         $slotsLeft = 2;
         $stadium->slots_left = $slotsLeft;
 
-       
+        $fprice = 0;
+        $sprice = 0;
 
-
-        $fprice=0;
-        $sprice=0;
-
-        
-        if($stadium->type=='5s' || $stadium->type=='both'){
-        switch(Carbon::now()->format('D')){
-            case 'Mon': $fprice=$stadium->mon5s;break;
-            case 'Tue': $fprice=$stadium->tue5s;break;
-            case 'Wed': $fprice=$stadium->wed5s;break;
-            case 'Thu': $fprice=$stadium->thu5s;break;
-            case 'Fri': $fprice=$stadium->fri5s;break;
-            case 'Sat': $fprice=$stadium->sat5s;break;
-            case 'Sun': $fprice=$stadium->sun5s;break;
+        if ($stadium->type == '5s' || $stadium->type == 'both') {
+            switch (Carbon::now()->format('D')) {
+                case 'Mon':$fprice = $stadium->mon5s;
+                    break;
+                case 'Tue':$fprice = $stadium->tue5s;
+                    break;
+                case 'Wed':$fprice = $stadium->wed5s;
+                    break;
+                case 'Thu':$fprice = $stadium->thu5s;
+                    break;
+                case 'Fri':$fprice = $stadium->fri5s;
+                    break;
+                case 'Sat':$fprice = $stadium->sat5s;
+                    break;
+                case 'Sun':$fprice = $stadium->sun5s;
+                    break;
+            }
         }
-    }
 
-        if($stadium->type=='7s' || $stadium->type=='both'){
-            switch(Carbon::now()->format('D')){
-                case 'Mon': $sprice=$stadium->mon7s;break;
-                case 'Tue': $sprice=$stadium->tue7s;break;
-                case 'Wed': $sprice=$stadium->wed7s;break;
-                case 'Thu': $sprice=$stadium->thu7s;break;
-                case 'Fri': $sprice=$stadium->fri7s;break;
-                case 'Sat': $sprice=$stadium->sat7s;break;
-                case 'Sun': $sprice=$stadium->sun7s;break;
+        if ($stadium->type == '7s' || $stadium->type == 'both') {
+            switch (Carbon::now()->format('D')) {
+                case 'Mon':$sprice = $stadium->mon7s;
+                    break;
+                case 'Tue':$sprice = $stadium->tue7s;
+                    break;
+                case 'Wed':$sprice = $stadium->wed7s;
+                    break;
+                case 'Thu':$sprice = $stadium->thu7s;
+                    break;
+                case 'Fri':$sprice = $stadium->fri7s;
+                    break;
+                case 'Sat':$sprice = $stadium->sat7s;
+                    break;
+                case 'Sun':$sprice = $stadium->sun7s;
+                    break;
             }
         }
 
@@ -214,18 +235,16 @@ class StadiumController extends Controller
     public function venueBookings(Request $request)
     {
 
-        $hours=0;
+        $hours = 0;
 
-        $rev=0;
-
-        
+        $rev = 0;
 
         $stadium = Stadium::find($request['stadium_id']);
 
-        if($request['type']=='Cancelled'){
+        if ($request['type'] == 'Cancelled') {
             $sbs = StadiumBooking::where('stadium_id', $stadium->id)->where('status', 'Cancelled')->whereDate('date', Carbon::Create($request['date']))->get();
 
-        }else{
+        } else {
             $sbs = StadiumBooking::where('stadium_id', $stadium->id)->where('status', '!=', 'Cancelled')->where('status', '!=', 'Processing')->whereDate('date', Carbon::Create($request['date']))->get();
 
         }
@@ -233,14 +252,13 @@ class StadiumController extends Controller
         $bookings = [];
         foreach ($sbs as $sb) {
 
-            if($sb->status=='Confirmed'){
-                $rev+=$sb->advance;
+            if ($sb->status == 'Confirmed') {
+                $rev += $sb->advance;
             }
 
-            if($sb->status=='Completed'){
-                $rev+=$sb->payable_amount;
+            if ($sb->status == 'Completed') {
+                $rev += $sb->payable_amount;
             }
-
 
             $hours += Carbon::create($sb->to)->floatDiffInHours(Carbon::create($sb->from));
 
@@ -255,18 +273,15 @@ class StadiumController extends Controller
 
             }
 
-
-            if ($sb->faculity_id != null && $sb->booked_for!=null) {
+            if ($sb->faculity_id != null && $sb->booked_for != null) {
                 $color = '#1764AB';
 
             }
 
-            if ($sb->faculity_id != null && $sb->booked_for==null) {
+            if ($sb->faculity_id != null && $sb->booked_for == null) {
                 $color = '#2D7813';
 
             }
-
-            
 
             $booking = [
                 'id' => $sb->id,
@@ -280,19 +295,19 @@ class StadiumController extends Controller
                 'name' => $username,
                 'status' => $sb->status,
                 'booked_for' => $sb->booked_for,
-                'booked_by'=>$sb->faculity_id==null?'User':'VM',
+                'booked_by' => $sb->faculity_id == null ? 'User' : 'VM',
                 'start' => Carbon::createFromFormat('Y-m-d H:i:s', $sb->date . ' ' . $sb->from, 'Asia/Kolkata'),
                 'end' => Carbon::createFromFormat('Y-m-d H:i:s', $sb->date . ' ' . $sb->to),
                 'startDate' => Carbon::createFromFormat('Y-m-d H:i:s', $sb->date . ' ' . $sb->from, 'Asia/Kolkata'),
                 'endDate' => Carbon::createFromFormat('Y-m-d H:i:s', $sb->date . ' ' . $sb->to),
                 'color' => 'transparent',
-                'fcolor' => $color
+                'fcolor' => $color,
 
             ];
             array_push($bookings, $booking);
         }
 
-        return ['success' => true, 'data' => $bookings,'hours'=>$hours,'revenue'=>$rev];
+        return ['success' => true, 'data' => $bookings, 'hours' => $hours, 'revenue' => $rev];
 
     }
 
@@ -399,10 +414,10 @@ class StadiumController extends Controller
 
             $link = rawurlencode($link);
 
-            $from=Carbon::create($sb->from)->format('h:i a');
-            $to=Carbon::create($sb->to)->format('h:i a');
-    
-            $btime=str_replace(' ', '%20', $from.'-'.$to);
+            $from = Carbon::create($sb->from)->format('h:i a');
+            $to = Carbon::create($sb->to)->format('h:i a');
+
+            $btime = str_replace(' ', '%20', $from . '-' . $to);
 
             //  $url = "http://api.nsite.in/api/v2/SendSMS?SenderId=FCMARI&Is_Unicode=false&Is_Flash=false&Message=Dear%20" . $name . ",%20please%20make%20the%20payment%20to%20confirm%20your%20slot%20booking%20at%20FC%20MARINA%20Var.%20\nClick:%20" . $link . "%20to%20make%20the%20payment.%20\nPayment%20link%20is%20valid%20for%205%20minutes.%20Thank%20you.%20FC%20MARINA%20BOOKING%20APP.&MobileNumbers=" . $phno . "&ApiKey=mLdRdY8ey1ZTzMY0OifcDjaTO7rJ7gMTgsogL8ragGs=&ClientId=7a0c1703-92c1-4a91-918b-4ac7d9b8d1b3";
 
@@ -468,18 +483,17 @@ class StadiumController extends Controller
         }
     }
 
-
-    public function applyDiscount(Request $request){
+    public function applyDiscount(Request $request)
+    {
         $booking = StadiumBooking::find($request['booking_id']);
         // $booking->discount=$booking->discount+$request['amount'];
         // $booking->save();
-        return ['success'=>true];
+        return ['success' => true];
     }
 
     public function completeBooking(Request $request)
     {
         $booking = StadiumBooking::find($request['booking_id']);
-    
 
         $paymentMode = $request['payment_mode'];
         if ($paymentMode == 'CashUpi') {
@@ -512,6 +526,27 @@ class StadiumController extends Controller
         $booking->rem_amount = 0;
 
         $booking->save();
+
+        // if ($booking->redeem_discount == 0 && $booking->user_id != null) {
+        //     if (PointTransaction::where('booking_id', $booking->id)->where('type', 'cr')->exists()) {
+                
+        //     }else{
+        //         $pts = $booking->total_amount / 100;
+        //         $pts = round($pts);
+        //         $user = User::find($booking->user_id);
+        //         $pt = new PointTransaction();
+        //         $pt->points = $pts * 10;
+        //         $pt->type = 'cr';
+        //         $pt->user_id = $user->id;
+        //         $pt->booking_id = $booking->id;
+        //         $pt->remarks = 'Earned From Booking ID:' . $booking->booking_id;
+        //         $pt->save();
+
+        //         $user->points = $user->points + $pt->points;
+        //         $user->total_points = $user->total_points + $pt->points;
+        //         $user->save();
+        //     }
+        // }
 
         return ['success' => true, 'message' => 'Booking Completed Successfully'];
     }
@@ -561,8 +596,8 @@ class StadiumController extends Controller
         $refundType = $request['refund_type'];
         $booking = StadiumBooking::find($request['booking_id']);
 
-        if($booking->status=='Cancelled'){
-            return ['success'=>false,'msg'=>'This booking has already been cancelled!'];
+        if ($booking->status == 'Cancelled') {
+            return ['success' => false, 'msg' => 'This booking has already been cancelled!'];
         }
 
         $booking->status = 'Cancelled';
@@ -581,9 +616,9 @@ class StadiumController extends Controller
 
         $refundAmount = $booking->advance;
 
-        $msg='Booking Cancelled Succewssfully';
+        $msg = 'Booking Cancelled Succewssfully';
 
-        if ($refundType == "yes" && $booking->payment_id !=null) {
+        if ($refundType == "yes" && $booking->payment_id != null) {
             // $key = "rzp_test_Bn6XzeDx8pXFK4";
             // $secret = "gVNSxo5kYjNYfooTPWRu9PCS";
 
@@ -592,38 +627,35 @@ class StadiumController extends Controller
             $api = new Api($key, $secret);
 
             $resp = $api->payment->fetch($booking->payment_id)->refund(array(
-                "amount" =>$refundAmount*100,
+                "amount" => $refundAmount * 100,
                 "speed" => "normal",
                 "notes" => array("notes_key_1" => "Refund for cancellation"),
-                "receipt" => "Receipt No.".$booking->id));
+                "receipt" => "Receipt No." . $booking->id));
             $cb->refund_id = $resp->id;
             $cb->refund_amount = $refundAmount;
             $cb->save();
-            $msg='Booking Cancelled Succewssfully and amount refund initiate';
+            $msg = 'Booking Cancelled Succewssfully and amount refund initiate';
 
         } else {
 
         }
 
-        $uname='';
-        $phone='';
-        if($booking->user_id==null){
-            $uname=$booking->name;
-            $phone=$booking->phone;
+        $uname = '';
+        $phone = '';
+        if ($booking->user_id == null) {
+            $uname = $booking->name;
+            $phone = $booking->phone;
 
-        }else{
-            $uname=User::find($booking->user_id)->name;
-            $phone=User::find($booking->user_id)->phonenumber;
-
-
+        } else {
+            $uname = User::find($booking->user_id)->name;
+            $phone = User::find($booking->user_id)->phonenumber;
 
         }
 
-        $stadium=Stadium::find($booking->stadium_id);
+        $stadium = Stadium::find($booking->stadium_id);
         $uname = str_replace(' ', '%20', $uname);
 
         $sname = str_replace(' ', '%20', $stadium->name);
-
 
         $bdate = Carbon::create($booking->date)->format('d-M-Y');
         $from = Carbon::create($booking->from)->format('h:i a');
@@ -631,15 +663,15 @@ class StadiumController extends Controller
 
         $btime = str_replace(' ', '%20', $from . '-' . $to);
 
-        $ca=0;
+        $ca = 0;
 
-        if($refundType== "yes"){
-            $ca=0;
-        }else{
-            $ca=$refundAmount;
+        if ($refundType == "yes") {
+            $ca = 0;
+        } else {
+            $ca = $refundAmount;
         }
 
-        $url='http://api.nsite.in/api/v2/SendSMS?SenderId=FCMARI&Is_Unicode=false&Is_Flash=false&Message=Booking%20Declined!%20\n'.$uname.'%20FC%20Marina%20has%20declined%20a%20FC%20Marina%20booking.%20\nVenue%20:%20'.$sname.'%20\nDate%20:'.$bdate.'%20\nTime%20:'.$btime.'%20\nCourt%20:'.$booking->stadium_type.'%20\nCancellation%20Penalty%20of%20'.$ca.'%20has%20been%20charged.%20\nBooking%20ID:%20'.$booking->booking_id.'&MobileNumbers='.$phone.'&ApiKey=mLdRdY8ey1ZTzMY0OifcDjaTO7rJ7gMTgsogL8ragGs=&ClientId=7a0c1703-92c1-4a91-918b-4ac7d9b8d1b3';
+        $url = 'http://api.nsite.in/api/v2/SendSMS?SenderId=FCMARI&Is_Unicode=false&Is_Flash=false&Message=Booking%20Declined!%20\n' . $uname . '%20FC%20Marina%20has%20declined%20a%20FC%20Marina%20booking.%20\nVenue%20:%20' . $sname . '%20\nDate%20:' . $bdate . '%20\nTime%20:' . $btime . '%20\nCourt%20:' . $booking->stadium_type . '%20\nCancellation%20Penalty%20of%20' . $ca . '%20has%20been%20charged.%20\nBooking%20ID:%20' . $booking->booking_id . '&MobileNumbers=' . $phone . '&ApiKey=mLdRdY8ey1ZTzMY0OifcDjaTO7rJ7gMTgsogL8ragGs=&ClientId=7a0c1703-92c1-4a91-918b-4ac7d9b8d1b3';
 
         $curl = curl_init($url);
         curl_setopt($curl, CURLOPT_URL, $url);
@@ -650,7 +682,7 @@ class StadiumController extends Controller
 
         $resp = curl_exec($curl);
         curl_close($curl);
-        return ['success' => true,'msg'=>$msg];
+        return ['success' => true, 'msg' => $msg];
     }
 
 }
