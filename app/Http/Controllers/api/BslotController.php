@@ -3,14 +3,10 @@
 namespace App\Http\Controllers\api;
 
 use App\Http\Controllers\Controller;
+use App\Models\BlockedSlot;
 use App\Models\Bslot;
 use App\Models\HappyHour;
 use App\Models\Stadium;
-
-use App\Models\BlockedSlot;
-
-
-
 use App\Models\StadiumBooking;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -59,8 +55,7 @@ class BslotController extends Controller
         $stadium5sPrice = 0;
         $stadium7sPrice = 0;
 
-
-        $bbSlots=BlockedSlot::where('stadium_id',$stadium->id)->get();
+        $bbSlots = BlockedSlot::where('stadium_id', $stadium->id)->get();
 
         switch ($date->format('D')) {
             case 'Mon':$price = $selGameType == '5s' ? $stadium->mon5s : $stadium->mon7s;
@@ -148,7 +143,6 @@ class BslotController extends Controller
                 }
             }
 
-            
             foreach ($sbs as $sb) {
 
                 $starttime = Carbon::create($sb->from);
@@ -322,9 +316,33 @@ class BslotController extends Controller
             }
 
             // BULK BLOCK
-            foreach ($sbs as $sb) {
-                $starttime = Carbon::create($sb->from);
-                $endtime = Carbon::create($sb->to);
+            foreach ($bbSlots as $bb) {
+                $startDate = Carbon::create($bb->from);
+                $endDate = Carbon::create($bb->to);
+
+              
+
+                if ($date->between($startDate, $endDate) || $date->eq($startDate) || $date->eq($endDate)) {
+                    // $checkDate is within the date range defined by $startDate and $endDate
+                    $starttime = Carbon::create($bb->timing_from);
+                    $endtime = Carbon::create($bb->timing_to);
+                    $bperiods = [];
+                    while ($starttime->lte($endtime)) {
+                        $to = $starttime->copy()->addMinutes(30);
+                        array_push($bperiods, $starttime->toTimeString());
+                        $starttime = $to;
+                    }
+
+                    foreach ($periods as $i => $period) {
+                        if (($i + 1) < count($periods) && $period == Carbon::create($slot->from)->toTimeString()) {
+                            $slot->isFilled = true;
+
+                        }
+                    }
+
+
+                } else {
+                }
             }
 
             foreach ($sbs as $sb) {
@@ -485,11 +503,11 @@ class BslotController extends Controller
                 $section = "Evening";
             }
 
-        }else{
+        } else {
             $section = "Twilight";
 
         }
-        return ['success' => true, 'section' => $section, 'stadium5sPrice' => $stadium5sPrice*2, 'stadium7sPrice' => $stadium7sPrice*2, 'data' => $data, 'price' => $price, 'stadium_types' => $stadium->type, 'sel_game_type' => $selGameType, 'offers' => $offers];
+        return ['success' => true, 'section' => $section, 'stadium5sPrice' => $stadium5sPrice * 2, 'stadium7sPrice' => $stadium7sPrice * 2, 'data' => $data, 'price' => $price, 'stadium_types' => $stadium->type, 'sel_game_type' => $selGameType, 'offers' => $offers];
     }
 
     /**
