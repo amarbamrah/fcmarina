@@ -171,15 +171,18 @@ class StadiumBookingController extends Controller
 
         if ($bCount <= 2) {
             $welcomeDiscount = $hours * 200;
-            $discount += $welcomeDiscount;
             $discountMsg = '200 off as a Welcome Discount';
 
             if ($user->max_woffer < $welcomeDiscount) {
                 $welcomeDiscount = $user->max_woffer;
             }
 
+            $discount += $welcomeDiscount;
+
+
             $user->max_woffer = $user->max_woffer - $welcomeDiscount;
             $user->save();
+            
 
         }
 
