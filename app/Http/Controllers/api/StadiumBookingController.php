@@ -256,20 +256,20 @@ class StadiumBookingController extends Controller
         $pts = round($pts);
         $user = User::find($request['user_id']);
 
-        if ($redeemDiscount == 0) {
-            $pt = new PointTransaction();
-            $pt->points = $pts * 10;
-            $pt->type = 'cr';
-            $pt->user_id = $request['user_id'];
-            $pt->booking_id = $sb->id;
+        // if ($redeemDiscount == 0) {
+        //     $pt = new PointTransaction();
+        //     $pt->points = $pts * 10;
+        //     $pt->type = 'cr';
+        //     $pt->user_id = $request['user_id'];
+        //     $pt->booking_id = $sb->id;
 
-            $pt->remarks = 'Earned From Booking ID:' . $sb->booking_id;
-            $pt->save();
+        //     $pt->remarks = 'Earned From Booking ID:' . $sb->booking_id;
+        //     $pt->save();
 
-            $user->points = $user->points + $pt->points;
-            $user->total_points = $user->total_points + $pt->points;
-            $user->save();
-        }
+        //     $user->points = $user->points + $pt->points;
+        //     $user->total_points = $user->total_points + $pt->points;
+        //     $user->save();
+        // }
 
         $stadium = Stadium::find($request['stadium_id']);
 
