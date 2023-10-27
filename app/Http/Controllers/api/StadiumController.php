@@ -486,8 +486,13 @@ class StadiumController extends Controller
     public function applyDiscount(Request $request)
     {
         $booking = StadiumBooking::find($request['booking_id']);
-        // $booking->discount=$booking->discount+$request['amount'];
-        // $booking->save();
+        $booking->discount=$booking->discount+$request['amount'];
+        $booking->vm_discount=$booking->vm_discount+$request['amount'];
+
+        $booking->payable_amount=$booking->payable_amount-$request['amount'];
+        $booking->rem_amount=$booking->rem_amount-$request['amount'];
+        
+        $booking->save();
         return ['success' => true];
     }
 
