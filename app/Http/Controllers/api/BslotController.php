@@ -143,6 +143,38 @@ class BslotController extends Controller
                 }
             }
 
+
+             // BULK BLOCK
+             foreach ($bbSlots as $bb) {
+                $startDate = Carbon::create($bb->from);
+                $endDate = Carbon::create($bb->to);
+
+              
+
+                if ($date->between($startDate, $endDate) || $date->eq($startDate) || $date->eq($endDate)) {
+                    // $checkDate is within the date range defined by $startDate and $endDate
+                    $starttime = Carbon::create($bb->timing_from);
+                    $endtime = Carbon::create($bb->timing_to);
+                    $bperiods = [];
+                    while ($starttime->lte($endtime)) {
+                        $to = $starttime->copy()->addMinutes(30);
+                        array_push($bperiods, $starttime->toTimeString());
+                        $starttime = $to;
+                    }
+
+                    foreach ($bperiods as $i => $period) {
+                        if (($i + 1) < count($bperiods) && $period == Carbon::create($slot->from)->toTimeString()) {
+                            $slot->isFilled = true;
+
+                        }
+                    }
+
+
+                } else {
+                }
+            }
+
+
             foreach ($sbs as $sb) {
 
                 $starttime = Carbon::create($sb->from);
@@ -228,6 +260,37 @@ class BslotController extends Controller
                         $slot->hours = $offer->hours;
                         $slot->offer_id = $offer->id;
                     }
+                }
+            }
+
+
+             // BULK BLOCK
+             foreach ($bbSlots as $bb) {
+                $startDate = Carbon::create($bb->from);
+                $endDate = Carbon::create($bb->to);
+
+              
+
+                if ($date->between($startDate, $endDate) || $date->eq($startDate) || $date->eq($endDate)) {
+                    // $checkDate is within the date range defined by $startDate and $endDate
+                    $starttime = Carbon::create($bb->timing_from);
+                    $endtime = Carbon::create($bb->timing_to);
+                    $bperiods = [];
+                    while ($starttime->lte($endtime)) {
+                        $to = $starttime->copy()->addMinutes(30);
+                        array_push($bperiods, $starttime->toTimeString());
+                        $starttime = $to;
+                    }
+
+                    foreach ($bperiods as $i => $period) {
+                        if (($i + 1) < count($bperiods) && $period == Carbon::create($slot->from)->toTimeString()) {
+                            $slot->isFilled = true;
+
+                        }
+                    }
+
+
+                } else {
                 }
             }
 
@@ -426,6 +489,38 @@ class BslotController extends Controller
                         $slot->hours = $offer->hours;
                         $slot->offer_id = $offer->id;
                     }
+                }
+            }
+
+
+
+             // BULK BLOCK
+             foreach ($bbSlots as $bb) {
+                $startDate = Carbon::create($bb->from);
+                $endDate = Carbon::create($bb->to);
+
+              
+
+                if ($date->between($startDate, $endDate) || $date->eq($startDate) || $date->eq($endDate)) {
+                    // $checkDate is within the date range defined by $startDate and $endDate
+                    $starttime = Carbon::create($bb->timing_from);
+                    $endtime = Carbon::create($bb->timing_to);
+                    $bperiods = [];
+                    while ($starttime->lte($endtime)) {
+                        $to = $starttime->copy()->addMinutes(30);
+                        array_push($bperiods, $starttime->toTimeString());
+                        $starttime = $to;
+                    }
+
+                    foreach ($bperiods as $i => $period) {
+                        if (($i + 1) < count($bperiods) && $period == Carbon::create($slot->from)->toTimeString()) {
+                            $slot->isFilled = true;
+
+                        }
+                    }
+
+
+                } else {
                 }
             }
 
