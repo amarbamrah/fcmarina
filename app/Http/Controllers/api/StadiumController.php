@@ -527,26 +527,26 @@ class StadiumController extends Controller
 
         $booking->save();
 
-        // if ($booking->redeem_discount == 0 && $booking->user_id != null) {
-        //     if (PointTransaction::where('booking_id', $booking->id)->where('type', 'cr')->exists()) {
+        if ($booking->redeem_discount == 0 && $booking->user_id != null) {
+            if (PointTransaction::where('booking_id', $booking->id)->where('type', 'cr')->exists()) {
                 
-        //     }else{
-        //         $pts = $booking->total_amount / 100;
-        //         $pts = round($pts);
-        //         $user = User::find($booking->user_id);
-        //         $pt = new PointTransaction();
-        //         $pt->points = $pts * 10;
-        //         $pt->type = 'cr';
-        //         $pt->user_id = $user->id;
-        //         $pt->booking_id = $booking->id;
-        //         $pt->remarks = 'Earned From Booking ID:' . $booking->booking_id;
-        //         $pt->save();
+            }else{
+                $pts = $booking->total_amount / 100;
+                $pts = round($pts);
+                $user = User::find($booking->user_id);
+                $pt = new PointTransaction();
+                $pt->points = $pts * 10;
+                $pt->type = 'cr';
+                $pt->user_id = $user->id;
+                $pt->booking_id = $booking->id;
+                $pt->remarks = 'Earned From Booking ID:' . $booking->booking_id;
+                $pt->save();
 
-        //         $user->points = $user->points + $pt->points;
-        //         $user->total_points = $user->total_points + $pt->points;
-        //         $user->save();
-        //     }
-        // }
+                $user->points = $user->points + $pt->points;
+                $user->total_points = $user->total_points + $pt->points;
+                $user->save();
+            }
+        }
 
         return ['success' => true, 'message' => 'Booking Completed Successfully'];
     }
