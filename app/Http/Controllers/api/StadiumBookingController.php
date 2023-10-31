@@ -436,7 +436,11 @@ class StadiumBookingController extends Controller
         $sb = StadiumBooking::find($request['booking_id']);
         $bookingDate = Carbon::create($sb->date);
         $refundAmount = $sb->advance;
-        if ($bookingDate->diffInHours(Carbon::now()) < 12) {
+
+
+        $fromTime = Carbon::parse($sb->date . ' ' . $booking->from);
+
+        if ($fromTime->diffInHours(Carbon::now()) < 12) {
             $refundAmount = 0;
         }
 
