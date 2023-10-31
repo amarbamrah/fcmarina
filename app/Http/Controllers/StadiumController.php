@@ -200,6 +200,8 @@ class StadiumController extends Controller
         foreach ($dates as $date) {
 
             $rev = 0;
+            $expRev = 0;
+
             $hours = 0;
 
             $pendRev = 0;
@@ -218,11 +220,17 @@ class StadiumController extends Controller
                 if($booking->status=='Confirmed'){
                     $rev+=$booking->advance;
                     $pendRev+=$booking->rem_amount;
+                $expRev+=$booking->payable_amount;
+
                 }
     
                 if($booking->status=='Completed'){
                     $rev+=$booking->payable_amount;
+                $expRev+=$booking->payable_amount;
+
                 }
+
+
     
     
                 $hours += Carbon::create($booking->to)->floatDiffInHours(Carbon::create($booking->from));
@@ -231,6 +239,7 @@ class StadiumController extends Controller
                 'date' => $date->format('D d M Y'),
                 'bookings' => $bookings,
                 'rev' => $rev,
+                'expRev'=>$expRev,
                 'pendRev'=>$pendRev,
                 'hours' => $hours,
             ];
