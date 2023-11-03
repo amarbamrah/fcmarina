@@ -24,7 +24,6 @@
             <th>CASH</th>
 
             <th>Status</th>
-            <th>Action</th>
         </tr>
     </thead>
     <tbody>
@@ -84,11 +83,7 @@
                                             @else
                                             @endif
                                         </td>
-                                        <td>
-                                            <a href="/admin/stadium-bookings/{{$stdbook->id}}">
-                                                View <i style="width:17px;" data-feather="arrow-right"></i>
-                                            </a>
-                                        </td>
+                                       
 
 
                                     </tr>
