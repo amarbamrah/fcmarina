@@ -12,6 +12,11 @@ use App\Models\StadiumImage;
 use App\Models\User;
 use App\Models\StadiumPhone;
 
+use App\Models\BookingPayment;
+
+
+
+
 use App\Models\BlockedSlot;
 use Illuminate\Support\Str;
 
@@ -225,6 +230,24 @@ class StadiumController extends Controller
                 }
     
                 if($booking->status=='Completed'){
+                    if(BookingPayment::where('booking_id',$booking->id)->where('payment_mode','Upi')->exists()){
+                        $bp=BookingPayment::where('booking_id',$booking->id)->where('payment_mode','Upi')->first();
+                        $booking->upi=$bp->amount;
+
+                    }else{
+                        $booking->upi=0;
+
+                    }
+
+                    if(BookingPayment::where('booking_id',$booking->id)->where('payment_mode','Cash')->exists()){
+                        $bp=BookingPayment::where('booking_id',$booking->id)->where('payment_mode','Cash')->first();
+                        $booking->cash=$bp->amount;
+
+                    }else{
+                        $booking->cash=0;
+
+                    }
+
                     $rev+=$booking->payable_amount;
                 $expRev+=$booking->payable_amount;
 
