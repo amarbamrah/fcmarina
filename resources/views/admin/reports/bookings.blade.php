@@ -180,9 +180,17 @@
 
                                         <td>Rs {{$stdbook->payable_amount}}</td>
 
-                                        <td>Rs {{$stdbook->upi}}</td>
+                                        <td>
+                                        @if($stdbook->status=='Completed')
+                                        Rs {{$stdbook->upi}}
+                                        @endif
+                                       </td>
 
-                                        <td>Rs {{$stdbook->cash}}</td>
+                                        <td>
+                                        @if($stdbook->status=='Completed')
+                                        Rs {{$stdbook->cash}}
+                                        @endif
+                                      </td>
 
                                         <td>
                                             @if($stdbook->status=='Confirmed')
