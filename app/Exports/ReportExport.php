@@ -54,8 +54,13 @@ class ReportExport implements FromView
 
         foreach ($dates as $date) {
 
-            $rev = 0;
+            $expRev = 0;
+
             $hours = 0;
+
+            $pendRev = 0;
+            $rev = 0;
+
 
             if ($this->sid != null) {
                 $bookings = StadiumBooking::where('stadium_id', $this->sid)->whereDate('date', $date)->where('status', '!=', 'Processing')->where('status', '!=', 'Cancelled')->where('booked_for', null)->get();
