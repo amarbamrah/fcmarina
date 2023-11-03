@@ -4,9 +4,6 @@ namespace App\Exports;
 
 use App\Models\Stadium;
 use App\Models\StadiumBooking;
-
-use App\Models\BookingPayment;
-
 use Carbon\Carbon;
 use Carbon\CarbonPeriod;
 use Illuminate\Contracts\View\View;
@@ -53,14 +50,10 @@ class ReportExport implements FromView
         foreach ($dates as $date) {
 
             $rev = 0;
-            $expRev = 0;
-
             $hours = 0;
 
-            $pendRev = 0;
-
-            if ($request->has('stadium')) {
-                $bookings = StadiumBooking::where('stadium_id', $request['stadium'])->whereDate('date', $date)->where('status', '!=', 'Processing')->where('status', '!=', 'Cancelled')->where('booked_for', null)->get();
+            if ($this->sid != null) {
+                $bookings = StadiumBooking::where('stadium_id', $this->sid)->whereDate('date', $date)->where('status', '!=', 'Processing')->where('status', '!=', 'Cancelled')->where('booked_for', null)->get();
 
             } else {
                 $bookings = StadiumBooking::whereDate('date', $date)->where('status', '!=', 'Processing')->where('status', '!=', 'Cancelled')->where('booked_for', null)->get();
@@ -68,6 +61,7 @@ class ReportExport implements FromView
             }
 
             $total_bookings += count($bookings);
+
             foreach ($bookings as $booking) {
                 if ($booking->status == 'Confirmed') {
                     $rev += $booking->advance;
@@ -102,12 +96,11 @@ class ReportExport implements FromView
 
                 $hours += Carbon::create($booking->to)->floatDiffInHours(Carbon::create($booking->from));
             }
+
             $day = [
                 'date' => $date->format('D d M Y'),
                 'bookings' => $bookings,
                 'rev' => $rev,
-                'expRev' => $expRev,
-                'pendRev' => $pendRev,
                 'hours' => $hours,
             ];
 
