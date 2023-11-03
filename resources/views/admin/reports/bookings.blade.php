@@ -150,6 +150,8 @@
                                         <th>Rem Amount</th>
 
                                         <th>Total Amount</th>
+                                        <th>UPI</th>
+                                        <th>CASH</th>
 
                                         <th>Status</th>
                                         <th>Action</th>
@@ -177,6 +179,10 @@
                                         <td>Rs {{$stdbook->rem_amount}}</td>
 
                                         <td>Rs {{$stdbook->payable_amount}}</td>
+
+                                        <td>Rs {{$stdbook->upi}}</td>
+
+                                        <td>Rs {{$stdbook->cash}}</td>
 
                                         <td>
                                             @if($stdbook->status=='Confirmed')
