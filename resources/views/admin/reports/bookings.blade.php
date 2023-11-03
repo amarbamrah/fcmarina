@@ -119,7 +119,7 @@
                         </div>
 
                         <div class="flex-grow-1">
-                            Revenue Rs {{$day['rev']}} &nbsp;&nbsp; | Exp Rev Rs {{$day['expRev']}} &nbsp;&nbsp; |&nbsp;&nbsp; Total Hours: {{$day['hours']}}
+                            Revenue Rs {{$day['rev']}} &nbsp;&nbsp; | Exp Rev Rs {{$day['expRev']-$day['rev']}} &nbsp;&nbsp; |&nbsp;&nbsp; Total Hours: {{$day['hours']}}
                         </div>
 
                         <div class="mr-3" style="margin-right:10px;">
