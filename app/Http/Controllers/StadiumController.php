@@ -208,10 +208,10 @@ class StadiumController extends Controller
 
 
             if ($request->has('stadium')) {
-                $bookings = StadiumBooking::where('stadium_id', $request['stadium'])->whereDate('date', $date)->where('status','!=','Processing')->where('status','!=','Cancelled')->get();
+                $bookings = StadiumBooking::where('stadium_id', $request['stadium'])->whereDate('date', $date)->where('status','!=','Processing')->where('status','!=','Cancelled')->where('booked_for',null)->get();
 
             } else {
-                $bookings = StadiumBooking::whereDate('date', $date)->where('status','!=','Processing')->where('status','!=','Cancelled')->get();
+                $bookings = StadiumBooking::whereDate('date', $date)->where('status','!=','Processing')->where('status','!=','Cancelled')->where('booked_for',null)->get();
 
             }
 
