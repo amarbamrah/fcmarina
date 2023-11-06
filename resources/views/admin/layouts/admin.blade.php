@@ -106,6 +106,14 @@
 
 
                         <li class="nav-item">
+                            <a class="nav-link" href="{{url('/admin/venue-managers')}}">
+                                <i class="link-icon" data-feather="menu"></i>
+                                <span class="menu-title">Admins</span>
+                            </a>
+                        </li>
+
+
+                        <li class="nav-item">
                             <a href="#" class="nav-link">
                                 <i class="link-icon" data-feather="box"></i>
                                 <span class="menu-title">Stadiums</span>
