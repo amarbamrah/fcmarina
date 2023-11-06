@@ -107,7 +107,7 @@
 
                         <li class="nav-item">
                             <a class="nav-link" href="{{url('/admin/venue-managers')}}">
-                                <i class="link-icon" data-feather="menu"></i>
+                                <i class="link-icon" data-feather="users"></i>
                                 <span class="menu-title">Admins</span>
                             </a>
                         </li>
