@@ -12,7 +12,7 @@ class UserController extends Controller
      */
     public function manageAdmins()
     {
-        $users=User::where('user','VC')->get();
+        $users=User::where('role','VC')->get();
         return view('admin.masters.admins',compact('users'));
     }
 
