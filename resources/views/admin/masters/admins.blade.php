@@ -35,7 +35,7 @@
                         </div>
 
 
-                        
+
 
                         <button type="submit" class="btn btn-primary">ADD USER</button>
                     </form>
@@ -73,13 +73,13 @@
 
 
                                     <td>
-                                    <span class="badge {{$user->status==1?'bg-primary':'bg-danger'}}">  
+                                    <span class="badge {{$user->status==1?'bg-primary':'bg-danger'}}">
                                     {{$user->status==1?'Enabled':'Disabled'}}
 </span>
                                     </td>
 
                                     <td>
-                                       
+
                                     </td>
                                 </tr>
                                 @endforeach
