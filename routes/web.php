@@ -105,6 +105,10 @@ Route::prefix('admin')->middleware('auth')->group(function () {
 
     Route::get('/stadiums/blocked-slots',[StadiumController::class,'blockedSlots']);
 
+
+    Route::get('/manage-admins',[UserController::class,'manageAdmins']);
+
+
     Route::post('/stadiums/blocked-slots',[StadiumController::class,'storeBlockedSlots']);
 
 
