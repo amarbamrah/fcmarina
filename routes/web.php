@@ -16,6 +16,9 @@ use App\Http\Controllers\StadiumBookingController;
 
 use App\Http\Controllers\HappyHourController;
 
+use App\Http\Controllers\UserController;
+
+
 
 
 
