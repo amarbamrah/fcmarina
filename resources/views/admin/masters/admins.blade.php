@@ -18,7 +18,6 @@
                 <div class="card-body">
                     <form action="/admin/admin-logins" method="post">
                         @csrf
-                        <input type="hidden" name="stadium_id" value="{{$stadium->id}}">
                         <div class="form-group mb-3">
                             <label for="">
                                 Name
