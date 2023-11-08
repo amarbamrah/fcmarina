@@ -34,6 +34,7 @@
                                         $i++;
                                     }
                                 }
+                                @endforeach
                                 @if($i=0)
                                 <option value="{{$stadium->id}}">{{$stadium->name}}</option>
 
