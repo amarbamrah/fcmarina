@@ -45,6 +45,6 @@ class User extends Authenticatable
 
 
     public function stadiums(){
-        return $this->belongsTo(Stadium::class);
+        return $this->belongsToMany(Stadium::class);
     }
 }

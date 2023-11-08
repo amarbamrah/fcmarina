@@ -33,6 +33,8 @@ class UserController extends Controller
         $stadiums=Stadium::all();
 
         $astadiums=$user->stadiums;
+        
+        return $astadiums;
 
         return view('admin.masters.adminstadiums',compact('astadiums','stadiums','user'));
 
