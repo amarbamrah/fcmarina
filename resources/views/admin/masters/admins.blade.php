@@ -35,13 +35,7 @@
                         </div>
 
 
-                        <div class="form-group mb-3">
-                            <label for="">
-                               Select Stadiums
-                            </label>
-
-                           <select name="" id=""></select>
-                        </div>
+                        
 
 
 
