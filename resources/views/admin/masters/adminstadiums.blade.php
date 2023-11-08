@@ -30,21 +30,10 @@
                             </select>
                         </div>
 
-                        <div class="form-group mb-3">
-                            <label for="">
-                                Email
-                            </label>
-
-                            <input type="text" name="email" required class="form-control">
-                        </div>
+                       
 
 
-                        
-
-
-
-
-                        <button type="submit" class="btn btn-primary">ADD USER</button>
+                        <button type="submit" class="btn btn-primary">ASSIGN STADIUM</button>
                     </form>
                 </div>
             </div>
