@@ -16,14 +16,16 @@
         <div class="col-md-6 grid-margin stretch-card">
             <div class="card">
                 <div class="card-body">
-                    <form action="/admin/admin-logins" method="post">
+                    <form action="/assign-admin-stadiums" method="post">
                         @csrf
+
+                        <input type="hidden" name="uid" value="{{$user->id}}">
                         <div class="form-group mb-3">
                             <label for="">
                                 Stadiums
                             </label>
 
-                            <select name="stadium" class="form-select" id="">
+                            <select name="sid" class="form-select" id="">
                                 @foreach($stadiums as $stadium)
                                    <option value="{{$stadium->id}}">{{$stadium->name}}</option>
                                 @endforeach 
@@ -55,7 +57,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach($stadiums as $i=>$stadium)
+                                @foreach($astadiums as $i=>$stadium)
                                 <tr>
                                     <td>{{$i+1}}</td>
                                     <td>{{$stadium->name}}</td>

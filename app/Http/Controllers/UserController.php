@@ -6,6 +6,9 @@ use App\Models\User;
 
 use App\Models\Stadium;
 
+use App\Models\StadiumUser;
+
+
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -28,16 +31,24 @@ class UserController extends Controller
     {
         $user=User::find($request['uid']);
         $stadiums=Stadium::all();
-        return view('admin.masters.adminstadiums',compact('stadiums','user'));
+
+        $astadiums=$user->stadiums;
+
+        return view('admin.masters.adminstadiums',compact('astadiums','stadiums','user'));
 
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function assignUser(Request $request)
     {
-        //
+        $su=new StadiumUser();
+        $su->user_id=$request['uid'];
+        $su->stadium_id=$request['sid'];
+        $su->save();
+        return redirect()->back();
+
     }
 
     /**

@@ -113,6 +113,9 @@ Route::prefix('admin')->middleware('auth')->group(function () {
 
     Route::get('/admin-stadiums',[UserController::class,'manageAdminStadiums']);
 
+    Route::post('/assign-admin-stadiums',[UserController::class,'assignUser']);
+
+
 
    
 
