@@ -40,10 +40,7 @@
                             <i data-feather="edit"></i> 
                           </a>
 
-                          <a href="/admin/stadiums/manage-users?stadium_id={{$std->id}}" class="me-3">
-                          <i data-feather="user-plus"></i> 
-
-                          </a>
+                      
 
                           <a href="/admin/stadiums/phno?stadium_id={{$std->id}}">
                           <i data-feather="phone-incoming"></i> 
