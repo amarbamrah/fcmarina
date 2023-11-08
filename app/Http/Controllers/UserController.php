@@ -52,6 +52,14 @@ class UserController extends Controller
 
     }
 
+
+    public function removeAssignUser(Request $request)
+    {
+        $su=StadiumUser::where('stadium_id',$request['sid'])->where('user_id',$request['uid'])->delete();
+        return redirect()->back();
+
+    }
+
     /**
      * Display the specified resource.
      */

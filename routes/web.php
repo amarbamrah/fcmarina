@@ -115,6 +115,10 @@ Route::prefix('admin')->middleware('auth')->group(function () {
 
     Route::post('/assign-admin-stadiums',[UserController::class,'assignUser']);
 
+    Route::post('/remove-assign-user',[UserController::class,'removeAssignUser']);
+
+    
+
 
 
    
