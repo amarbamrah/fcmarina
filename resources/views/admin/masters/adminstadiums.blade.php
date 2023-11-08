@@ -27,7 +27,14 @@
 
                             <select name="sid" class="form-select" id="">
                                 @foreach($stadiums as $stadium)
-                                @if(!in_array($stadium,$astadiums))
+
+                                $i=0;
+                                @foreach($astadiums as $stad){
+                                    if($stad->id==$stadium->id){
+                                        $i++;
+                                    }
+                                }
+                                @if($i=0)
                                 <option value="{{$stadium->id}}">{{$stadium->name}}</option>
 
                                 @endif
