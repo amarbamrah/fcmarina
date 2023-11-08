@@ -29,12 +29,13 @@
                                 @foreach($stadiums as $stadium)
 
                                 <?php  $i=0; ?>
+                               
                                 @foreach($astadiums as $stad)
-                                    @if($stad->id==$stadium->id)
-                                        $i++;
-                                        @endif
-                                    
-                                
+                                @if($stad->id==$stadium->id)
+                                   <?php  $i++; ?>
+                                @endif
+
+
                                 @endforeach
                                 @if($i==0)
                                 <option value="{{$stadium->id}}">{{$stadium->name}}</option>
