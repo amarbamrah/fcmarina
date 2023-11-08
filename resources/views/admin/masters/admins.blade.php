@@ -96,7 +96,7 @@
 
                                     <td>
 
-                                      <div class="d-flex">
+                                      <div class="d-flex align-items-center gap-4">
                                       <form action="/admin/stadiums/change-user-status" method="POST">
                                             @csrf
                                             <input type="hidden" name="user_id" value="{{$user->id}}">
