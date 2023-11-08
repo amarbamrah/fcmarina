@@ -335,6 +335,8 @@ class StadiumController extends Controller
 
     public function storeUser(Request $request)
     {
+
+        return $request['stadium'];
         $stadium = Stadium::find($request['stadium_id']);
 
         $user=new User();
