@@ -16,7 +16,7 @@
         <div class="col-md-6 grid-margin stretch-card">
             <div class="card">
                 <div class="card-body">
-                    <form action="/assign-admin-stadiums" method="post">
+                    <form action="/admin/assign-admin-stadiums" method="post">
                         @csrf
 
                         <input type="hidden" name="uid" value="{{$user->id}}">
