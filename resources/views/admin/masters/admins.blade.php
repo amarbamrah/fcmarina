@@ -95,6 +95,21 @@
                                     </td>
 
                                     <td>
+
+                                    <form action="/admin/stadiums/change-user-status" method="POST">
+                                            @csrf
+                                            <input type="hidden" name="user_id" value="{{$user->id}}">
+                                            <input type="hidden" name="status" value="{{$user->status==1?0:1}}">
+
+                                            <button type="submit" class="btn p-0">
+                                             @if($user->status==1)   
+                                            <i data-feather="x" class="text-danger"></i>
+                                            @else 
+                                            <i data-feather="check" class="text-primary"></i>
+
+                                            @endif
+                                            </button>
+                                        </form>
                                         <a href="/admin/admin-stadiums?uid={{$user->id}}">Manage Stadiums</a>
                                     </td>
                                 </tr>
