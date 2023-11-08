@@ -66,7 +66,9 @@
                                 <tr>
                                     <td>{{$i+1}}</td>
                                     <td>{{$stadium->name}}</td>
-
+                                    <td>
+                                        <a href="" class="btn btn-danger">Remove</a>
+                                    </td>
                                     
                                 </tr>
                                 @endforeach
