@@ -28,7 +28,7 @@
                             <select name="sid" class="form-select" id="">
                                 @foreach($stadiums as $stadium)
 
-                                $i=0;
+                               <?php  $i=0; ?>
                                 @foreach($astadiums as $stad){
                                     if($stad->id==$stadium->id){
                                         $i++;
