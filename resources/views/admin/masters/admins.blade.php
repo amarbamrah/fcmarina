@@ -35,6 +35,19 @@
                         </div>
 
 
+                        <div class="form-group mb-3">
+                            <label for="">
+                                Stadiums
+                            </label>
+
+                            <select name="stadium" class="form-select" multiple id="">
+                                @foreach($stadiums as $stadium)
+                                   <option value="{{$stadium->id}}">{{$stadium->name}}</option>
+                                @endforeach 
+                            </select>
+                        </div>
+
+
                         
 
 
