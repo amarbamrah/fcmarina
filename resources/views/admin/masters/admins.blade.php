@@ -16,7 +16,7 @@
         <div class="col-md-6 grid-margin stretch-card">
             <div class="card">
                 <div class="card-body">
-                    <form action="/admin/admin-logins" method="post">
+                    <form action="/admin/stadiums/manage-users" method="post">
                         @csrf
                         <div class="form-group mb-3">
                             <label for="">

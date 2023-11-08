@@ -219,6 +219,8 @@
     <script src="{{ asset('assets/vendors/feather-icons/feather.min.js')}}"></script>
     <script src="{{ asset('assets/js/template.js')}}"></script>
 
+    <script src="{{asset('assets/vendors/select2/select2.min.js)}}"></script>
+
     <script src="{{asset('assets/vendors/tinymce/tinymce.min.js')}}"></script>
     <script src="{{asset('/assets/js/tinymce.js')}}"></script>
 
