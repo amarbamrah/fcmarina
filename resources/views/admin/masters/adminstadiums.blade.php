@@ -66,7 +66,7 @@
                                         <input type="hidden" value="{{$stadium->id}}" name="sid">
                                         <input type="hidden" value="{{$user->id}}" name="uid">
 
-                                        <button type="submit" class="btn text-danger">Remove</button>
+                                        <button type="submit" class="btn text-danger p-0">REMOVE</button>
 
                                      </form>
                                     </td>
