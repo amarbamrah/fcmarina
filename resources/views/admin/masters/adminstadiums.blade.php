@@ -20,10 +20,14 @@
                         @csrf
                         <div class="form-group mb-3">
                             <label for="">
-                                Name
+                                Stadiums
                             </label>
 
-                            <input type="text" name="name" required class="form-control">
+                            <select name="stadium" class="form-select" id="">
+                                @foreach($stadiums as $stadium)
+                                   <option value="{{stadium->id}}">{{$stadium->name}}</option>
+                                @endforeach 
+                            </select>
                         </div>
 
                         <div class="form-group mb-3">
