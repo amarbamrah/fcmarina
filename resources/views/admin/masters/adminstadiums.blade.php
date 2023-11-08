@@ -27,7 +27,10 @@
 
                             <select name="sid" class="form-select" id="">
                                 @foreach($stadiums as $stadium)
-                                   <option value="{{$stadium->id}}">{{$stadium->name}}</option>
+                                @if(!in_array($stadium,$stadiums))
+                                <option value="{{$stadium->id}}">{{$stadium->name}}</option>
+
+                                @endif
                                 @endforeach 
                             </select>
                         </div>
