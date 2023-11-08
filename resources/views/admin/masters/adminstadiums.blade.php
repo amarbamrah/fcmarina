@@ -62,7 +62,7 @@
                                     <td>{{$i+1}}</td>
                                     <td>{{$stadium->name}}</td>
                                     <td>
-                                     <form action="admin/remove-assign-user" method="post">
+                                     <form action="/admin/remove-assign-user" method="post">
                                         <input type="hidden" value="{{$stadium->id}}" name="sid">
                                         <input type="hidden" value="{{$user->id}}" name="uid">
 
