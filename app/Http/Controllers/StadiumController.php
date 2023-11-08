@@ -11,6 +11,8 @@ use App\Models\StadiumBooking;
 use App\Models\StadiumImage;
 use App\Models\User;
 use App\Models\StadiumPhone;
+use App\Models\StadiumUser;
+
 
 use App\Models\BookingPayment;
 
@@ -336,14 +338,11 @@ class StadiumController extends Controller
     public function storeUser(Request $request)
     {
 
-        return $request['stadiums'];
-        $stadium = Stadium::find($request['stadium_id']);
-
+        $stids= $request['stadiums'];
+        
         $user=new User();
         $user->name=$request['name'];
         $user-> email=$request['email'];
-        $user->stadium_id=$request['stadium_id'];
-
         $user->status = 1;
         $user->role = 'VC';
 
@@ -353,7 +352,17 @@ class StadiumController extends Controller
         $user->fpassword =$fpassword;
 
         $user->save();
+
+        foreach($stids as $std){
+            $su=new StadiumUser();
+            $su->user_id=$user->id;
+            $su->stadium_id=$std;
+            $su->save();
+        }
+        
+
         return redirect()->back();
+
 
 
 
