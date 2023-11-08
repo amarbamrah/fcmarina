@@ -35,7 +35,7 @@
                                     }
                                 }
                                 @endforeach
-                                @if($i=0)
+                                @if($i==0)
                                 <option value="{{$stadium->id}}">{{$stadium->name}}</option>
 
                                 @endif
