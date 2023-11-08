@@ -62,7 +62,13 @@
                                     <td>{{$i+1}}</td>
                                     <td>{{$stadium->name}}</td>
                                     <td>
-                                        <a href="" class="btn btn-danger">Remove</a>
+                                     <form action="admin/remove-assign-user" method="post">
+                                        <input type="hidden" value="{{$stadium->id}}" name="sid">
+                                        <input type="hidden" value="{{$user->id}}" name="uid">
+
+                                        <button type="submit" class="btn text-danger">Remove</button>
+
+                                     </form>
                                     </td>
                                     
                                 </tr>
