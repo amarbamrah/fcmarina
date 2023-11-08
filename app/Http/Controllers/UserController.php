@@ -15,7 +15,7 @@ class UserController extends Controller
      */
     public function manageAdmins()
     {
-        $users=User::where('role','VC')->get();
+        $users=User::where('role','VC')->orderBy('id','DESC')->get();
         $stadiums=Stadium::all();
 
         return view('admin.masters.admins',compact('users','stadiums'));
