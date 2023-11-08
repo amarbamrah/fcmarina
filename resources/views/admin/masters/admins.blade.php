@@ -35,6 +35,15 @@
                         </div>
 
 
+                        <div class="form-group mb-3">
+                            <label for="">
+                               Select Stadiums
+                            </label>
+
+                           <select name="" id=""></select>
+                        </div>
+
+
 
 
                         <button type="submit" class="btn btn-primary">ADD USER</button>
@@ -79,7 +88,7 @@
                                     </td>
 
                                     <td>
-
+                                        <a href="/admin/admin-stadiums">Manage Stadiums</a>
                                     </td>
                                 </tr>
                                 @endforeach
