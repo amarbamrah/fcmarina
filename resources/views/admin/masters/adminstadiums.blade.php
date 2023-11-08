@@ -63,6 +63,7 @@
                                     <td>{{$stadium->name}}</td>
                                     <td>
                                      <form action="/admin/remove-assign-user" method="post">
+                                        @csrf
                                         <input type="hidden" value="{{$stadium->id}}" name="sid">
                                         <input type="hidden" value="{{$user->id}}" name="uid">
 
