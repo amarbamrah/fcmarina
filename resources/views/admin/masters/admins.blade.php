@@ -40,7 +40,7 @@
                                 Stadiums
                             </label>
 
-                            <select name="stadium" class="form-select" multiple id="">
+                            <select name="stadium" class="form-select multiplebox" multiple id="">
                                 @foreach($stadiums as $stadium)
                                    <option value="{{$stadium->id}}">{{$stadium->name}}</option>
                                 @endforeach 

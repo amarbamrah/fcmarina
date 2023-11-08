@@ -242,6 +242,10 @@
 
 
 
+    <script>
+        $(".multiplebox").select2();
+    </script>
+
 
 
 </body>
