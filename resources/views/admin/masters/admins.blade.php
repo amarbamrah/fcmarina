@@ -95,7 +95,7 @@
                                     </td>
 
                                     <td>
-                                        <a href="/admin/admin-stadiums">Manage Stadiums</a>
+                                        <a href="/admin/admin-stadiums?uid={{$user->id}}">Manage Stadiums</a>
                                     </td>
                                 </tr>
                                 @endforeach
