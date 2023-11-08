@@ -28,22 +28,23 @@
                             <select name="sid" class="form-select" id="">
                                 @foreach($stadiums as $stadium)
 
-                               <?php  $i=0; ?>
-                                @foreach($astadiums as $stad){
-                                    if($stad->id==$stadium->id){
+                                <?php  $i=0; ?>
+                                @foreach($astadiums as $stad)
+                                    @if($stad->id==$stadium->id)
                                         $i++;
-                                    }
-                                }
+                                        @endif
+                                    
+                                
                                 @endforeach
                                 @if($i==0)
                                 <option value="{{$stadium->id}}">{{$stadium->name}}</option>
 
                                 @endif
-                                @endforeach 
+                                @endforeach
                             </select>
                         </div>
 
-                       
+
 
 
                         <button type="submit" class="btn btn-primary">ASSIGN STADIUM</button>
@@ -64,7 +65,7 @@
                                     <th>#</th>
                                     <th>Stadium</th>
                                     <th>Action</th>
-                                    
+
                                 </tr>
                             </thead>
                             <tbody>
@@ -73,16 +74,16 @@
                                     <td>{{$i+1}}</td>
                                     <td>{{$stadium->name}}</td>
                                     <td>
-                                     <form action="/admin/remove-assign-user" method="post">
-                                        @csrf
-                                        <input type="hidden" value="{{$stadium->id}}" name="sid">
-                                        <input type="hidden" value="{{$user->id}}" name="uid">
+                                        <form action="/admin/remove-assign-user" method="post">
+                                            @csrf
+                                            <input type="hidden" value="{{$stadium->id}}" name="sid">
+                                            <input type="hidden" value="{{$user->id}}" name="uid">
 
-                                        <button type="submit" class="btn text-danger p-0">REMOVE</button>
+                                            <button type="submit" class="btn text-danger p-0">REMOVE</button>
 
-                                     </form>
+                                        </form>
                                     </td>
-                                    
+
                                 </tr>
                                 @endforeach
                             </tbody>
