@@ -34,7 +34,6 @@ class UserController extends Controller
 
         $astadiums=$user->stadiums;
         
-        return $astadiums;
 
         return view('admin.masters.adminstadiums',compact('astadiums','stadiums','user'));
 
