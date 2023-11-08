@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+
+use App\Models\Stadium;
+
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -19,9 +22,12 @@ class UserController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function manageAdminStadiums(Request $request)
     {
-        //
+        $user=User::find($request['uid']);
+        $stadiums=Stadium::all();
+        return view('admin.masters.adminstadiums',compact('stadiums','user'));
+
     }
 
     /**
