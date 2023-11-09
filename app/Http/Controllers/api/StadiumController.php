@@ -257,6 +257,8 @@ class StadiumController extends Controller
 
             if ($sb->status == 'Confirmed') {
                 $rev += $sb->advance;
+                $exprev+=$sb->rem_amount;
+
             }
 
             if ($sb->status == 'Completed') {
