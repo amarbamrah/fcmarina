@@ -239,6 +239,9 @@ class StadiumController extends Controller
 
         $rev = 0;
 
+        $exprev = 0;
+
+
         $stadium = Stadium::find($request['stadium_id']);
 
         if ($request['type'] == 'Cancelled') {
@@ -307,7 +310,7 @@ class StadiumController extends Controller
             array_push($bookings, $booking);
         }
 
-        return ['success' => true, 'data' => $bookings, 'hours' => $hours, 'revenue' => $rev];
+        return ['success' => true, 'data' => $bookings, 'hours' => $hours, 'revenue' => $rev,'exprev'=>$exprev];
 
     }
 
