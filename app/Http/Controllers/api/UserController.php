@@ -20,8 +20,13 @@ class UserController extends Controller
 
         $phno=$request['phonenumber'];
 
-        $ucode=$request['ucode'];
 
+        if($request->has('ucode')){
+            $ucode=$request['ucode'];
+
+        }else{
+            $ucode='test';
+        }
        // $url = "http://api.nsite.in/api/v2/SendSMS?SenderId=IMERGE&Is_Unicode=true&Is_Flash=false&Message=Your%20OTP%20for%20iMerge%20is%20" . $login_otp . ".%20Pls%20do%20not%20share%20OTP%20with%20anyone%20for%20security%20reason.%20iMerge&MobileNumbers=" . $phno . "&ApiKey=6bzNYp7wj1STwzvLoQagWntahuB0uw3tTud3C+y/HzI=&ClientId=6438b16f-384e-43fa-88ab-375f55a6c1a9";
         //$url="http://164.52.202.248:6005/api/v2/SendSMS?SenderId=MYSTRT&Is_Unicode=false&Is_Flash=false&Message=Your%20OTP%20for%20Mystreet%20is%20".$otp.".%20Pls%20do%20not%20share%20OTP%20with%20anyone%20for%20security%20reason.&MobileNumbers=".$phno."&ApiKey=6bzNYp7wj1STwzvLoQagWntahuB0uw3tTud3C+y/HzI=&ClientId=6438b16f-384e-43fa-88ab-375f55a6c1a9";
         $url='http://api.nsite.in/api/v2/SendSMS?SenderId=FCMARI&Is_Unicode=false&Is_Flash=false&Message='.$login_otp.'%20is%20the%20OTP%20to%20complete%20your%20transaction.%20It%20is%20valid%20for%205%20minutes.%20Please%20do%20not%20share%20with%20anyone.%20FC%20MARINA%20APP&MobileNumbers='.$phno.'&ApiKey=mLdRdY8ey1ZTzMY0OifcDjaTO7rJ7gMTgsogL8ragGs=&ClientId=7a0c1703-92c1-4a91-918b-4ac7d9b8d1b3';
