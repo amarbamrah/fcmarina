@@ -87,9 +87,15 @@ class AuthController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(User $user)
+    public function vcStadiums(Request $request)
     {
-        //
+        $user=auth()->user();
+        $stadiums=$user->stadiums;
+        foreach($stadiums as $stadium){
+            $stadium->images = StadiumImage::where('stadium_id', $stadium->id)->get();
+        }
+
+        return ['success'=>true,'data'=>$stadiums];
     }
 
 }
