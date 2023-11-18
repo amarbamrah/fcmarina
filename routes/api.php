@@ -72,7 +72,7 @@ Route::post('/venue-login', [AuthController::class,'venueLogin']);
 
 Route::get('/user-venue-details', [AuthController::class,'stadiumDetails']);
 
-Route::get('/vc-stadiums', [AuthController::class,'vcStadiums']);
+Route::middleware('auth:sanctum')->get('/vc-stadiums', [AuthController::class,'vcStadiums']);
 
 
 Route::post('/user-venue-bookings', [StadiumController::class,'createBooking']);
