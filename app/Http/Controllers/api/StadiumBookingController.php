@@ -85,12 +85,15 @@ class StadiumBookingController extends Controller
 
     public function generateOrder(Request $request)
     {
+        $user = User::find($request['user_id']);
+        if ($user->phonenumber == '9311911065') {
+            $key = "rzp_test_Bn6XzeDx8pXFK4";
+            $secret = "gVNSxo5kYjNYfooTPWRu9PCS";
+        } else {
 
-        // $key = "rzp_test_Bn6XzeDx8pXFK4";
-        // $secret = "gVNSxo5kYjNYfooTPWRu9PCS";
-
-        $key = "rzp_live_vjwBasZlFwdr36";
-        $secret = "24HHwxlXpmXmARFoXvK1syzH";
+            $key = "rzp_live_vjwBasZlFwdr36";
+            $secret = "24HHwxlXpmXmARFoXvK1syzH";
+        }
 
         $api = new Api($key, $secret);
 
@@ -104,7 +107,7 @@ class StadiumBookingController extends Controller
             )
         );
 
-        return ['success' => true, 'orderid' => $razorpayOrder->id, 'key' => $key, 'user' => User::find($request['user_id'])];
+        return ['success' => true, 'orderid' => $razorpayOrder->id, 'key' => $key, 'user' => $user];
     }
 
     /**
@@ -179,10 +182,8 @@ class StadiumBookingController extends Controller
 
             $discount += $welcomeDiscount;
 
-
             $user->max_woffer = $user->max_woffer - $welcomeDiscount;
             $user->save();
-            
 
         }
 
@@ -341,9 +342,9 @@ class StadiumBookingController extends Controller
 
         $stadiumBooking->booked_by = $stadiumBooking->faculity_id == null ? 'User' : 'Venue';
 
-        if($stadiumBooking->faculity_id!=null){
-            $vm=User::find($stadiumBooking->faculity_id);
-            $stadiumBooking->booked_by = $vm->name.' [VM]';
+        if ($stadiumBooking->faculity_id != null) {
+            $vm = User::find($stadiumBooking->faculity_id);
+            $stadiumBooking->booked_by = $vm->name . ' [VM]';
         }
 
         $day_division = '';
@@ -437,7 +438,6 @@ class StadiumBookingController extends Controller
         $bookingDate = Carbon::create($sb->date);
         $refundAmount = $sb->advance;
 
-
         $fromTime = Carbon::parse($sb->date . ' ' . $sb->from);
 
         if ($fromTime->diffInHours(Carbon::now()) < 12) {
@@ -457,11 +457,10 @@ class StadiumBookingController extends Controller
 
         $fromTime = Carbon::parse($booking->date . ' ' . $booking->from);
 
-        if ($fromTime<Carbon::now()) {
+        if ($fromTime < Carbon::now()) {
             return ['success' => false, 'msg' => 'You cant cancel this booking now'];
 
         }
-
 
         $booking->status = 'Cancelled';
         $booking->cancelled_by = $booking->user_id;
@@ -544,17 +543,17 @@ class StadiumBookingController extends Controller
 
         $btime = str_replace(' ', '%20', $from . '-' . $to);
 
-        if($refundAmount>0){
-        $url = "http://api.nsite.in/api/v2/SendSMS?SenderId=FCMARI&Is_Unicode=false&Is_Flash=false&Message=Booking%20Cancelled%20!%5Cn%20" . $name . "%20has%20cancelled%20his%20FC%20Marina%20booking%20%5CnVenue%20:%20" . $sname . "%20%5CnDate%20:%20" . $bdate . "%20%5CnTime%20:%20" . $btime . "%20%5CnCourt%20:%20" . $booking->stadium_type . "%20%5CnAdvance%20paid%20has%20been%20Refunded%20%5CnBooking%20ID:%20" . $booking->booking_id . "&MobileNumbers=" . $phone . "&ApiKey=mLdRdY8ey1ZTzMY0OifcDjaTO7rJ7gMTgsogL8ragGs=&ClientId=7a0c1703-92c1-4a91-918b-4ac7d9b8d1b3";
-        $curl = curl_init($url);
-        curl_setopt($curl, CURLOPT_URL, $url);
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        if ($refundAmount > 0) {
+            $url = "http://api.nsite.in/api/v2/SendSMS?SenderId=FCMARI&Is_Unicode=false&Is_Flash=false&Message=Booking%20Cancelled%20!%5Cn%20" . $name . "%20has%20cancelled%20his%20FC%20Marina%20booking%20%5CnVenue%20:%20" . $sname . "%20%5CnDate%20:%20" . $bdate . "%20%5CnTime%20:%20" . $btime . "%20%5CnCourt%20:%20" . $booking->stadium_type . "%20%5CnAdvance%20paid%20has%20been%20Refunded%20%5CnBooking%20ID:%20" . $booking->booking_id . "&MobileNumbers=" . $phone . "&ApiKey=mLdRdY8ey1ZTzMY0OifcDjaTO7rJ7gMTgsogL8ragGs=&ClientId=7a0c1703-92c1-4a91-918b-4ac7d9b8d1b3";
+            $curl = curl_init($url);
+            curl_setopt($curl, CURLOPT_URL, $url);
+            curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
 
-        curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
-        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+            curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
+            curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
 
-        $resp = curl_exec($curl);
-        curl_close($curl);
+            $resp = curl_exec($curl);
+            curl_close($curl);
         }
 
         $phones = StadiumPhone::where('stadium_id', $booking->stadium_id)->get();
