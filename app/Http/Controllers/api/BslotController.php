@@ -42,7 +42,7 @@ class BslotController extends Controller
         if ($request->has('stadium_type')) {
             $selGameType = $request['stadium_type'];
         } else {
-            if ($stadium->type == 'both') {
+            if ($stadium->type == 'both' || $stadium->type == '9s') {
                 $selGameType = '5s';
 
             } else {
