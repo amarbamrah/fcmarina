@@ -74,27 +74,42 @@ class BslotController extends Controller
                 break;
         }
 
+
+
+
         switch ($date->format('D')) {
             case 'Mon':$stadium5sPrice = $stadium->mon5s;
                 $stadium7sPrice = $stadium->mon7s;
+                $stadium9sPrice = $stadium->mon9s;
+
                 break;
             case 'Tue':$stadium5sPrice = $stadium->tue5s;
                 $stadium7sPrice = $stadium->tue7s;
+                $stadium9sPrice = $stadium->tue9s;
+
                 break;
             case 'Wed':$stadium5sPrice = $stadium->wed5s;
                 $stadium7sPrice = $stadium->wed7s;
+                $stadium9sPrice = $stadium->wed9s;
                 break;
             case 'Thu':$stadium5sPrice = $stadium->thu5s;
                 $stadium7sPrice = $stadium->thu7s;
+                $stadium9sPrice = $stadium->thu9s;
+
                 break;
             case 'Fri':$stadium5sPrice = $stadium->fri5s;
                 $stadium7sPrice = $stadium->fri7s;
+                $stadium9sPrice = $stadium->fri9s;
                 break;
             case 'Sat':$stadium5sPrice = $stadium->sat5s;
                 $stadium7sPrice = $stadium->sat7s;
+                $stadium9sPrice = $stadium->sat9s;
+
                 break;
             case 'Sun':$stadium5sPrice = $stadium->sun5s;
                 $stadium7sPrice = $stadium->sun7s;
+                $stadium9sPrice = $stadium->sun9s;
+
                 break;
         }
 
