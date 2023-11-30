@@ -128,7 +128,7 @@ class StadiumController extends Controller
         $sprice = 0;
         $nprice = 0;
 
-        if ($stadium->type == '5s' || $stadium->type == 'both') {
+        if ($stadium->type == '5s' || $stadium->type == 'both' || $stadium->type == '9s') {
             switch (Carbon::now()->format('D')) {
                 case 'Mon':$fprice = $stadium->mon5s;
                     break;
@@ -147,7 +147,7 @@ class StadiumController extends Controller
             }
         }
 
-        if ($stadium->type == '7s' || $stadium->type == 'both') {
+        if ($stadium->type == '7s' || $stadium->type == 'both' || $stadium->type == '9s') {
             switch (Carbon::now()->format('D')) {
                 case 'Mon':$sprice = $stadium->mon7s;
                     break;
