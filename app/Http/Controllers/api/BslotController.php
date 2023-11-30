@@ -54,6 +54,8 @@ class BslotController extends Controller
 
         $stadium5sPrice = 0;
         $stadium7sPrice = 0;
+        $stadium9sPrice = 0;
+
 
         $bbSlots = BlockedSlot::where('stadium_id', $stadium->id)->get();
 
