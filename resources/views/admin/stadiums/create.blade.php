@@ -125,6 +125,12 @@
                                 <input type="number" class="form-control" required name="tue7s">
                             </div>
 
+                            <div class="form-group col-4 9sprices">
+                                <label class="form-label">Tuesday (9s) <span class="text-danger">*</span> </label>
+
+                                <input type="number" class="form-control" required name="tue9s">
+                            </div>
+
                         </div>
 
                         <div class="row mb-3">
@@ -138,6 +144,12 @@
                                 <label class="form-label">Wednesday (7s) <span class="text-danger">*</span> </label>
 
                                 <input type="number" class="form-control" required name="wed7s">
+                            </div>
+
+                            <div class="form-group col-4 9sprices">
+                                <label class="form-label">Wednesday (9s) <span class="text-danger">*</span> </label>
+
+                                <input type="number" class="form-control" required name="wed9s">
                             </div>
 
                         </div>
@@ -156,6 +168,12 @@
                                 <input type="number" class="form-control" required name="thu7s">
                             </div>
 
+                            <div class="form-group col-4 9sprices">
+                                <label class="form-label">Thursday (9s) <span class="text-danger">*</span> </label>
+
+                                <input type="number" class="form-control" required name="thu9s">
+                            </div>
+
                         </div>
 
                         <div class="row mb-3">
@@ -169,6 +187,12 @@
                                 <label class="form-label">Friday (7s) <span class="text-danger">*</span> </label>
 
                                 <input type="number" class="form-control" required name="fri7s">
+                            </div>
+
+                            <div class="form-group col-4 9sprices">
+                                <label class="form-label">Friday (9s) <span class="text-danger">*</span> </label>
+
+                                <input type="number" class="form-control" required name="fri9s">
                             </div>
 
                         </div>
@@ -186,6 +210,12 @@
                                 <input type="number" class="form-control" required name="sat7s">
                             </div>
 
+                            <div class="form-group col-4 9sprices">
+                                <label class="form-label">Saturday (9s) <span class="text-danger">*</span> </label>
+
+                                <input type="number" class="form-control" required name="sat9s">
+                            </div>
+
                         </div>
 
 
@@ -200,6 +230,12 @@
                                 <label class="form-label">Sunday (7s) <span class="text-danger">*</span> </label>
 
                                 <input type="number" class="form-control" required name="sun7s">
+                            </div>
+
+                            <div class="form-group col-4 9sprices">
+                                <label class="form-label">Sunday (9s) <span class="text-danger">*</span> </label>
+
+                                <input type="number" class="form-control" required name="sun9s">
                             </div>
 
                         </div>
