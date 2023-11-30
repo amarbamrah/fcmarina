@@ -78,9 +78,32 @@ class StadiumBookingController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function generateBookingOrder(Request $request)
     {
-        //
+        $user = User::find($request['user_id']);
+        if ($user->phonenumber == '9311911065') {
+            $key = "rzp_test_Bn6XzeDx8pXFK4";
+            $secret = "gVNSxo5kYjNYfooTPWRu9PCS";
+        } else {
+
+            $key = "rzp_live_vjwBasZlFwdr36";
+            $secret = "24HHwxlXpmXmARFoXvK1syzH";
+        }
+
+        $api = new Api($key, $secret);
+
+        $ad = $request['amount'];
+
+        $razorpayOrder = $api->order->create(
+            array(
+                'receipt' => 'IM' . Str::random(6),
+                'amount' => $ad * 100,
+                'currency' => 'INR',
+            )
+        );
+
+        return ['success' => true, 'orderid' => $razorpayOrder->id, 'key' => $key, 'user' => $user];
+
     }
 
     public function generateOrder(Request $request)

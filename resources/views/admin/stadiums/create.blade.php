@@ -104,6 +104,12 @@
                                 <input type="number" class="form-control" required name="mon7s">
                             </div>
 
+                            <div class="form-group col-6 9sprices">
+                                <label class="form-label">Monday (9s) <span class="text-danger">*</span> </label>
+
+                                <input type="number" class="form-control" required name="mon9s">
+                            </div>
+
                         </div>
 
                         <div class="row mb-3">

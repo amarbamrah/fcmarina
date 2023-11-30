@@ -90,9 +90,9 @@ class StadiumBookingController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(StadiumBooking $stadiumBooking)
+    public function ipayStatus(Request $request)
     {
-        //
+        
     }
 
 

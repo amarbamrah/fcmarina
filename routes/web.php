@@ -177,3 +177,6 @@ Route::get('gettime', function () {
     date_default_timezone_set("Asia/Kolkata");
     return date('Y-m-d H:i:s');
 });
+
+
+Route::get('ipay-status',[StadiumBookingController::class,'ipayStatus']);
