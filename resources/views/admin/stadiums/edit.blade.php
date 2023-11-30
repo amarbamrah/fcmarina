@@ -141,6 +141,12 @@
                                 <input type="number" class="form-control" value="{{$st->tue7s}}" name="tue7s">
                             </div>
 
+                            <div class="form-group col-4">
+                                <label class="form-label">Tuesday (9s)</label>
+
+                                <input type="number" class="form-control" value="{{$st->tue9s}}" name="tue9s">
+                            </div>
+
                         </div>
 
                         <div class="row mb-3">
@@ -154,6 +160,12 @@
                                 <label class="form-label">Wednesday (7s)</label>
 
                                 <input type="number" class="form-control" value="{{$st->wed7s}}" name="wed7s">
+                            </div>
+
+                            <div class="form-group col-4">
+                                <label class="form-label">Wednesday (9s)</label>
+
+                                <input type="number" class="form-control" value="{{$st->wed9s}}" name="wed9s">
                             </div>
 
                         </div>
@@ -172,6 +184,12 @@
                                 <input type="number" class="form-control" value="{{$st->thu7s}}" name="thu7s">
                             </div>
 
+                            <div class="form-group col-4">
+                                <label class="form-label">Thursday (9s)</label>
+
+                                <input type="number" class="form-control" value="{{$st->thu9s}}" name="thu9s">
+                            </div>
+
                         </div>
 
                         <div class="row mb-3">
@@ -185,6 +203,12 @@
                                 <label class="form-label">Friday (7s)</label>
 
                                 <input type="number" class="form-control" value="{{$st->fri7s}}" name="fri7s">
+                            </div>
+
+                            <div class="form-group col-4">
+                                <label class="form-label">Friday (9s)</label>
+
+                                <input type="number" class="form-control" value="{{$st->fri9s}}" name="fri9s">
                             </div>
 
                         </div>
@@ -202,6 +226,12 @@
                                 <input type="number" class="form-control" value="{{$st->sat7s}}" name="sat7s">
                             </div>
 
+                            <div class="form-group col-4">
+                                <label class="form-label">Saturday (9s)</label>
+
+                                <input type="number" class="form-control" value="{{$st->sat9s}}" name="sat9s">
+                            </div>
+
                         </div>
 
 
@@ -216,6 +246,12 @@
                                 <label class="form-label">Sunday (7s)</label>
 
                                 <input type="number" class="form-control" value="{{$st->sun7s}}" name="sun7s">
+                            </div>
+
+                            <div class="form-group col-4">
+                                <label class="form-label">Sunday (9s)</label>
+
+                                <input type="number" class="form-control" value="{{$st->sun9s}}" name="sun9s">
                             </div>
 
                         </div>
