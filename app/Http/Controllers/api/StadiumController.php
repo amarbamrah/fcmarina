@@ -25,10 +25,15 @@ class StadiumController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
+
         $stadiums = Stadium::where('status',1)->get();
 
+        if($request->has('disabled') && $request['disabled']!=1){
+        $stadiums = Stadium::all();
+
+        }
         foreach ($stadiums as $stadium) {
             $stadium->images = StadiumImage::where('stadium_id', $stadium->id)->get();
             $loc = Location::find($stadium->location_id);
