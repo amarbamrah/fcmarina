@@ -126,6 +126,7 @@ class StadiumController extends Controller
 
         $fprice = 0;
         $sprice = 0;
+        $nprice = 0;
 
         if ($stadium->type == '5s' || $stadium->type == 'both') {
             switch (Carbon::now()->format('D')) {
@@ -165,8 +166,29 @@ class StadiumController extends Controller
             }
         }
 
+        if ($stadium->type == '9s') {
+            switch (Carbon::now()->format('D')) {
+                case 'Mon':$nprice = $stadium->mon9s;
+                    break;
+                case 'Tue':$nprice = $stadium->tue9s;
+                    break;
+                case 'Wed':$nprice = $stadium->wed9s;
+                    break;
+                case 'Thu':$nprice = $stadium->thu9s;
+                    break;
+                case 'Fri':$nprice = $stadium->fri9s;
+                    break;
+                case 'Sat':$nprice = $stadium->sat9s;
+                    break;
+                case 'Sun':$nprice = $stadium->sun9s;
+                    break;
+            }
+        }
+
         $stadium->mon5s = $fprice * 2;
         $stadium->mon7s = $sprice * 2;
+        $stadium->mon9s = $nprice * 2;
+
 
         $ams = [];
         $sas = StadiumAmenity::where('stadium_id', $stadium->id)->get();
