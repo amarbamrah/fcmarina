@@ -49,9 +49,7 @@
                                     <label class="form-label">Stadium Type <span class="text-danger">*</span> </label>
                                     <select name="type" id="stypebox" class="form-select" required>
                                     <option value="both">5s+7s+9s</option>
-
                                         <option value="both">5s+7s</option>
-
                                         <option value="5s">5s</option>
                                         <option value="7s">7s</option>
                                     </select>
