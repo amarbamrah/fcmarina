@@ -30,8 +30,8 @@ class StadiumController extends Controller
 
         $stadiums = Stadium::where('status',1)->get();
 
-        if($request->has('disabled') && $request['disabled']!=1){
-        $stadiums = Stadium::all();
+        if($request->has('disabled') && $request['disabled']==1){
+              $stadiums = Stadium::all();
 
         }
         foreach ($stadiums as $stadium) {
