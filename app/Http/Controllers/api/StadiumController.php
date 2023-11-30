@@ -27,7 +27,7 @@ class StadiumController extends Controller
      */
     public function index()
     {
-        $stadiums = Stadium::all();
+        $stadiums = Stadium::where('status',1)->get();
 
         foreach ($stadiums as $stadium) {
             $stadium->images = StadiumImage::where('stadium_id', $stadium->id)->get();
