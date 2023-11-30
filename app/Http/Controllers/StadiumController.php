@@ -75,34 +75,35 @@ class StadiumController extends Controller
         $stadium->address = $request['address'];
         $stadium->contactno = $request['contactno'];
 
-        // saving prices
-        $stadium->mon5s = $request['mon5s'];
-        $stadium->mon7s = $request['mon7s'];
-        $stadium->mon7s = $request['mon9s'];
+         // saving prices
+       $stadium->mon5s = $request['mon5s'];
+       $stadium->mon7s = $request['mon7s'];
+       $stadium->mon9s = $request['mon9s'];
 
-        $stadium->tue5s = $request['tue5s'];
-        $stadium->tue7s = $request['tue7s'];
-        $stadium->tue7s = $request['tue9s'];
+       $stadium->tue5s = $request['tue5s'];
+       $stadium->tue7s = $request['tue7s'];
+       $stadium->tue9s = $request['tue9s'];
 
-        $stadium->wed5s = $request['wed5s'];
-        $stadium->wed7s = $request['wed7s'];
-        $stadium->wed7s = $request['wed9s'];
+       $stadium->wed5s = $request['wed5s'];
+       $stadium->wed7s = $request['wed7s'];
+       $stadium->wed9s = $request['wed9s'];
 
-        $stadium->thu5s = $request['thu5s'];
-        $stadium->thu7s = $request['thu7s'];
-        $stadium->thu7s = $request['thu9s'];
+       $stadium->thu5s = $request['thu5s'];
+       $stadium->thu7s = $request['thu7s'];
+       $stadium->thu9s = $request['thu9s'];
 
-        $stadium->fri5s = $request['fri5s'];
-        $stadium->fri7s = $request['fri7s'];
-        $stadium->fri7s = $request['fri9s'];
+       $stadium->fri5s = $request['fri5s'];
+       $stadium->fri7s = $request['fri7s'];
+       $stadium->fri9s = $request['fri9s'];
 
-        $stadium->sat5s = $request['sat5s'];
-        $stadium->sat7s = $request['sat7s'];
-        $stadium->sat7s = $request['sat9s'];
+       $stadium->sat5s = $request['sat5s'];
+       $stadium->sat7s = $request['sat7s'];
+       $stadium->sat9s = $request['sat9s'];
 
-        $stadium->sun5s = $request['sun5s'];
-        $stadium->sun7s = $request['sun7s'];
-        $stadium->sun7s = $request['sun9s'];
+       $stadium->sun5s = $request['sun5s'];
+       $stadium->sun7s = $request['sun7s'];
+       $stadium->sun9s = $request['sun9s'];
+
 
 
         $stadium->save();
@@ -153,31 +154,31 @@ class StadiumController extends Controller
        // saving prices
        $stadium->mon5s = $request['mon5s'];
        $stadium->mon7s = $request['mon7s'];
-       $stadium->mon7s = $request['mon9s'];
+       $stadium->mon9s = $request['mon9s'];
 
        $stadium->tue5s = $request['tue5s'];
        $stadium->tue7s = $request['tue7s'];
-       $stadium->tue7s = $request['tue9s'];
+       $stadium->tue9s = $request['tue9s'];
 
        $stadium->wed5s = $request['wed5s'];
        $stadium->wed7s = $request['wed7s'];
-       $stadium->wed7s = $request['wed9s'];
+       $stadium->wed9s = $request['wed9s'];
 
        $stadium->thu5s = $request['thu5s'];
        $stadium->thu7s = $request['thu7s'];
-       $stadium->thu7s = $request['thu9s'];
+       $stadium->thu9s = $request['thu9s'];
 
        $stadium->fri5s = $request['fri5s'];
        $stadium->fri7s = $request['fri7s'];
-       $stadium->fri7s = $request['fri9s'];
+       $stadium->fri9s = $request['fri9s'];
 
        $stadium->sat5s = $request['sat5s'];
        $stadium->sat7s = $request['sat7s'];
-       $stadium->sat7s = $request['sat9s'];
+       $stadium->sat9s = $request['sat9s'];
 
        $stadium->sun5s = $request['sun5s'];
        $stadium->sun7s = $request['sun7s'];
-       $stadium->sun7s = $request['sun9s'];
+       $stadium->sun9s = $request['sun9s'];
 
         $stadium->save();
 
