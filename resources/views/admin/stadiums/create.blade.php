@@ -91,20 +91,20 @@
                         <br>
 
                         <div class="row mb-3">
-                            <div class="form-group col-6 5sprices">
+                            <div class="form-group col-4 5sprices">
                                 <label class="form-label">Monday (5s) <span class="text-danger">*</span> </label>
 
                                 <input type="number" class="form-control" required name="mon5s">
                             </div>
 
 
-                            <div class="form-group col-6 7sprices">
+                            <div class="form-group col-4 7sprices">
                                 <label class="form-label">Monday (7s) <span class="text-danger">*</span> </label>
 
                                 <input type="number" class="form-control" required name="mon7s">
                             </div>
 
-                            <div class="form-group col-6 9sprices">
+                            <div class="form-group col-4 9sprices">
                                 <label class="form-label">Monday (9s) <span class="text-danger">*</span> </label>
 
                                 <input type="number" class="form-control" required name="mon9s">
@@ -113,13 +113,13 @@
                         </div>
 
                         <div class="row mb-3">
-                            <div class="form-group col-6 5sprices">
+                            <div class="form-group col-4 5sprices">
                                 <label class="form-label">Tuesday (5s) <span class="text-danger">*</span> </label>
 
                                 <input type="number" class="form-control" required name="tue5s">
                             </div>
 
-                            <div class="form-group col-6 7sprices">
+                            <div class="form-group col-4 7sprices">
                                 <label class="form-label">Tuesday (7s) <span class="text-danger">*</span> </label>
 
                                 <input type="number" class="form-control" required name="tue7s">
@@ -128,13 +128,13 @@
                         </div>
 
                         <div class="row mb-3">
-                            <div class="form-group col-6 5sprices">
+                            <div class="form-group col-4 5sprices">
                                 <label class="form-label">Wednesday (5s) <span class="text-danger">*</span> </label>
 
                                 <input type="number" class="form-control" required name="wed5s">
                             </div>
 
-                            <div class="form-group col-6 7sprices">
+                            <div class="form-group col-4 7sprices">
                                 <label class="form-label">Wednesday (7s) <span class="text-danger">*</span> </label>
 
                                 <input type="number" class="form-control" required name="wed7s">
@@ -144,13 +144,13 @@
 
 
                         <div class="row mb-3">
-                            <div class="form-group col-6 5sprices">
+                            <div class="form-group col-4 5sprices">
                                 <label class="form-label">Thursday (5s) <span class="text-danger">*</span> </label>
 
                                 <input type="number" class="form-control" required name="thu5s">
                             </div>
 
-                            <div class="form-group col-6 7sprices">
+                            <div class="form-group col-4 7sprices">
                                 <label class="form-label">Thursday (7s) <span class="text-danger">*</span> </label>
 
                                 <input type="number" class="form-control" required name="thu7s">
@@ -159,13 +159,13 @@
                         </div>
 
                         <div class="row mb-3">
-                            <div class="form-group col-6 5sprices">
+                            <div class="form-group col-4 5sprices">
                                 <label class="form-label">Friday (5s) <span class="text-danger">*</span> </label>
 
                                 <input type="number" class="form-control" required name="fri5s">
                             </div>
 
-                            <div class="form-group col-6 7sprices">
+                            <div class="form-group col-4 7sprices">
                                 <label class="form-label">Friday (7s) <span class="text-danger">*</span> </label>
 
                                 <input type="number" class="form-control" required name="fri7s">
@@ -174,13 +174,13 @@
                         </div>
 
                         <div class="row mb-3">
-                            <div class="form-group col-6 5sprices">
+                            <div class="form-group col-4 5sprices">
                                 <label class="form-label">Saturday (5s) <span class="text-danger">*</span> </label>
 
                                 <input type="number" class="form-control" required name="sat5s">
                             </div>
 
-                            <div class="form-group col-6 7sprices">
+                            <div class="form-group col-4 7sprices">
                                 <label class="form-label">Saturday (7s) <span class="text-danger">*</span> </label>
 
                                 <input type="number" class="form-control" required name="sat7s">
@@ -190,13 +190,13 @@
 
 
                         <div class="row mb-3">
-                            <div class="form-group col-6 5sprices">
+                            <div class="form-group col-4 5sprices">
                                 <label class="form-label">Sunday (5s) <span class="text-danger">*</span> </label>
 
                                 <input type="number" class="form-control" required name="sun5s">
                             </div>
 
-                            <div class="form-group col-6 7sprices">
+                            <div class="form-group col-4 7sprices">
                                 <label class="form-label">Sunday (7s) <span class="text-danger">*</span> </label>
 
                                 <input type="number" class="form-control" required name="sun7s">
