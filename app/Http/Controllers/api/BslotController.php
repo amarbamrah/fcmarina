@@ -76,6 +76,96 @@ class BslotController extends Controller
                 break;
         }
 
+    
+        if($date->format('D')=='Mon'){
+            if($selGameType == '5s'){
+                $price=$stadium->mon5s;
+            }
+            if($selGameType == '7s'){
+                $price=$stadium->mon7s;
+            }
+            if($selGameType == '9s'){
+                $price=$stadium->mon9s;
+            }
+        }
+
+
+        if($date->format('D')=='Tue'){
+            if($selGameType == '5s'){
+                $price=$stadium->tue5s;
+            }
+            if($selGameType == '7s'){
+                $price=$stadium->tue7s;
+            }
+            if($selGameType == '9s'){
+                $price=$stadium->tue9s;
+            }
+        }
+
+        if($date->format('D')=='Wed'){
+            if($selGameType == '5s'){
+                $price=$stadium->wed5s;
+            }
+            if($selGameType == '7s'){
+                $price=$stadium->wed7s;
+            }
+            if($selGameType == '9s'){
+                $price=$stadium->wed9s;
+            }
+        }
+
+
+        if($date->format('D')=='Thu'){
+            if($selGameType == '5s'){
+                $price=$stadium->thu5s;
+            }
+            if($selGameType == '7s'){
+                $price=$stadium->thu7s;
+            }
+            if($selGameType == '9s'){
+                $price=$stadium->thu9s;
+            }
+        }
+
+
+        if($date->format('D')=='Fri'){
+            if($selGameType == '5s'){
+                $price=$stadium->fri5s;
+            }
+            if($selGameType == '7s'){
+                $price=$stadium->fri7s;
+            }
+            if($selGameType == '9s'){
+                $price=$stadium->fri9s;
+            }
+        }
+
+
+        if($date->format('D')=='Sat'){
+            if($selGameType == '5s'){
+                $price=$stadium->sat5s;
+            }
+            if($selGameType == '7s'){
+                $price=$stadium->sat7s;
+            }
+            if($selGameType == '9s'){
+                $price=$stadium->sat9s;
+            }
+        }
+
+
+        if($date->format('D')=='Sun'){
+            if($selGameType == '5s'){
+                $price=$stadium->sun5s;
+            }
+            if($selGameType == '7s'){
+                $price=$stadium->sun7s;
+            }
+            if($selGameType == '9s'){
+                $price=$stadium->sun9s;
+            }
+        }
+
 
 
 
