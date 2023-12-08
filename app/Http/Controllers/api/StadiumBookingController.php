@@ -798,6 +798,28 @@ class StadiumBookingController extends Controller
 
         $user=User::find($booking->user_id);
 
+
+        if ($booking->redeem_discount > 0) {
+            $pt = new PointTransaction();
+            $pt->points = 1000;
+            $pt->type = 'db';
+            $pt->user_id = $user->id;
+            $pt->booking_id = $sb->id;
+
+            $pt->remarks = 'Redeemed For Booking ID:' . $sb->booking_id;
+            $pt->save();
+
+            $user->points = $user->points - 1000;
+            $user->save();
+        }
+
+
+        if($booking->welcome_discount>0){
+            $user->max_woffer = $user->max_woffer - $welcomeDiscount;
+            $user->save();
+        }
+
+
         $stadium = Stadium::find($booking->stadium_id);
 
         $datee = Carbon::create($booking->date)->format('d-m-Y');
