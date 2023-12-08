@@ -786,4 +786,13 @@ class StadiumBookingController extends Controller
 
         return ['success' => true, 'amount' => $bookingAmount, 'total_amount' => $payableAmount, 'discount' => $discount, 'discountMsg' => $discountMsg, 'payable_amount' => $advanceAmount, 'points' => $points, 'pointMsg' => $pointMsg, 'hours' => $hours, 'redeem' => $redeem, 'redeemDisc' => $redeemDiscount, 'hdiscount' => $hdiscount, 'wdiscount' => $wdiscount];
     }
+
+
+
+    public function ipayStatus(Request $request)
+    {
+        $booking=StadiumBooking::where('order_id',$request['payload']['payment']['entity']['order_id'])->frist();
+        $booking->status='Confirmed';
+        $booking->save();
+    }
 }
