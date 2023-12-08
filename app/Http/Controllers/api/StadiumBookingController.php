@@ -798,7 +798,7 @@ class StadiumBookingController extends Controller
 
         $user=User::find($booking->user_id);
 
-        $stadium = Stadium::find($booking->Stadium_id);
+        $stadium = Stadium::find($booking->stadium_id);
 
         $datee = Carbon::create($booking->date)->format('d-m-Y');
 
