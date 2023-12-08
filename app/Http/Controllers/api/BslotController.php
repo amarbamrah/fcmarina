@@ -537,7 +537,7 @@ class BslotController extends Controller
                             $fully = 4;
 
                         }else if($sb->stadium_type=='7s'){
-                            $fully = 2;
+                            $fully = $fully+2;
 
                         }else{
                             $fully++;
