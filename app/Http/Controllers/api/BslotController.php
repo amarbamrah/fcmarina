@@ -527,7 +527,7 @@ class BslotController extends Controller
 
                             } else if ($selGameType == '7s') {
                                 if ($stadium->type == '9s') {
-                                    if ($fully == 0) {
+                                    if ($fully ==0) {
                                         $fully = 2;
                                         $slot->isFilled = false;
                                     } else if ($fully == 2) {
