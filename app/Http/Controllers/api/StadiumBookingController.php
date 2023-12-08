@@ -102,6 +102,122 @@ class StadiumBookingController extends Controller
             )
         );
 
+
+        $booking_id = Str::random(6);
+        $sb = new StadiumBooking();
+        $redeem = $request['redeem'];
+        $from = Carbon::create($request['from']);
+        $to = Carbon::create($request['to']);
+        $hours = $from->floatDiffInHours($to);
+
+        $payableAmount = $request['total_amount'];
+        $bookingAmount = $request['total_amount'];
+
+        $points = $user->points;
+
+        $pointMsg = '';
+
+        $redeemDiscount = 0;
+
+        $welcomeDiscount = 0;
+
+        $hdiscount = $request['hdiscount'];
+
+        $discount = 0;
+
+        $discount = $hdiscount;
+
+        $payableAmount = $payableAmount - $hdiscount;
+
+        $freeHours = 0;
+
+        if ($points > 1000) {
+            $ptsToRedeem = 1000;
+            $freeHours = $ptsToRedeem / 1000;
+            $pointMsg = 'Redeem ' . $ptsToRedeem . ' points to get ' . $freeHours . 'hr game free';
+        }
+
+        $pointErrMsg = '';
+
+        if ($redeem == 1 && $points > 1000) {
+            $perHourPrice = $payableAmount / $hours;
+            $redeemDiscount = $freeHours * $perHourPrice;
+
+            if ($redeemDiscount > $payableAmount) {
+                $redeemDiscount = $payableAmount;
+            }
+            $discount += $redeemDiscount;
+
+        } else {
+            $pointErrMsg = 'Min Points should be 1000';
+        }
+
+        $payableAmount = $payableAmount - $redeemDiscount;
+
+        $bCount = StadiumBooking::where('user_id', $request['user_id'])->count();
+
+        $discountMsg = '';
+
+        if ($bCount <= 2) {
+            $welcomeDiscount = $hours * 200;
+            $discountMsg = '200 off as a Welcome Discount';
+
+            if ($user->max_woffer < $welcomeDiscount) {
+                $welcomeDiscount = $user->max_woffer;
+            }
+
+            $discount += $welcomeDiscount;
+
+
+        }
+
+        $payableAmount = $payableAmount - $welcomeDiscount;
+
+        $sb->stadium_id = $request['stadium_id'];
+        $sb->user_id = $request['user_id'];
+        $sb->sport_type = $request['game'];
+
+        $sb->total_amount = $bookingAmount;
+
+        $sb->payable_amount = $payableAmount;
+
+        $sb->order_id = $request['order_id'];
+
+        $advance = 10 / 100;
+        $advance = $advance * $payableAmount;
+
+        $sb->discount = $discount;
+
+        $sb->redeem_discount = $redeemDiscount;
+        $sb->welcome_discount = $welcomeDiscount;
+
+        $sb->happyhours_discount = $hdiscount;
+
+        $sb->advance = $advance;
+
+        $sb->status = 'Processing';
+
+        $sb->rem_amount = $payableAmount - $advance;
+
+        $sb->stadium_type = $request['stadium_type'];
+        $sb->from = $request['from'];
+        $sb->to = $request['to'];
+
+        $sb->date = $request['date'];
+        $sb->booking_id = 'FC-' . substr(str_shuffle("ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789"), 1, 6);
+
+        $sb->save();
+
+     
+
+     
+
+        $pts = $request['total_amount'] / 100;
+        $pts = round($pts);
+        $user = User::find($request['user_id']);
+
+        
+
         return ['success' => true, 'orderid' => $razorpayOrder->id, 'key' => $key, 'user' => $user];
 
     }

@@ -92,7 +92,9 @@ class StadiumBookingController extends Controller
      */
     public function ipayStatus(Request $request)
     {
-        
+        $booking=StadiumBooking::where('order_id',$request['payload']['payment']['entity']['order_id'])->frist();
+        $booking->status='Confirmed';
+        $booking->save();
     }
 
 
