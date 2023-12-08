@@ -804,9 +804,9 @@ class StadiumBookingController extends Controller
             $pt->points = 1000;
             $pt->type = 'db';
             $pt->user_id = $user->id;
-            $pt->booking_id = $sb->id;
+            $pt->booking_id = $booking->id;
 
-            $pt->remarks = 'Redeemed For Booking ID:' . $sb->booking_id;
+            $pt->remarks = 'Redeemed For Booking ID:' . $booking->booking_id;
             $pt->save();
 
             $user->points = $user->points - 1000;
@@ -815,7 +815,7 @@ class StadiumBookingController extends Controller
 
 
         if($booking->welcome_discount>0){
-            $user->max_woffer = $user->max_woffer - $welcomeDiscount;
+            $user->max_woffer = $user->max_woffer - $booking->welcome_discount;
             $user->save();
         }
 
