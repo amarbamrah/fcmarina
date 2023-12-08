@@ -23,7 +23,7 @@ class UserController extends Controller
         $phno=$request['phonenumber'];
 
         if($phno=='9311911065'){
-            $login_otp=12345;
+            $login_otp=123456;
         }
 
         if($request->has('ucode')){
