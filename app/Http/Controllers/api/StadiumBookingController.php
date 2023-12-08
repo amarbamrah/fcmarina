@@ -181,7 +181,7 @@ class StadiumBookingController extends Controller
 
         $sb->payable_amount = $payableAmount;
 
-        $sb->order_id = $request['order_id'];
+        $sb->order_id = $razorpayOrder->id;
 
         $advance = 10 / 100;
         $advance = $advance * $payableAmount;
