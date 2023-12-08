@@ -22,7 +22,7 @@ class AuthController extends Controller
             if ($user->role == 'Admin') {
                 $stadium = Stadium::first();
             } else {
-                $stadium = Stadium::find($user->stadium_id);
+                $stadium = $user->stadiums[0];
             }
 
             return ['success' => true, 'user' => $user, 'token' => $token->plainTextToken,'stadium_id'=>$stadium->id];
