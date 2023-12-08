@@ -536,7 +536,7 @@ class BslotController extends Controller
                             $slot->isFilled = true;
                             $fully = 4;
                         }
-                        else if ($sb->stadium_type == '7s' && $sb->stadium_type == '7s') {
+                        else if ($stadium->type == 'both' && $sb->stadium_type == '7s') {
                             $slot->isFilled = true;
                             $fully = 2;
 
