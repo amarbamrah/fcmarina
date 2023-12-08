@@ -126,3 +126,6 @@ Route::post('/get-user-details-from-phone',[UserController::class,'getUserDetail
 Route::post('/generate-booking-order', [StadiumBookingController::class,'generateBookingOrder']);
 
 Route::post('ipay-status',[StadiumBookingController::class,'ipayStatus']);
+
+Route::post('check-booking-status',[StadiumBookingController::class,'checkBookingStatus']);
+

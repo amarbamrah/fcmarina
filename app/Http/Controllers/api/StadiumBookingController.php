@@ -218,7 +218,7 @@ class StadiumBookingController extends Controller
 
         
 
-        return ['success' => true, 'orderid' => $razorpayOrder->id, 'key' => $key, 'user' => $user];
+        return ['success' => true, 'orderid' => $razorpayOrder->id, 'key' => $key, 'user' => $user,'bookingid'=>$sb->id];
 
     }
 
@@ -833,5 +833,11 @@ class StadiumBookingController extends Controller
             $resp = curl_exec($curl);
             curl_close($curl);
         }
+    }
+
+
+    public function checkBookingStatus(Request $request){
+        $booking=StadiumBooking::find($request['booking_id']);
+        return ['success'=>true,'status'=>$booking->status];
     }
 }
