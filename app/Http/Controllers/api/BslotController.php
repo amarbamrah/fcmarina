@@ -56,7 +56,6 @@ class BslotController extends Controller
         $stadium7sPrice = 0;
         $stadium9sPrice = 0;
 
-
         $bbSlots = BlockedSlot::where('stadium_id', $stadium->id)->get();
 
         switch ($date->format('D')) {
@@ -76,98 +75,89 @@ class BslotController extends Controller
                 break;
         }
 
-    
-        if($date->format('D')=='Mon'){
-            if($selGameType == '5s'){
-                $price=$stadium->mon5s;
+        if ($date->format('D') == 'Mon') {
+            if ($selGameType == '5s') {
+                $price = $stadium->mon5s;
             }
-            if($selGameType == '7s'){
-                $price=$stadium->mon7s;
+            if ($selGameType == '7s') {
+                $price = $stadium->mon7s;
             }
-            if($selGameType == '9s'){
-                $price=$stadium->mon9s;
-            }
-        }
-
-
-        if($date->format('D')=='Tue'){
-            if($selGameType == '5s'){
-                $price=$stadium->tue5s;
-            }
-            if($selGameType == '7s'){
-                $price=$stadium->tue7s;
-            }
-            if($selGameType == '9s'){
-                $price=$stadium->tue9s;
+            if ($selGameType == '9s') {
+                $price = $stadium->mon9s;
             }
         }
 
-        if($date->format('D')=='Wed'){
-            if($selGameType == '5s'){
-                $price=$stadium->wed5s;
+        if ($date->format('D') == 'Tue') {
+            if ($selGameType == '5s') {
+                $price = $stadium->tue5s;
             }
-            if($selGameType == '7s'){
-                $price=$stadium->wed7s;
+            if ($selGameType == '7s') {
+                $price = $stadium->tue7s;
             }
-            if($selGameType == '9s'){
-                $price=$stadium->wed9s;
-            }
-        }
-
-
-        if($date->format('D')=='Thu'){
-            if($selGameType == '5s'){
-                $price=$stadium->thu5s;
-            }
-            if($selGameType == '7s'){
-                $price=$stadium->thu7s;
-            }
-            if($selGameType == '9s'){
-                $price=$stadium->thu9s;
+            if ($selGameType == '9s') {
+                $price = $stadium->tue9s;
             }
         }
 
-
-        if($date->format('D')=='Fri'){
-            if($selGameType == '5s'){
-                $price=$stadium->fri5s;
+        if ($date->format('D') == 'Wed') {
+            if ($selGameType == '5s') {
+                $price = $stadium->wed5s;
             }
-            if($selGameType == '7s'){
-                $price=$stadium->fri7s;
+            if ($selGameType == '7s') {
+                $price = $stadium->wed7s;
             }
-            if($selGameType == '9s'){
-                $price=$stadium->fri9s;
-            }
-        }
-
-
-        if($date->format('D')=='Sat'){
-            if($selGameType == '5s'){
-                $price=$stadium->sat5s;
-            }
-            if($selGameType == '7s'){
-                $price=$stadium->sat7s;
-            }
-            if($selGameType == '9s'){
-                $price=$stadium->sat9s;
+            if ($selGameType == '9s') {
+                $price = $stadium->wed9s;
             }
         }
 
-
-        if($date->format('D')=='Sun'){
-            if($selGameType == '5s'){
-                $price=$stadium->sun5s;
+        if ($date->format('D') == 'Thu') {
+            if ($selGameType == '5s') {
+                $price = $stadium->thu5s;
             }
-            if($selGameType == '7s'){
-                $price=$stadium->sun7s;
+            if ($selGameType == '7s') {
+                $price = $stadium->thu7s;
             }
-            if($selGameType == '9s'){
-                $price=$stadium->sun9s;
+            if ($selGameType == '9s') {
+                $price = $stadium->thu9s;
             }
         }
 
+        if ($date->format('D') == 'Fri') {
+            if ($selGameType == '5s') {
+                $price = $stadium->fri5s;
+            }
+            if ($selGameType == '7s') {
+                $price = $stadium->fri7s;
+            }
+            if ($selGameType == '9s') {
+                $price = $stadium->fri9s;
+            }
+        }
 
+        if ($date->format('D') == 'Sat') {
+            if ($selGameType == '5s') {
+                $price = $stadium->sat5s;
+            }
+            if ($selGameType == '7s') {
+                $price = $stadium->sat7s;
+            }
+            if ($selGameType == '9s') {
+                $price = $stadium->sat9s;
+            }
+        }
 
+        if ($date->format('D') == 'Sun') {
+            if ($selGameType == '5s') {
+                $price = $stadium->sun5s;
+            }
+            if ($selGameType == '7s') {
+                $price = $stadium->sun7s;
+            }
+            if ($selGameType == '9s') {
+                $price = $stadium->sun9s;
+            }
+        }
 
         switch ($date->format('D')) {
             case 'Mon':$stadium5sPrice = $stadium->mon5s;
@@ -250,13 +240,10 @@ class BslotController extends Controller
                 }
             }
 
-
-             // BULK BLOCK
-             foreach ($bbSlots as $bb) {
+            // BULK BLOCK
+            foreach ($bbSlots as $bb) {
                 $startDate = Carbon::create($bb->from);
                 $endDate = Carbon::create($bb->to);
-
-              
 
                 if ($date->between($startDate, $endDate) || $date->eq($startDate) || $date->eq($endDate)) {
                     // $checkDate is within the date range defined by $startDate and $endDate
@@ -276,11 +263,9 @@ class BslotController extends Controller
                         }
                     }
 
-
                 } else {
                 }
             }
-
 
             foreach ($sbs as $sb) {
 
@@ -295,11 +280,10 @@ class BslotController extends Controller
 
                 foreach ($periods as $i => $period) {
                     if (($i + 1) < count($periods) && $period == Carbon::create($slot->from)->toTimeString()) {
-                        if($sb->stadium_type=='9s'){
+                        if ($sb->stadium_type == '9s') {
                             $slot->isFilled = true;
                             $fully = 4;
-                        }
-                        else if ($sb->stadium_type == '7s') {
+                        } else if ($sb->stadium_type == '7s') {
                             $slot->isFilled = true;
                             $fully = 2;
 
@@ -374,13 +358,10 @@ class BslotController extends Controller
                 }
             }
 
-
-             // BULK BLOCK
-             foreach ($bbSlots as $bb) {
+            // BULK BLOCK
+            foreach ($bbSlots as $bb) {
                 $startDate = Carbon::create($bb->from);
                 $endDate = Carbon::create($bb->to);
-
-              
 
                 if ($date->between($startDate, $endDate) || $date->eq($startDate) || $date->eq($endDate)) {
                     // $checkDate is within the date range defined by $startDate and $endDate
@@ -399,7 +380,6 @@ class BslotController extends Controller
 
                         }
                     }
-
 
                 } else {
                 }
@@ -494,8 +474,6 @@ class BslotController extends Controller
                 $startDate = Carbon::create($bb->from);
                 $endDate = Carbon::create($bb->to);
 
-              
-
                 if ($date->between($startDate, $endDate) || $date->eq($startDate) || $date->eq($endDate)) {
                     // $checkDate is within the date range defined by $startDate and $endDate
                     $starttime = Carbon::create($bb->timing_from);
@@ -514,7 +492,6 @@ class BslotController extends Controller
                         }
                     }
 
-
                 } else {
                 }
             }
@@ -532,77 +509,79 @@ class BslotController extends Controller
 
                 foreach ($periods as $i => $period) {
                     if (($i + 1) < count($periods) && $period == Carbon::create($slot->from)->toTimeString()) {
-                        
-                        // if($sb->stadium_type=='9s'){
-                        //     $fully = 4;
 
-                        // }else if($sb->stadium_type=='7s'){
-                        //     $fully = $fully+2;
+                        if ($stadium->id == 14) {
+                            if ($sb->stadium_type == '9s') {
+                                $fully = 4;
 
-                        // }else{
-                        //     $fully++;
-                        // }
+                            } else if ($sb->stadium_type == '7s') {
+                                $fully = $fully + 2;
 
-                        // if($selGameType=='9s'){
-                        //     if($fully>0){
-                        //       $slot->isFilled = true;
-
-                        //     }
-                        // }else if($selGameType=='7s'){
-                        //     if($stadium->type=='9s'){
-                        //         if($fully>2){
-                        //             $slot->isFilled=true;
-                        //         }
-
-                        //     }else{
-                        //         if($fully>0){
-                        //             $slot->isFilled=true;
-
-                        //         }
-                        //     }
-                        // }else{
-                        //     if($stadium->type=='9s'){
-                        //         if($fully==4){
-                        //             $slot->isFilled=true;
-                        //         }
-
-                        //     }else if($stadium->type=='7s'){
-                        //         if($fully==2){
-                        //             $slot->isFilled=true;
-                        //         }
-
-                        //     }else{
-                        //         if($fully>0){
-                        //             $slot->isFilled=true;
-
-                        //         }
-                        //     }
-                        // }
-
-
-                        
-                        if ($sb->stadium_type == '7s') {
-                            $slot->isFilled = true;
-                            $fully = 2;
-
-                        } else if ($stadium->type == '5s' && $sb->stadium_type == '5s') {
-                            $slot->isFilled = true;
-                            $fully = 2;
-                        } else {
-                            if ($fully == 0) {
+                            } else {
                                 $fully++;
-                                if ($selGameType == '7s') {
+                            }
+
+                            if ($selGameType == '9s') {
+                                if ($fully > 0) {
                                     $slot->isFilled = true;
 
-                                } else {
-                                    $slot->isFilled = false;
+                                }
+                            } else if ($selGameType == '7s') {
+                                if ($stadium->type == '9s') {
+                                    if ($fully > 2) {
+                                        $slot->isFilled = true;
+                                    }
 
+                                } else {
+                                    if ($fully > 0) {
+                                        $slot->isFilled = true;
+
+                                    }
                                 }
                             } else {
-                                $slot->isFilled = true;
+                                if ($stadium->type == '9s') {
+                                    if ($fully == 4) {
+                                        $slot->isFilled = true;
+                                    }
 
+                                } else if ($stadium->type == '7s') {
+                                    if ($fully == 2) {
+                                        $slot->isFilled = true;
+                                    }
+
+                                } else {
+                                    if ($fully > 0) {
+                                        $slot->isFilled = true;
+
+                                    }
+                                }
+                            }
+                        }else{
+                            if ($sb->stadium_type == '7s') {
+                                $slot->isFilled = true;
+                                $fully = 2;
+    
+                            } else if ($stadium->type == '5s' && $sb->stadium_type == '5s') {
+                                $slot->isFilled = true;
+                                $fully = 2;
+                            } else {
+                                if ($fully == 0) {
+                                    $fully++;
+                                    if ($selGameType == '7s') {
+                                        $slot->isFilled = true;
+    
+                                    } else {
+                                        $slot->isFilled = false;
+    
+                                    }
+                                } else {
+                                    $slot->isFilled = true;
+    
+                                }
                             }
                         }
+
+                        
 
                     }
                 }
@@ -652,14 +631,10 @@ class BslotController extends Controller
                 }
             }
 
-
-
-             // BULK BLOCK
-             foreach ($bbSlots as $bb) {
+            // BULK BLOCK
+            foreach ($bbSlots as $bb) {
                 $startDate = Carbon::create($bb->from);
                 $endDate = Carbon::create($bb->to);
-
-              
 
                 if ($date->between($startDate, $endDate) || $date->eq($startDate) || $date->eq($endDate)) {
                     // $checkDate is within the date range defined by $startDate and $endDate
@@ -678,7 +653,6 @@ class BslotController extends Controller
 
                         }
                     }
-
 
                 } else {
                 }
@@ -762,7 +736,7 @@ class BslotController extends Controller
             $section = "Twilight";
 
         }
-        return ['success' => true, 'section' => $section, 'stadium5sPrice' => $stadium5sPrice * 2, 'stadium7sPrice' => $stadium7sPrice * 2,'stadium9sPrice' => $stadium9sPrice * 2, 'data' => $data, 'price' => $price, 'stadium_types' => $stadium->type, 'sel_game_type' => $selGameType, 'offers' => $offers];
+        return ['success' => true, 'section' => $section, 'stadium5sPrice' => $stadium5sPrice * 2, 'stadium7sPrice' => $stadium7sPrice * 2, 'stadium9sPrice' => $stadium9sPrice * 2, 'data' => $data, 'price' => $price, 'stadium_types' => $stadium->type, 'sel_game_type' => $selGameType, 'offers' => $offers];
     }
 
     /**
