@@ -532,7 +532,11 @@ class BslotController extends Controller
 
                 foreach ($periods as $i => $period) {
                     if (($i + 1) < count($periods) && $period == Carbon::create($slot->from)->toTimeString()) {
-                        if ($sb->stadium_type == '7s') {
+                        if($sb->stadium_type=='9s'){
+                            $slot->isFilled = true;
+                            $fully = 4;
+                        }
+                        else if ($sb->stadium_type == '7s') {
                             $slot->isFilled = true;
                             $fully = 2;
 
