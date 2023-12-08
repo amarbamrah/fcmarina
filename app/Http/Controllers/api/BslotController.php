@@ -545,19 +545,17 @@ class BslotController extends Controller
                             $fully = 2;
                         } else {
                             if ($fully == 0) {
+                                $fully++;
                                 if ($selGameType == '9s') {
                                     $slot->isFilled = true;
-                                    $fully=4;
                                 }
                                 else if ($selGameType == '7s' && $stadium->type=='both') {
                                     $slot->isFilled = true;
-                                    $fully=2;
+
                                 } else {
                                     $slot->isFilled = false;
-                                    $fully++;
-                                }
-                            }else if($fully==1){
 
+                                }
                             } else {
                                 $slot->isFilled = true;
 
