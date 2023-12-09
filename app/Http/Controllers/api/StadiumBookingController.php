@@ -134,14 +134,14 @@ class StadiumBookingController extends Controller
         if ($points > 1000) {
             $ptsToRedeem = 1000;
             $freeHours = $ptsToRedeem / 1000;
-            $pointMsg = 'Redeem ' . $ptsToRedeem . ' points to get ' . $freeHours . 'hr game free';
+            $pointMsg = 'Redeem ' . $ptsToRedeem . ' points to get Rs 1000 off';
         }
 
         $pointErrMsg = '';
 
         if ($redeem == 1 && $points > 1000) {
             $perHourPrice = $payableAmount / $hours;
-            $redeemDiscount = $freeHours * $perHourPrice;
+            $redeemDiscount = 1000;
 
             if ($redeemDiscount > $payableAmount) {
                 $redeemDiscount = $payableAmount;
