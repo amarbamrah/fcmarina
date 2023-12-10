@@ -792,6 +792,7 @@ class StadiumBookingController extends Controller
     public function ipayStatus(Request $request)
     {
          $booking=StadiumBooking::where('order_id',$request['payload']['payment']['entity']['order_id'])->first();
+         if($booking->status=='Processing'){
         $booking->status='Confirmed';
         $booking->save();
 
@@ -855,6 +856,7 @@ class StadiumBookingController extends Controller
             $resp = curl_exec($curl);
             curl_close($curl);
         }
+    }
     }
 
 
