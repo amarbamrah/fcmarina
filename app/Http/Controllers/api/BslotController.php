@@ -280,29 +280,74 @@ class BslotController extends Controller
 
                 foreach ($periods as $i => $period) {
                     if (($i + 1) < count($periods) && $period == Carbon::create($slot->from)->toTimeString()) {
-                        if ($sb->stadium_type == '9s') {
-                            $slot->isFilled = true;
-                            $fully = 4;
-                        } else if ($sb->stadium_type == '7s') {
-                            $slot->isFilled = true;
-                            $fully = 2;
+                        if ($stadium->type == '9s') {
+                            if ($sb->stadium_type == '9s') {
+                                $fully = 4;
 
-                        } else if ($stadium->type == '5s' && $sb->stadium_type == '5s') {
-                            $slot->isFilled = true;
-                            $fully = 2;
-                        } else {
-                            if ($fully == 0) {
+                            } else if ($sb->stadium_type == '7s') {
+                                $fully = $fully + 2;
+
+                            } else {
                                 $fully++;
-                                if ($selGameType == '7s') {
+                            }
+
+                            if ($selGameType == '9s') {
+                                if ($fully > 0) {
                                     $slot->isFilled = true;
 
-                                } else {
-                                    $slot->isFilled = false;
+                                }
+                            } else if ($selGameType == '7s') {
+                                if ($stadium->type == '9s') {
+                                    if ($fully > 2) {
+                                        $slot->isFilled = true;
+                                    }
 
+                                } else {
+                                    if ($fully > 0) {
+                                        $slot->isFilled = true;
+
+                                    }
                                 }
                             } else {
-                                $slot->isFilled = true;
+                                if ($stadium->type == '9s') {
+                                    if ($fully == 4) {
+                                        $slot->isFilled = true;
+                                    }
 
+                                } else if ($stadium->type == '7s') {
+                                    if ($fully == 2) {
+                                        $slot->isFilled = true;
+                                    }
+
+                                } else {
+                                    if ($fully > 0) {
+                                        $slot->isFilled = true;
+
+                                    }
+                                }
+                            }
+                        } else {
+                            if ($sb->stadium_type == '7s') {
+                                $slot->isFilled = true;
+                                $fully = 2;
+
+                            } else if ($stadium->type == '5s' && $sb->stadium_type == '5s') {
+                                $slot->isFilled = true;
+                                $fully = 2;
+                            } else {
+                                if ($fully == 0) {
+                                    $fully++;
+                                    if ($selGameType == '7s') {
+                                        $slot->isFilled = true;
+
+                                    } else {
+                                        $slot->isFilled = false;
+
+                                    }
+                                } else {
+                                    $slot->isFilled = true;
+
+                                }
                             }
                         }
 
@@ -398,26 +443,74 @@ class BslotController extends Controller
 
                 foreach ($periods as $i => $period) {
                     if (($i + 1) < count($periods) && $period == Carbon::create($slot->from)->toTimeString()) {
-                        if ($sb->stadium_type == '7s') {
-                            $slot->isFilled = true;
-                            $fully = 2;
+                        if ($stadium->type == '9s') {
+                            if ($sb->stadium_type == '9s') {
+                                $fully = 4;
 
-                        } else if ($stadium->type == '5s' && $sb->stadium_type == '5s') {
-                            $slot->isFilled = true;
-                            $fully = 2;
-                        } else {
-                            if ($fully == 0) {
+                            } else if ($sb->stadium_type == '7s') {
+                                $fully = $fully + 2;
+
+                            } else {
                                 $fully++;
-                                if ($selGameType == '7s') {
+                            }
+
+                            if ($selGameType == '9s') {
+                                if ($fully > 0) {
                                     $slot->isFilled = true;
 
-                                } else {
-                                    $slot->isFilled = false;
+                                }
+                            } else if ($selGameType == '7s') {
+                                if ($stadium->type == '9s') {
+                                    if ($fully > 2) {
+                                        $slot->isFilled = true;
+                                    }
 
+                                } else {
+                                    if ($fully > 0) {
+                                        $slot->isFilled = true;
+
+                                    }
                                 }
                             } else {
-                                $slot->isFilled = true;
+                                if ($stadium->type == '9s') {
+                                    if ($fully == 4) {
+                                        $slot->isFilled = true;
+                                    }
 
+                                } else if ($stadium->type == '7s') {
+                                    if ($fully == 2) {
+                                        $slot->isFilled = true;
+                                    }
+
+                                } else {
+                                    if ($fully > 0) {
+                                        $slot->isFilled = true;
+
+                                    }
+                                }
+                            }
+                        } else {
+                            if ($sb->stadium_type == '7s') {
+                                $slot->isFilled = true;
+                                $fully = 2;
+
+                            } else if ($stadium->type == '5s' && $sb->stadium_type == '5s') {
+                                $slot->isFilled = true;
+                                $fully = 2;
+                            } else {
+                                if ($fully == 0) {
+                                    $fully++;
+                                    if ($selGameType == '7s') {
+                                        $slot->isFilled = true;
+
+                                    } else {
+                                        $slot->isFilled = false;
+
+                                    }
+                                } else {
+                                    $slot->isFilled = true;
+
+                                }
                             }
                         }
 
@@ -510,7 +603,7 @@ class BslotController extends Controller
                 foreach ($periods as $i => $period) {
                     if (($i + 1) < count($periods) && $period == Carbon::create($slot->from)->toTimeString()) {
 
-                        if ($stadium->id == 14) {
+                        if ($stadium->type == '9s') {
                             if ($sb->stadium_type == '9s') {
                                 $fully = 4;
 
@@ -556,11 +649,11 @@ class BslotController extends Controller
                                     }
                                 }
                             }
-                        }else{
+                        } else {
                             if ($sb->stadium_type == '7s') {
                                 $slot->isFilled = true;
                                 $fully = 2;
-    
+
                             } else if ($stadium->type == '5s' && $sb->stadium_type == '5s') {
                                 $slot->isFilled = true;
                                 $fully = 2;
@@ -569,19 +662,17 @@ class BslotController extends Controller
                                     $fully++;
                                     if ($selGameType == '7s') {
                                         $slot->isFilled = true;
-    
+
                                     } else {
                                         $slot->isFilled = false;
-    
+
                                     }
                                 } else {
                                     $slot->isFilled = true;
-    
+
                                 }
                             }
                         }
-
-                        
 
                     }
                 }
@@ -671,26 +762,74 @@ class BslotController extends Controller
 
                 foreach ($periods as $i => $period) {
                     if (($i + 1) < count($periods) && $period == Carbon::create($slot->from)->toTimeString()) {
-                        if ($sb->stadium_type == '7s') {
-                            $slot->isFilled = true;
-                            $fully = 2;
+                        if ($stadium->type == '9s') {
+                            if ($sb->stadium_type == '9s') {
+                                $fully = 4;
 
-                        } else if ($stadium->type == '5s' && $sb->stadium_type == '5s') {
-                            $slot->isFilled = true;
-                            $fully = 2;
-                        } else {
-                            if ($fully == 0) {
+                            } else if ($sb->stadium_type == '7s') {
+                                $fully = $fully + 2;
+
+                            } else {
                                 $fully++;
-                                if ($selGameType == '7s') {
+                            }
+
+                            if ($selGameType == '9s') {
+                                if ($fully > 0) {
                                     $slot->isFilled = true;
 
-                                } else {
-                                    $slot->isFilled = false;
+                                }
+                            } else if ($selGameType == '7s') {
+                                if ($stadium->type == '9s') {
+                                    if ($fully > 2) {
+                                        $slot->isFilled = true;
+                                    }
 
+                                } else {
+                                    if ($fully > 0) {
+                                        $slot->isFilled = true;
+
+                                    }
                                 }
                             } else {
-                                $slot->isFilled = true;
+                                if ($stadium->type == '9s') {
+                                    if ($fully == 4) {
+                                        $slot->isFilled = true;
+                                    }
 
+                                } else if ($stadium->type == '7s') {
+                                    if ($fully == 2) {
+                                        $slot->isFilled = true;
+                                    }
+
+                                } else {
+                                    if ($fully > 0) {
+                                        $slot->isFilled = true;
+
+                                    }
+                                }
+                            }
+                        } else {
+                            if ($sb->stadium_type == '7s') {
+                                $slot->isFilled = true;
+                                $fully = 2;
+
+                            } else if ($stadium->type == '5s' && $sb->stadium_type == '5s') {
+                                $slot->isFilled = true;
+                                $fully = 2;
+                            } else {
+                                if ($fully == 0) {
+                                    $fully++;
+                                    if ($selGameType == '7s') {
+                                        $slot->isFilled = true;
+
+                                    } else {
+                                        $slot->isFilled = false;
+
+                                    }
+                                } else {
+                                    $slot->isFilled = true;
+
+                                }
                             }
                         }
 
