@@ -51,7 +51,7 @@ class StadiumController extends Controller
             $fprice = 0;
             $sprice = 0;
 
-            if ($stadium->type == '5s' || $stadium->type == 'both') {
+
                 switch (Carbon::now()->format('D')) {
                     case 'Mon':$fprice = $stadium->mon5s;
                         break;
@@ -68,26 +68,25 @@ class StadiumController extends Controller
                     case 'Sun':$fprice = $stadium->sun5s;
                         break;
                 }
-            }
 
-            if ($stadium->type == '7s' || $stadium->type == 'both') {
-                switch (Carbon::now()->format('D')) {
-                    case 'Mon':$sprice = $stadium->mon7s;
-                        break;
-                    case 'Tue':$sprice = $stadium->tue7s;
-                        break;
-                    case 'Wed':$sprice = $stadium->wed7s;
-                        break;
-                    case 'Thu':$sprice = $stadium->thu7s;
-                        break;
-                    case 'Fri':$sprice = $stadium->fri7s;
-                        break;
-                    case 'Sat':$sprice = $stadium->sat7s;
-                        break;
-                    case 'Sun':$sprice = $stadium->sun7s;
-                        break;
-                }
-            }
+            // if ($stadium->type == '7s' || $stadium->type == 'both') {
+            //     switch (Carbon::now()->format('D')) {
+            //         case 'Mon':$sprice = $stadium->mon7s;
+            //             break;
+            //         case 'Tue':$sprice = $stadium->tue7s;
+            //             break;
+            //         case 'Wed':$sprice = $stadium->wed7s;
+            //             break;
+            //         case 'Thu':$sprice = $stadium->thu7s;
+            //             break;
+            //         case 'Fri':$sprice = $stadium->fri7s;
+            //             break;
+            //         case 'Sat':$sprice = $stadium->sat7s;
+            //             break;
+            //         case 'Sun':$sprice = $stadium->sun7s;
+            //             break;
+            //     }
+            // }
 
             $stadium->mon5s = $fprice * 2;
             $stadium->mon7s = $sprice * 2;
