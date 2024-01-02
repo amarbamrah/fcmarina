@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Slide;
+
+use App\Models\Stadium;
+
 use Illuminate\Http\Request;
 
 class SlideController extends Controller
@@ -12,7 +15,9 @@ class SlideController extends Controller
      */
     public function index()
     {
-        //
+        $slides=Slide::all();
+        $stadiums=Stadium::all();
+        return view('admin.masters.slides.index',compact('slides','stadiums'));
     }
 
     /**
@@ -28,7 +33,16 @@ class SlideController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $image = $request->file('image');
+        $filename = time() . '.' . $image->getClientOriginalExtension();
+        $image->move(public_path('stadiums'), $filename);
+
+        $slide=new Slide();
+        $slide->image=$filename;
+        $slide->stadium_id=$request['stadium'];
+        $slide->save();
+        return redirect()->back();
+
     }
 
     /**
