@@ -62,7 +62,7 @@
                                 <tr>
                                     <td>{{$i+1}}</td>
                                     <td>
-                                        <img src="{{url($slide->image)}}" alt="" srcset="">
+                                        <img src="{{url('/stadiums/'.$slide->image)}}" alt="" srcset="">
                                     </td>
                                 </tr>
                                 @endforeach
