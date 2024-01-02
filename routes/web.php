@@ -5,6 +5,8 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DashboardController;
 
 use App\Http\Controllers\StadiumController;
+use App\Http\Controllers\SlideController;
+
 
 use App\Http\Controllers\LocationController;
 
@@ -152,6 +154,9 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     // Route::post('/stadiums/store', [StadiumController::class, 'store'])->name('stadium.store');
 
     Route::resource('/stadium-bookings', StadiumBookingController::class);
+
+    Route::resource('/slides', SlideController::class);
+
 
 
     Route::resource('/happy-hours', HappyHourController::class);

@@ -7,6 +7,9 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\api\StadiumController;
 
+use App\Http\Controllers\api\SlideController;
+
+
 use App\Http\Controllers\api\PointTransactionController;
 
 use App\Http\Controllers\api\WalletTransactionController;
