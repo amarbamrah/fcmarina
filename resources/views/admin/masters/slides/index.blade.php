@@ -73,6 +73,7 @@
 
                                     <td>
                                         <form action="/admin/slides/{{$slide->id}}" method="post">
+                                            @csrf
                                             <input type="hidden" name="_method" value="DELETE">
                                             <button type="submit" class="btn p-0 bg-danger">
                                                 <i data-feather="x"></i>
