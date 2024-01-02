@@ -721,4 +721,13 @@ class StadiumController extends Controller
         return ['success' => true, 'msg' => $msg];
     }
 
+
+
+
+
+
+    public function search(Request $request){
+        return ['success'=>true,'data'=>[]];
+    }
+
 }
