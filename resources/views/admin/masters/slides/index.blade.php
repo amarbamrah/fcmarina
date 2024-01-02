@@ -54,7 +54,9 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>Title</th>
+                                    <th>Image</th>
+                                    <th>Stadium</th>
+
                                 </tr>
                             </thead>
                             <tbody>
@@ -63,6 +65,9 @@
                                     <td>{{$i+1}}</td>
                                     <td>
                                         <img src="{{url('/stadiums/'.$slide->image)}}" alt="" srcset="">
+                                    </td>
+                                    <td>
+                                        {{$slide->stadium_id!=null?$slide->stadium->name:''}}
                                     </td>
                                 </tr>
                                 @endforeach
