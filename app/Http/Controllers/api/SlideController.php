@@ -13,7 +13,7 @@ class SlideController extends Controller
      */
     public function index()
     {
-        $slides=Slide::all();
+        $slides=Slide::orderBy('id','DESC')->get();
         foreach($slides as $slide){
             $slide->image='https://fcm.imerge.in/stadiums/'.$slide->image;
         }
