@@ -485,4 +485,9 @@ class StadiumController extends Controller
 
     }
 
+
+    public function search(Request $request){
+        return ['success'=>true,'data'=>[]];
+    }
+
 }

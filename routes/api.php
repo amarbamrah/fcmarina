@@ -129,3 +129,5 @@ Route::post('ipay-status',[StadiumBookingController::class,'ipayStatus']);
 
 Route::post('check-booking-status',[StadiumBookingController::class,'checkBookingStatus']);
 
+
+Route::get('search',[StadiumController::class,'search']);
