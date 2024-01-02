@@ -16,7 +16,7 @@
         <div class="col-md-6 grid-margin stretch-card">
             <div class="card">
                 <div class="card-body">
-                    <form action="/admin/locations" method="post" enctype="multipart/form-dat">
+                    <form action="/admin/slides" method="post" enctype="multipart/form-dat">
                         @csrf
                         <div class="form-group mb-3">
                             <label for="">
