@@ -56,6 +56,7 @@
                                     <th>#</th>
                                     <th>Image</th>
                                     <th>Stadium</th>
+                                    <th>Actions</th>
 
                                 </tr>
                             </thead>
@@ -68,6 +69,15 @@
                                     </td>
                                     <td>
                                         {{$slide->stadium_id!=null?$slide->stadium->name:''}}
+                                    </td>
+
+                                    <td>
+                                        <form action="/admin/slides/{{$slide->id}}" method="post">
+                                            <input type="hidden" name="_method" value="DELETE">
+                                            <button type="submit" class="btn p-0 bg-danger">
+                                                <i data-feather="x"></i>
+                                            </button>
+                                        </form>
                                     </td>
                                 </tr>
                                 @endforeach
