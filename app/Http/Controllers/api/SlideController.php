@@ -14,6 +14,9 @@ class SlideController extends Controller
     public function index()
     {
         $slides=Slide::all();
+        foreach($slides as $slide){
+            $slide->image='https://fcm.imerge.in/stadiums/'.$slide->image;
+        }
         return ['data'=>$slides,'success'=>true];
     }
 
