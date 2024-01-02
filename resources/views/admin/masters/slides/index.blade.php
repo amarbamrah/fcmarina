@@ -61,7 +61,9 @@
                                 @foreach($slides as $i=>$slide)
                                 <tr>
                                     <td>{{$i+1}}</td>
-                                    <td>{{$slide->image}}</td>
+                                    <td>
+                                        <img src="{{url('/').$slide->image}}" alt="" srcset="">
+                                    </td>
                                 </tr>
                                 @endforeach
                             </tbody>
