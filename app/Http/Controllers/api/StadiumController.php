@@ -722,12 +722,56 @@ class StadiumController extends Controller
     }
 
 
-
-
-
-
     public function search(Request $request){
-        return ['success'=>true,'data'=>[]];
+
+        $stadiums = Stadium::where('status',1)->where('name','LIKE','%'.$request['query'].'%')->get();
+
+        if($request->has('disabled') && $request['disabled']==1){
+              $stadiums = Stadium::all();
+
+        }
+        foreach ($stadiums as $stadium) {
+            $stadium->images = StadiumImage::where('stadium_id', $stadium->id)->get();
+            $loc = Location::find($stadium->location_id);
+            $stadium->location_name = $loc->name;
+
+            $slotsLeft = 2;
+            $stadium->slots_left = $slotsLeft;
+
+            $happyHours = HappyHour::where('stadium_id', $stadium->id)->first();
+            if ($happyHours) {
+                $stadium->happy_hour_msg = $happyHours->discount . '% off from ' . Carbon::create($happyHours->from)->format('h:i a') . ' to ' . Carbon::create($happyHours->to)->format('h:i a');
+
+            }
+
+            $fprice = 0;
+            $sprice = 0;
+
+
+                switch (Carbon::now()->format('D')) {
+                    case 'Mon':$fprice = $stadium->mon5s;
+                        break;
+                    case 'Tue':$fprice = $stadium->tue5s;
+                        break;
+                    case 'Wed':$fprice = $stadium->wed5s;
+                        break;
+                    case 'Thu':$fprice = $stadium->thu5s;
+                        break;
+                    case 'Fri':$fprice = $stadium->fri5s;
+                        break;
+                    case 'Sat':$fprice = $stadium->sat5s;
+                        break;
+                    case 'Sun':$fprice = $stadium->sun5s;
+                        break;
+                }
+
+
+            $stadium->mon5s = $fprice * 2;
+            $stadium->mon7s = $sprice * 2;
+
+        }
+        return ['data' => $stadiums, 'success' => true];
+
     }
 
 }
