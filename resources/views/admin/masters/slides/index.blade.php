@@ -65,7 +65,7 @@
                                 <tr>
                                     <td>{{$i+1}}</td>
                                     <td>
-                                        <img src="{{url('/stadiums/'.$slide->image)}}" alt="" srcset="">
+                                        <img style="border-radius:0 !important;" src="{{url('/stadiums/'.$slide->image)}}" alt="" srcset="">
                                     </td>
                                     <td>
                                         {{$slide->stadium_id!=null?$slide->stadium->name:''}}
