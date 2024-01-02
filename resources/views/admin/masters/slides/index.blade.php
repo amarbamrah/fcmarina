@@ -61,7 +61,7 @@
                                 @foreach($slides as $i=>$slide)
                                 <tr>
                                     <td>{{$i+1}}</td>
-                                    <td>{{$loc->image}}</td>
+                                    <td>{{$slide->image}}</td>
                                 </tr>
                                 @endforeach
                             </tbody>
