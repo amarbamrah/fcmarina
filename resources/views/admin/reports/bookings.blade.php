@@ -170,25 +170,25 @@
                                         <td>{{$stdbook->date}}</td>
                                         <td> {{Carbon\Carbon::create($stdbook->from)->format('g:i A')}} --
                                             {{Carbon\Carbon::create($stdbook->to)->format('g:i A')}}</td>
-                                        <td>Rs {{$stdbook->total_amount}}</td>
-                                        <td>Rs {{$stdbook->discount}}</td>
+                                        <td> {{$stdbook->total_amount}}</td>
+                                        <td> {{$stdbook->discount}}</td>
 
                                         
-                                        <td>Rs {{$stdbook->advance}}</td>
+                                        <td> {{$stdbook->advance}}</td>
 
-                                        <td>Rs {{$stdbook->rem_amount}}</td>
+                                        <td> {{$stdbook->rem_amount}}</td>
 
-                                        <td>Rs {{$stdbook->payable_amount}}</td>
+                                        <td> {{$stdbook->payable_amount}}</td>
 
                                         <td>
                                         @if($stdbook->status=='Completed')
-                                        Rs {{$stdbook->upi}}
+                                         {{$stdbook->upi}}
                                         @endif
                                        </td>
 
                                         <td>
                                         @if($stdbook->status=='Completed')
-                                        Rs {{$stdbook->cash}}
+                                         {{$stdbook->cash}}
                                         @endif
                                       </td>
 
