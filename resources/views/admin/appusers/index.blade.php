@@ -13,7 +13,7 @@
         </div>
         <div class="card-body">
           <form action="" class="row align-items-end">
-            <div class="form-group col-md-10">
+            <div class="form-group col-md-5">
               <label for="" class="form-label">Date:</label>
               <select name="period" class="form-select" id="periodbox">
                  <option value="All" {{Request::get('period')=='All'?'selected':''}}>All Time</option>
@@ -30,6 +30,20 @@
                   <input type="date" name="to" class="form-control" id="">
                 </div>
               </div>
+            </div>
+
+
+            <div class="form-group col-md-5">
+              <label for="" class="form-label">Stadium:</label>
+              <select name="stadium" class="form-select" id="periodbox">
+              <option value="All">All Stadiums</option>
+
+                @foreach($stadiums as $stadium) 
+                   <option value="{{$stadium->id}}" {{Request::get('stadium')==$stadium->id?'selected':''}}>{{$stadium->name}}</option>
+                @endforeach 
+              </select>
+
+             
             </div>
 
             <div class="col-md-2">
