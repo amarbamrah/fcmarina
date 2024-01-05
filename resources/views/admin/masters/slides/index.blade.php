@@ -32,6 +32,8 @@
                             </label>
 
                            <select name="stadium" class="form-select" id="">
+                           <option value="">Select a stadium</option>
+
                                @foreach($stadiums as $stadium)
                                   <option value="{{$stadium->id}}">{{$stadium->name}}</option>
                                @endforeach
