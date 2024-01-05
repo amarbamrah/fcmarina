@@ -86,7 +86,7 @@
                 </div>
 
                 <div>
-                    Total Rev: <strong>Rs {{$total_revs}} </strong>
+                    Total Rev: <strong> {{$total_revs}} </strong>
                 </div>
 
                 <div>
@@ -119,7 +119,7 @@
                         </div>
 
                         <div class="flex-grow-1">
-                            Revenue Rs {{$day['rev']}} &nbsp;&nbsp; | Exp Rev Rs {{$day['expRev']-$day['rev']}} &nbsp;&nbsp; |&nbsp;&nbsp; Total Hours: {{$day['hours']}}
+                            Revenue  {{$day['rev']}} &nbsp;&nbsp; | Exp Rev  {{$day['expRev']-$day['rev']}} &nbsp;&nbsp; |&nbsp;&nbsp; Total Hours: {{$day['hours']}}
                         </div>
 
                         <div class="mr-3" style="margin-right:10px;">
