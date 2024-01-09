@@ -487,6 +487,14 @@ class StadiumController extends Controller
     }
 
 
+    public function deleteStadiumImages(Request $request)
+    {
+       
+
+       StadiumImage::find($request['image'])->delete();
+         return redirect()->back();
+
+    }
 
     public function stadiumImages(Request $request)
     {

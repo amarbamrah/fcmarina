@@ -70,7 +70,7 @@
                                     <td>
                                         <form action="/admin/stadiums/images/delete" method="POST">
                                             @csrf
-                                            <input type="hidden" name="user_id" value="{{$image->id}}">
+                                            <input type="hidden" name="image" value="{{$image->id}}">
 
                                             <button type="submit" class="btn p-0">
                                             

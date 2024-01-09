@@ -125,6 +125,9 @@ Route::prefix('admin')->middleware('auth')->group(function () {
 
     Route::post('/stadiums/images',[StadiumController::class,'storeStadiumImages']);
 
+    Route::post('/stadiums/images/delete',[StadiumController::class,'deleteStadiumImages']);
+
+
 
 
    
