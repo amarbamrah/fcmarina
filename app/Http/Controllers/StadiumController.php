@@ -497,4 +497,22 @@ class StadiumController extends Controller
         return view('admin.stadiums.images',compact('stadium','images'));
     }
 
+    public function storeStadiumImages(Request $request)
+    {
+         $stadium = Stadium::find($request['stadium_id']);
+
+         $image = $request->file('image');
+         $filename = time() . '.' . $image->getClientOriginalExtension();
+         $image->move(public_path('stadiums'), $filename);
+
+         $image=new StadiumImage();
+         $image->image='stadiums/'.$filename;
+         $image->featured=0;
+         $image->stadium_id=$stadium->id;
+
+         $image->save();
+
+        return redirect()->back();
+    }
+
 }
