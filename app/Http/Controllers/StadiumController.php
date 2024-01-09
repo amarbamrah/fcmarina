@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Exports\ReportExport;
 use App\Models\Amenity;
 use App\Models\Location;
 
@@ -28,6 +27,8 @@ use Carbon\CarbonPeriod;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\ReportExport;
+
 
 class StadiumController extends Controller
 {

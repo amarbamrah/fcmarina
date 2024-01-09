@@ -175,6 +175,9 @@ Route::prefix('admin')->middleware('auth')->group(function () {
 
     Route::post('/export-report', [StadiumController::class, 'exportReport']);
 
+    Route::post('/users-export-report', [AppUserController::class, 'exportReport']);
+
+
 
     
     Route::get('/fetch-payment-from-link',[StadiumBookingController::class,'fetchPaymentFromLink']);

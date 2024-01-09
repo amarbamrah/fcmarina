@@ -1,46 +1,55 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Exports;
 
-use App\Models\PointTransaction;
-use App\Models\Stadium;
-use App\Models\StadiumBooking;
 use App\Models\User;
+use App\Models\StadiumBooking;
+use App\Models\Stadium;
+
+
 use Carbon\Carbon;
-use Illuminate\Http\Request;
+use Carbon\CarbonPeriod;
+use Illuminate\Contracts\View\View;
+use Maatwebsite\Excel\Concerns\FromView;
 
-
-use Maatwebsite\Excel\Facades\Excel;
-use App\Exports\UserExport;
-
-class AppUserController extends Controller
+class UserExport implements FromView
 {
-    public function index(Request $request)
+
+    public function __construct($sid, $from, $to, $period)
+    {
+        $this->period = $period;
+        $this->stadium = $sid;
+        $this->from = $from;
+        $this->to = $to;
+
+    }
+
+    public function view(): View
     {
         $appusers = User::query();
         $stadiums = Stadium::all();
         $appusers = $appusers->where('role', 'User');
-        if ($request->has('period')) {
+        if ($this->period!=null) {
 
-            if ($request['period'] == 'All') {
+            if ($this->period == 'All') {
                 $appusers = $appusers;
             }
 
-            if ($request['period'] == 'Today') {
+            if ($this->period == 'Today') {
                 $appusers = $appusers->whereDate('created_at', Carbon::now());
             }
 
-            if ($request['period'] == 'Month') {
+            if ($this->period == 'Month') {
                 $appusers->whereDate('created_at', '>=', Carbon::now()->firstOfMonth())->whereDate('created_at', '<=', Carbon::now());
             }
 
-            if ($request['period'] == 'custom') {
-                $appusers->whereDate('created_at', '>=', $request['from'])->whereDate('created_at', '<=', $request['to']);
+            if ($this->period == 'custom') {
+                $appusers->whereDate('created_at', '>=', $this->from)->whereDate('created_at', '<=', $this->to);
             }
         }
 
-        if ($request->has('stadium') && $request['stadium'] != 'All') {
-            $stadiumId = $request->input('stadium');
+        if ($this->stadium!=null && $this->stadium!='All') {
+            $stadiumId = $this->stadium;
 
             $appusers->whereHas('bookings', function ($query) use ($stadiumId) {
                 $query->where('stadium_id', $stadiumId)
@@ -68,19 +77,8 @@ class AppUserController extends Controller
 
             }
         }
-        return view('admin.appusers.index', compact('appusers', 'stadiums'));
-    }
 
-    public function userPoints(Request $request)
-    {
-        $user = User::find($request['user_id']);
-        $trans = PointTransaction::where('user_id', $user->id)->get();
-        return view('admin.appusers.points', compact('user', 'trans'));
-
-    }
-
-    public function exportReport(Request $request){
-        return Excel::download(new UserExport($request['sid'], $request['from'], $request['to'], $request['period']), 'report.xlsx');
+        return view('admin.appusers.exports', compact('appusers'));
 
     }
 }

@@ -57,7 +57,14 @@
         <div class="card-header pb-0">
             <div class="d-flex justify-content-between">
                 <h4 class="card-title mg-b-2 mt-2">All App Users</h4>
-                <i class="mdi mdi-dots-horizontal text-gray"></i>
+                <form action="/admin/users-export-report" method="post">
+                  @csrf
+                  <input type="hidden" name="sid" value="{{Request::get('stadium')}}">
+                        <input type="hidden" name="from" value="{{Request::get('from')}}">
+                        <input type="hidden" name="to" value="{{Request::get('to')}}">
+                        <input type="hidden" name="period" value="{{Request::get('period')}}">
+                  <button type="submit" class="btn btn-primary" > <i style="width:17px;" data-feather="download"></i> Export Data</button>
+                </form>
             </div>
 
         </div>
