@@ -790,7 +790,7 @@ class StadiumBookingController extends Controller
 
         $discount += $wdiscount;
 
-        if($paymentType=='Advance'){
+        if($paymentType=='advance'){
             $advanceAmount = $payableAmount * 10;
             $advanceAmount = $advanceAmount / 100;
         }else{
