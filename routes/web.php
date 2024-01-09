@@ -171,6 +171,9 @@ Route::prefix('admin')->middleware('auth')->group(function () {
 
     Route::get('/app-users', [AppUserController::class, 'index'])->name('appuser.index');
 
+    Route::get('/app-users/bookings', [AppUserController::class, 'bookings']);
+
+
     Route::get('/reports', [StadiumController::class, 'reports']);
 
     Route::post('/export-report', [StadiumController::class, 'exportReport']);

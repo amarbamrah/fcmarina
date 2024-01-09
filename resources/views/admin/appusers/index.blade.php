@@ -38,12 +38,12 @@
               <select name="stadium" class="form-select" id="periodbox">
               <option value="All">All Stadiums</option>
 
-                @foreach($stadiums as $stadium) 
+                @foreach($stadiums as $stadium)
                    <option value="{{$stadium->id}}" {{Request::get('stadium')==$stadium->id?'selected':''}}>{{$stadium->name}}</option>
-                @endforeach 
+                @endforeach
               </select>
 
-             
+
             </div>
 
             <div class="col-md-2">
@@ -84,6 +84,8 @@
 
                             <th>Points</th>
                             <th>Joined On</th>
+                            <th>Actions</th>
+
                         </tr>
                     </thead>
                     <tbody>
@@ -103,6 +105,10 @@
                             </td>
 
                             <td>{{Carbon\Carbon::create($appuser->created_at)->format('d M Y')}}</td>
+
+                            <td>
+                              <a href="/admin/app-users/bookings?user_id={{$appuser->id}}">See Bookings</a>
+                            </td>
 
                         </tr>
                         @endforeach

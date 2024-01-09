@@ -83,4 +83,14 @@ class AppUserController extends Controller
         return Excel::download(new UserExport($request['sid'], $request['from'], $request['to'], $request['period']), 'report.xlsx');
 
     }
+
+
+    public function bookings(Request $request){
+        $user=User::find($request['user_id']);
+        $stadiumbooking=StadiumBooking::where('user_id',$user->id)->get();
+        
+
+        return view('admin.appusers.bookings',compact('stadiumbooking','user'));
+
+    }
 }
