@@ -714,6 +714,14 @@ class StadiumBookingController extends Controller
 
     public function getSummary(Request $request)
     {
+
+        if($request->has('payment_type') && $request['payment_type']!=null){
+            $paymentType=$request['payment_type'];
+
+        }else{
+            $paymentType='Advance';
+
+        }
         $redeem = $request['redeem'];
         $from = Carbon::create($request['from']);
         $to = Carbon::create($request['to']);
@@ -781,8 +789,13 @@ class StadiumBookingController extends Controller
         }
 
         $discount += $wdiscount;
-        $advanceAmount = $payableAmount * 10;
-        $advanceAmount = $advanceAmount / 100;
+
+        if($paymentType=='Advance'){
+            $advanceAmount = $payableAmount * 10;
+            $advanceAmount = $advanceAmount / 100;
+        }else{
+            $advanceAmount=$payableAmount;
+        }
 
         return ['success' => true, 'amount' => $bookingAmount, 'total_amount' => $payableAmount, 'discount' => $discount, 'discountMsg' => $discountMsg, 'payable_amount' => $advanceAmount, 'points' => $points, 'pointMsg' => $pointMsg, 'hours' => $hours, 'redeem' => $redeem, 'redeemDisc' => $redeemDiscount, 'hdiscount' => $hdiscount, 'wdiscount' => $wdiscount];
     }
