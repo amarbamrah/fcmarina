@@ -340,8 +340,14 @@ class StadiumBookingController extends Controller
         $sb->payment_id = $request['payment_id'];
         $sb->signature = $request['signature'];
 
+        if($request['payment_type']=='advance'){
+
+        
         $advance = 10 / 100;
         $advance = $advance * $payableAmount;
+        }else{
+            $advance=$payableAmount;
+        }
 
         $sb->discount = $discount;
 
@@ -768,9 +774,7 @@ class StadiumBookingController extends Controller
         } else {
             $pointErrMsg = 'Min Points should be 1000';
         }
-
         $discount += $redeemDiscount;
-
         $wdiscount = 0;
         $discountMsg = '';
 
@@ -781,9 +785,7 @@ class StadiumBookingController extends Controller
             if ($user->max_woffer < $wdiscount) {
                 $wdiscount = $user->max_woffer;
             }
-
             $discountMsg = '200 off for an hour as a Welcome Discount ';
-
             $payableAmount = $payableAmount - $wdiscount;
 
         }
