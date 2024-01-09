@@ -719,7 +719,7 @@ class StadiumBookingController extends Controller
             $paymentType=$request['payment_type'];
 
         }else{
-            $paymentType='Advance';
+            $paymentType='advance';
 
         }
         $redeem = $request['redeem'];
