@@ -16,9 +16,15 @@ class UserController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function manageAdmins()
+    public function manageAdmins(Request $request)
     {
-        $users=User::where('role','VC')->orderBy('id','DESC')->get();
+        if($request->has('isdisabled')){
+            $users=User::where('role','VC')->orderBy('id','DESC')->get();
+
+        }else{
+            $users=User::where('role','VC')->where('status',1)->orderBy('id','DESC')->get();
+
+        }
         $stadiums=Stadium::all();
 
         return view('admin.masters.admins',compact('users','stadiums'));

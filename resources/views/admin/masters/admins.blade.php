@@ -42,13 +42,13 @@
 
                             <select name="stadiums[]" class="form-select multiplebox" multiple id="">
                                 @foreach($stadiums as $stadium)
-                                   <option value="{{$stadium->id}}">{{$stadium->name}}</option>
-                                @endforeach 
+                                <option value="{{$stadium->id}}">{{$stadium->name}}</option>
+                                @endforeach
                             </select>
                         </div>
 
 
-                        
+
 
 
 
@@ -62,8 +62,18 @@
 
 
         <div class="col-md-8 grid-margin stretch-card">
+           
             <div class="card">
                 <div class="card-body">
+
+                <div class=" d-flex justify-content-end mb-4">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="1" {{Request::get('isdisabled')==1?'checked':''}} id="disableCheck">
+                    <label class="form-check-label" for="disableCheck">
+                        Show Disable also
+                    </label>
+                </div>
+            </div>
                     <div class="table-responsive">
                         <table id="dataTableExample" class="table">
                             <thead>
@@ -89,30 +99,30 @@
 
 
                                     <td>
-                                    <span class="badge {{$user->status==1?'bg-primary':'bg-danger'}}">
-                                    {{$user->status==1?'Enabled':'Disabled'}}
-</span>
+                                        <span class="badge {{$user->status==1?'bg-primary':'bg-danger'}}">
+                                            {{$user->status==1?'Enabled':'Disabled'}}
+                                        </span>
                                     </td>
 
                                     <td>
 
-                                      <div class="d-flex align-items-center gap-4">
-                                      <form action="/admin/stadiums/change-user-status" method="POST">
-                                            @csrf
-                                            <input type="hidden" name="user_id" value="{{$user->id}}">
-                                            <input type="hidden" name="status" value="{{$user->status==1?0:1}}">
+                                        <div class="d-flex align-items-center gap-4">
+                                            <form action="/admin/stadiums/change-user-status" method="POST">
+                                                @csrf
+                                                <input type="hidden" name="user_id" value="{{$user->id}}">
+                                                <input type="hidden" name="status" value="{{$user->status==1?0:1}}">
 
-                                            <button type="submit" class="btn p-0">
-                                             @if($user->status==1)   
-                                            <i data-feather="x" class="text-danger"></i> Disable
-                                            @else 
-                                            <i data-feather="check" class="text-primary"></i> Enable
+                                                <button type="submit" class="btn p-0">
+                                                    @if($user->status==1)
+                                                    <i data-feather="x" class="text-danger"></i> Disable
+                                                    @else
+                                                    <i data-feather="check" class="text-primary"></i> Enable
 
-                                            @endif
-                                            </button>
-                                        </form>
-                                        <a href="/admin/admin-stadiums?uid={{$user->id}}">Manage Stadiums</a>
-                                      </div>
+                                                    @endif
+                                                </button>
+                                            </form>
+                                            <a href="/admin/admin-stadiums?uid={{$user->id}}">Manage Stadiums</a>
+                                        </div>
                                     </td>
                                 </tr>
                                 @endforeach

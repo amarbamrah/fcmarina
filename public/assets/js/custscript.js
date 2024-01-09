@@ -64,6 +64,15 @@ $(document).ready(function(){
 
 
 
+    $('#disableCheck').on('change',function(){
+        if($(this).is(':checked')){
+            window.location.href='/admin/manage-admins?isdisabled=1';
+        }else{
+            window.location.href='/admin/manage-admins';
+
+        }
+    })
+
 
 
     
