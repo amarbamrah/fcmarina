@@ -16,7 +16,7 @@
         <div class="col-md-6 grid-margin stretch-card">
             <div class="card">
                 <div class="card-body">
-                    <form action="/admin/stadiums/images" method="post">
+                    <form action="/admin/stadiums/images" method="post" enctype="multipart/form-data">
                         @csrf
 
                         <input type="hidden" name="stadium_id" value="{{$stadium->id}}">
@@ -34,7 +34,7 @@
 
                         
 
-                        <button type="submit" class="btn btn-primary">ADD USER</button>
+                        <button type="submit" class="btn btn-primary">ADD IMAGE</button>
                     </form>
                 </div>
             </div>
