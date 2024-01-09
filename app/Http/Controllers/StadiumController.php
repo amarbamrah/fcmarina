@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Exports\ReportExport;
 use App\Models\Amenity;
 use App\Models\Location;
+
 use App\Models\Stadium;
 use App\Models\StadiumAmenity;
 use App\Models\StadiumBooking;
@@ -486,6 +487,14 @@ class StadiumController extends Controller
     }
 
 
-   
+
+    public function stadiumImages(Request $request)
+    {
+        $stadium = Stadium::find($request['stadium_id']);
+
+         $images=StadiumImage::where('stadium_id',$stadium->id)->get();
+
+        return view('admin.stadiums.images',compact('stadium','images'));
+    }
 
 }

@@ -42,10 +42,15 @@
 
                       
 
-                          <a href="/admin/stadiums/phno?stadium_id={{$std->id}}">
+                          <a class="me-3" href="/admin/stadiums/phno?stadium_id={{$std->id}}">
                           <i data-feather="phone-incoming"></i> 
 
                           </a>
+
+                          <a href="/admin/stadiums/images?stadium_id={{$std->id}}">
+                             <i data-feather="image"></i> 
+
+                         </a>
                         </td>
                       </tr>
                       @endforeach

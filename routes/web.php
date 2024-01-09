@@ -121,6 +121,10 @@ Route::prefix('admin')->middleware('auth')->group(function () {
 
     
 
+    Route::get('/stadiums/images',[StadiumController::class,'stadiumImages']);
+
+    Route::post('/stadiums/images',[StadiumController::class,'storeStadiumImages']);
+
 
 
    
