@@ -191,6 +191,7 @@ class StadiumController extends Controller
             $filename = time() . '.' . $image->getClientOriginalExtension();
             $image->move(public_path('stadiums'), $filename);
 
+            StadiumImage::where('stadium_id',$stadium->id)->where('featured',1)->delete();
             $simg = new StadiumImage();
             $simg->image = 'stadiums/' . $filename;
             $simg->stadium_id = $stadium->id;
