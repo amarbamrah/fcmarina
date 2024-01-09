@@ -116,6 +116,8 @@ class StadiumController extends Controller
         $simg = new StadiumImage();
         $simg->image = 'stadiums/' . $filename;
         $simg->stadium_id = $stadium->id;
+        $simg->featured = 1;
+
         $simg->save();
 
         $user = new User();
