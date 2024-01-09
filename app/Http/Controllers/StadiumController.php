@@ -195,6 +195,8 @@ class StadiumController extends Controller
             $simg = new StadiumImage();
             $simg->image = 'stadiums/' . $filename;
             $simg->stadium_id = $stadium->id;
+        $simg->featured = 1;
+
             $simg->save();
         }
 
@@ -503,7 +505,7 @@ class StadiumController extends Controller
     {
         $stadium = Stadium::find($request['stadium_id']);
 
-         $images=StadiumImage::where('stadium_id',$stadium->id)->get();
+         $images=StadiumImage::where('stadium_id',$stadium->id)->where('featured',0)->get();
 
         return view('admin.stadiums.images',compact('stadium','images'));
     }
