@@ -183,8 +183,13 @@ class StadiumBookingController extends Controller
 
         $sb->order_id = $razorpayOrder->id;
 
-        $advance = 10 / 100;
-        $advance = $advance * $payableAmount;
+        if($request->has('payment_type') && $request['payment_type']=='advance'){
+            $advance = 10 / 100;
+            $advance = $advance * $payableAmount;
+        }else{
+            $advance=$payableAmount;
+        }
+        
 
         $sb->discount = $discount;
 
