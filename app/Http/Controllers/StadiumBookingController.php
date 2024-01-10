@@ -102,4 +102,12 @@ class StadiumBookingController extends Controller
         
     }
 
+
+    public function setup(){
+        $bookings=StadiumBooking::where('status','Confirmed')->whereDate('created_at',Carbon::now())->get();
+        return $bookings;
+        $advance = 10 / 100;
+        $advance = $advance * $payableAmount;
+    }
+
 }
