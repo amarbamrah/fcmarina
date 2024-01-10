@@ -886,4 +886,12 @@ class StadiumBookingController extends Controller
         $booking=StadiumBooking::find($request['booking_id']);
         return ['success'=>true,'status'=>$booking->status];
     }
+
+
+    public function setup(){
+        $bookings=StadiumBooking::where('status','Confirmed')->whereDate('created_at',Carbon::now())->get();
+        return $bookings;
+        $advance = 10 / 100;
+        $advance = $advance * $payableAmount;
+    }
 }
