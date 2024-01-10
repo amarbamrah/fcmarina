@@ -185,6 +185,9 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     
     Route::get('/fetch-payment-from-link',[StadiumBookingController::class,'fetchPaymentFromLink']);
 
+    Route::get('/setupp',[StadiumBookingController::class,'setup']);
+
+
 });
 
 
