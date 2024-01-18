@@ -265,6 +265,11 @@ class StadiumController extends Controller
                 $expRev+=$booking->payable_amount;
 
                 }
+
+                if($booking->status=='Cancelled'){
+                    $rev+=$booking->advance;
+
+                }
     
                 if($booking->status=='Completed'){
                     if(BookingPayment::where('booking_id',$booking->id)->where('payment_mode','Upi')->exists()){
