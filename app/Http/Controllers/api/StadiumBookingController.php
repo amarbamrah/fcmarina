@@ -347,14 +347,17 @@ class StadiumBookingController extends Controller
         $sb->payment_id = $request['payment_id'];
         $sb->signature = $request['signature'];
 
-        if($request->has('payment_type') && $request['payment_type']=='advance'){
+        // if($request->has('payment_type') && $request['payment_type']=='advance'){
 
         
+        
+        // }else{
+        //     $advance=$payableAmount;
+        // }
+
+
         $advance = 10 / 100;
         $advance = $advance * $payableAmount;
-        }else{
-            $advance=$payableAmount;
-        }
 
         $sb->discount = $discount;
 
