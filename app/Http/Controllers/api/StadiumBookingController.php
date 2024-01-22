@@ -802,6 +802,9 @@ class StadiumBookingController extends Controller
 
         $discount += $wdiscount;
 
+        $adAmount=$payableAmount * 10;
+        $adAmount = $adAmount / 100;
+
         if($paymentType=='advance'){
             $advanceAmount = $payableAmount * 10;
             $advanceAmount = $advanceAmount / 100;
@@ -809,7 +812,7 @@ class StadiumBookingController extends Controller
             $advanceAmount=$payableAmount;
         }
 
-        return ['success' => true, 'payment_type'=>$paymentType, 'amount' => $bookingAmount, 'total_amount' => $payableAmount, 'discount' => $discount, 'discountMsg' => $discountMsg, 'payable_amount' => $advanceAmount, 'points' => $points, 'pointMsg' => $pointMsg, 'hours' => $hours, 'redeem' => $redeem, 'redeemDisc' => $redeemDiscount, 'hdiscount' => $hdiscount, 'wdiscount' => $wdiscount];
+        return ['success' => true, 'payment_type'=>$paymentType, 'amount' => $bookingAmount, 'total_amount' => $payableAmount, 'discount' => $discount, 'discountMsg' => $discountMsg,'advance_amount'=>$adAmount, 'payable_amount' => $advanceAmount, 'points' => $points, 'pointMsg' => $pointMsg, 'hours' => $hours, 'redeem' => $redeem, 'redeemDisc' => $redeemDiscount, 'hdiscount' => $hdiscount, 'wdiscount' => $wdiscount];
     }
 
 
