@@ -65,7 +65,7 @@ class UserExport implements FromView
         }
 
 
-        $appusers = $appusers->paginate(10);
+        $appusers = $appusers->get();
         foreach ($appusers as $user) {
             if (StadiumBooking::where('user_id', $user->id)->exists()) {
                 $booking = StadiumBooking::where('user_id', $user->id)->first();
