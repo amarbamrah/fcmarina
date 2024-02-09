@@ -956,11 +956,26 @@ class StadiumBookingController extends Controller
     {
         $booking = StadiumBooking::where('order_id', $request['payload']['payment']['entity']['order_id'])->first();
         if ($booking->status == 'Processing') {
+            $user = User::find($booking->user_id);
+
+            if ($user->phonenumber == '9311911065') {
+                $key = "rzp_test_Bn6XzeDx8pXFK4";
+                $secret = "gVNSxo5kYjNYfooTPWRu9PCS";
+            } else {
+
+                $key = "rzp_live_vjwBasZlFwdr36";
+                $secret = "24HHwxlXpmXmARFoXvK1syzH";
+            }
+
+            $api = new Api($key, $secret);
+
+            $api->payment->fetch($request['payload']['payment']['entity']['id'])->capture(array('amount'=>$booking->advance*100,'currency' => 'INR'));
+
+
             $booking->status = 'Confirmed';
             $booking->payment_id = $request['payload']['payment']['entity']['id'];
             $booking->save();
 
-            $user = User::find($booking->user_id);
 
             if ($booking->redeem_discount > 0) {
                 $pt = new PointTransaction();
