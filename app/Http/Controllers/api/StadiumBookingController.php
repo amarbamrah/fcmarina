@@ -606,13 +606,6 @@ class StadiumBookingController extends Controller
 
         }
 
-        $booking->status = 'Cancelled';
-        $booking->cancelled_by = $booking->user_id;
-
-        $booking->save();
-
-        $bookingDate = Carbon::create($booking->date);
-
         $refundAmount = $booking->advance;
 
         $fromTime = Carbon::parse($booking->date . ' ' . $booking->from);
@@ -620,6 +613,41 @@ class StadiumBookingController extends Controller
         if ($fromTime->diffInHours(Carbon::now()) < 12) {
             $refundAmount = 0;
         }
+
+        $user = User::find($booking->user_id);
+
+        $razResp =null;
+
+        if ($refundAmount > 0) {
+            if ($user->phonenumber == '9311911065') {
+                $key = "rzp_test_Bn6XzeDx8pXFK4";
+                $secret = "gVNSxo5kYjNYfooTPWRu9PCS";
+            } else {
+
+                $key = "rzp_live_vjwBasZlFwdr36";
+                $secret = "24HHwxlXpmXmARFoXvK1syzH";
+            }
+
+            $api = new Api($key, $secret);
+
+            $razResp = $api->payment->fetch($booking->payment_id)->refund(array(
+                "amount" => $refundAmount * 100,
+                "speed" => "normal",
+                "notes" => array("notes_key_1" => "Refund from booking " . $booking->booking_id),
+                "receipt" => "Receipt No. " . $booking->booking_id));
+
+             if($razResp->errors!=null){
+                return ['success' => false, 'msg' => 'Unknown error'];
+             }   
+
+        }
+
+        $booking->status = 'Cancelled';
+        $booking->cancelled_by = $booking->user_id;
+
+        $booking->save();
+
+        $bookingDate = Carbon::create($booking->date);
 
         $cr = CancelReason::find($request['reason_id']);
         $cb = new CancelBookingReason();
@@ -629,20 +657,12 @@ class StadiumBookingController extends Controller
         $cb->booking_id = $booking->id;
         $cb->save();
 
-        $api = new Api($key_id, $secret);
-
-        $api->payment->fetch($booking->payment_id)->refund(array(
-            "amount" => $refundAmount*100,
-            "speed" => "normal", 
-            "notes" => array("notes_key_1" => "Refund from booking ".$booking->booking_id), 
-            "receipt" => "Receipt No. ".$booking->booking_id));
-
         if ($refundAmount > 0) {
             $refund = new Refund();
             $refund->amount = $refundAmount;
             $refund->user_id = $booking->user_id;
             $refund->booking_id = $booking->id;
-            $refund->refund_id = $refund_id;
+            $refund->refund_id = $razResp->id;
             $refund->save();
         }
 
@@ -937,7 +957,7 @@ class StadiumBookingController extends Controller
         $booking = StadiumBooking::where('order_id', $request['payload']['payment']['entity']['order_id'])->first();
         if ($booking->status == 'Processing') {
             $booking->status = 'Confirmed';
-            $booking->payment_id=$request['payload']['payment']['entity']['id'];
+            $booking->payment_id = $request['payload']['payment']['entity']['id'];
             $booking->save();
 
             $user = User::find($booking->user_id);
