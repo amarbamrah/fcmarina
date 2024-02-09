@@ -636,7 +636,7 @@ class StadiumBookingController extends Controller
                 "notes" => array("notes_key_1" => "Refund from booking " . $booking->booking_id),
                 "receipt" => "Receipt No. " . $booking->booking_id));
 
-             if($razResp->errors!=null){
+             if($razResp['errors']!=null){
                 return ['success' => false, 'msg' => 'Unknown error'];
              }   
 
