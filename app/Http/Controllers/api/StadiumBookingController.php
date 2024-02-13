@@ -618,7 +618,7 @@ class StadiumBookingController extends Controller
 
         $razResp =null;
 
-        if ($refundAmount > 0) {
+        if ($refundAmount > 0 && $booking->payment_id!=null) {
             if ($user->phonenumber == '9311911065') {
                 $key = "rzp_test_Bn6XzeDx8pXFK4";
                 $secret = "gVNSxo5kYjNYfooTPWRu9PCS";
@@ -630,15 +630,16 @@ class StadiumBookingController extends Controller
 
             $api = new Api($key, $secret);
 
-            $razResp = $api->payment->fetch($booking->payment_id)->refund(array(
-                "amount" => $refundAmount * 100,
-                "speed" => "normal",
-                "notes" => array("notes_key_1" => "Refund from booking " . $booking->booking_id),
-                "receipt" => "Receipt No. " . $booking->booking_id));
-
-             if($razResp['errors']!=null){
+            try{
+                $razResp = $api->payment->fetch($booking->payment_id)->refund(array(
+                    "amount" => $refundAmount * 100,
+                    "speed" => "normal",
+                    "notes" => array("notes_key_1" => "Refund from booking " . $booking->booking_id),
+                    "receipt" => "Receipt No. " . $booking->booking_id));
+            }catch(Exception $e){
                 return ['success' => false, 'msg' => 'Unknown error'];
-             }   
+
+            }
 
         }
 
