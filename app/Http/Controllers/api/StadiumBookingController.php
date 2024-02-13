@@ -1022,7 +1022,7 @@ class StadiumBookingController extends Controller
             $time = str_replace(' ', '%20', $from . '-' . $to);
 
 
-            if($user->phone!='9311911065'){
+            if($user->phonenumber!='9311911065'){
             $url = "http://api.nsite.in/api/v2/SendSMS?SenderId=FCMARI&Is_Unicode=false&Is_Flash=false&Message=Slot%20Booked%20!%20%5CnHi%20" . str_replace(' ', '%20', $user->name) . ",%20you%20have%20booked%20a%20slot%20with%20FC%20MARINA%20BOOK%20APP.%20%5CnVenue%20:%20" . str_replace(' ', '%20', $stadium->name) . "%20%5CnDate%20:%20" . $datee . "%20%5CnTime%20:%20" . $time . "%20%5CnCourt%20:%20" . $booking->stadium_type . "%20%5CnAdvance%20Paid:%20" . $booking->advance . "%20%5CnBalance%20to%20pay:%20" . $booking->rem_amount . "%20%5CnBooking%20ID:%20" . $booking->booking_id . "&MobileNumbers=" . $user->phonenumber . "&ApiKey=mLdRdY8ey1ZTzMY0OifcDjaTO7rJ7gMTgsogL8ragGs=&ClientId=7a0c1703-92c1-4a91-918b-4ac7d9b8d1b3";
             $curl = curl_init($url);
             curl_setopt($curl, CURLOPT_URL, $url);
