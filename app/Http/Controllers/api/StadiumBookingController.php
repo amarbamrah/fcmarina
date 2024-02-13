@@ -584,6 +584,7 @@ class StadiumBookingController extends Controller
 
         $fromTime = Carbon::parse($sb->date . ' ' . $sb->from);
 
+        $diff=$fromTime->diffInHours(Carbon::now());
         if ($fromTime->diffInHours(Carbon::now()) < 12) {
             
            if($booking->rem_amount==0){
@@ -595,7 +596,7 @@ class StadiumBookingController extends Controller
             }
         }
 
-        return ['success' => true, 'data' => CancelReason::all(), 'refund_amount' => $refundAmount];
+        return ['success' => true, 'data' => CancelReason::all(), 'refund_amount' => $refundAmount,'diff'=>$diff];
     }
 
     public function cancelBookingWithRefund(Request $request)
