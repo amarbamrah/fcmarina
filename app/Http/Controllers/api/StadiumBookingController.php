@@ -585,7 +585,14 @@ class StadiumBookingController extends Controller
         $fromTime = Carbon::parse($sb->date . ' ' . $sb->from);
 
         if ($fromTime->diffInHours(Carbon::now()) < 12) {
-            $refundAmount = 0;
+            
+           if($booking->rem_amount==0){
+                $refundAmount=10*$booking->advance;
+                $refundAmount=$refundAmount/100;
+            }else{
+               $refundAmount = 0;
+
+            }
         }
 
         return ['success' => true, 'data' => CancelReason::all(), 'refund_amount' => $refundAmount];
@@ -611,7 +618,13 @@ class StadiumBookingController extends Controller
         $fromTime = Carbon::parse($booking->date . ' ' . $booking->from);
 
         if ($fromTime->diffInHours(Carbon::now()) < 12) {
-            $refundAmount = 0;
+            if($booking->rem_amount==0){
+                $refundAmount=10*$booking->advance;
+                $refundAmount=$refundAmount/100;
+            }else{
+               $refundAmount = 0;
+
+            }
         }
 
         $user = User::find($booking->user_id);
