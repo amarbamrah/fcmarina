@@ -969,7 +969,7 @@ class StadiumBookingController extends Controller
 
             $api = new Api($key, $secret);
 
-            $api->payment->fetch($request['payload']['payment']['entity']['id'])->capture(array('amount'=>$booking->advance*100,'currency' => 'INR'));
+            // $api->payment->fetch($request['payload']['payment']['entity']['id'])->capture(array('amount'=>$booking->advance*100,'currency' => 'INR'));
 
 
             $booking->status = 'Confirmed';
