@@ -588,7 +588,7 @@ class StadiumBookingController extends Controller
         if ($fromTime->diffInHours(Carbon::now()) < 12) {
             
            if($sb->rem_amount==0){
-                $refundAmount=10*$sb->advance;
+                $refundAmount=90*$sb->advance;
                 $refundAmount=$refundAmount/100;
             }else{
                $refundAmount = 0;
