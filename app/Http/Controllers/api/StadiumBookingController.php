@@ -985,12 +985,12 @@ class StadiumBookingController extends Controller
             $api = new Api($key, $secret);
 
             // if ($user->phonenumber == '9311911065') {
-                try{
-                    $api->payment->fetch($request['payload']['payment']['entity']['id'])->capture(array('amount'=>$booking->advance*100,'currency' => 'INR'));
+                // try{
+                //     $api->payment->fetch($request['payload']['payment']['entity']['id'])->capture(array('amount'=>$booking->advance*100,'currency' => 'INR'));
 
-                }catch(Excpetion $e){
-                    
-                }
+                // }catch(Excpetion $e){
+
+                // }
             // }
 
             $booking->status = 'Confirmed';
