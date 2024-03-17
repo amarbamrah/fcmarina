@@ -154,7 +154,7 @@ class StadiumBookingController extends Controller
 
         $payableAmount = $payableAmount - $redeemDiscount;
 
-        $bCount = StadiumBooking::where('user_id', $request['user_id'])->count();
+        $bCount = StadiumBooking::where('user_id', $request['user_id'])->where('status','!=','Processing')->count();
 
         $discountMsg = '';
 
